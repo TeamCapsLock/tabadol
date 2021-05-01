@@ -36,5 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 
-### Sensitive Data ###
-src/main/resources/application.properties
+
