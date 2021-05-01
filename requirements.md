@@ -9,6 +9,7 @@ A place where your experience is what matters the most.
 o	Some users have a service/product that they want to trade and exchange it with another service/product. 
 o	You can contact with other people and reach out to them.
 o	You can promote a service and product and post it to the world. 
+
 •	Why should we care about your product?
 Everybody has something that they are good at and they can teach it to other people and share their knowledge with the world. 
 In a world where money reflects one’s worth, it nice to get the chance to let people to be recognized by their skills and experience 
