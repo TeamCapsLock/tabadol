@@ -34,3 +34,6 @@ trello link: https://trello.com/b/hMfIstNh
 # ER Diagram
 ## Using a Database
 ![](assets/ERD.png)
+
+# Software Requirements
+https://github.com/TeamCapsLock/tabadol/blob/main/requirements.md
