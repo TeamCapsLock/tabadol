@@ -2,8 +2,10 @@ package com.example.tabadol.contoller;
 
 
 import com.example.tabadol.model.UserApplication;
+import com.example.tabadol.repository.PostRepository;
 import com.example.tabadol.repository.UserApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.security.Principal;
 
 @Controller
 public class UserApplicationController {
@@ -21,6 +28,9 @@ public class UserApplicationController {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    PostRepository postRepository;
 
 
 
@@ -56,11 +66,7 @@ public class UserApplicationController {
         return "login.html";
     }
 
-
-    @GetMapping("/profile")
-    public String profile(){
-        return "profile.html";
-    }
+    
 
     @PostMapping("/follow/{username}")
     public RedirectView followUser(Principal p, @PathVariable String username, @RequestParam String route){
@@ -87,11 +93,20 @@ public class UserApplicationController {
         return "profile";
     }
 
+// @GetMapping("/myprofile")
+//     public String getUserProfilePage(Principal p,Model m ){
+//         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
+//         m.addAttribute("user", ((UsernamePasswordAuthenticationToken)p).getPrincipal());
+//         m.addAttribute("posts", postRepository.findByUserId(currentUser.getId()));
+//         return "profile.html";
+//     }
 
     @GetMapping("/myprofile")
-    public RedirectView getMyProfile(Principal p){
+    public RedirectView getMyProfile(Principal p, Model m){
         UserApplication user = userApplicationRepository.findByUsername(p.getName());
         long id = user.getId();
+        m.addAttribute("user", user);
+        m.addAttribute("posts", postRepository.findByUserId(user.getId()));
         return new RedirectView("/profile/"+id);
     }
 

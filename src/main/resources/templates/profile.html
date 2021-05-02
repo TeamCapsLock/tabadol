@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profile</title>
 </head>
-<body>
 
+<body>
 
     <div class="cont">
         <!-- <div th:if="${isSameUser == false && isFollowed == false }">
@@ -23,7 +27,7 @@
         <div th:if="${user != null}">
             <h3>This is <span th:text=${user.username}></span>'s page</h3>
             <p>Profile picture: </p>
-            <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100" >
+            <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100">
             <p>Username: <span th:text=${user.username}></span></p>
             <p>First Name: <span th:text=${user.firstname}></span></p>
             <p>Last Name: <span th:text=${user.lastname}></span></p>
@@ -38,8 +42,22 @@
         </div>
     </div>
 
-    
 
+
+    <div th:each="post :${posts}">
+        <div>
+            <div>
+                <img src="">
+                <h2>User</h2>
+            </div>
+            <p class="body"><span th:text="${post.category}"></span></p>
+            <p class="body"><span th:text="${post.type}"></span></p>
+            <p class="body"><span th:text="${post.body}"></span></p>
+            <p class="body"><span th:text="${post.weight}"></span></p>
+        </div>
+
+    </div>
 
 </body>
+
 </html>
