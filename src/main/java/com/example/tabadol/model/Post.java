@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String body;
     private String category;
     private String type;
@@ -29,7 +29,7 @@ public class Post {
         this.user=user;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

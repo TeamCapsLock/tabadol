@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post,Long>{
-    @Query(value = "SELECT * FROM post where user_id = ?1", nativeQuery = true)
-    List<Post> findByUserId(Long id);
-
+      List<Post> findAllByUser_id(long user_id);
 }

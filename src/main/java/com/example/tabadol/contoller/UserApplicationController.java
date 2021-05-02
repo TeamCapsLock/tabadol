@@ -68,11 +68,11 @@ public class UserApplicationController {
 
     
 
-    @PostMapping("/follow/{username}")
-    public RedirectView followUser(Principal p, @PathVariable String username, @RequestParam String route){
-
-
-    }
+//    @PostMapping("/follow/{username}")
+//    public RedirectView followUser(Principal p, @PathVariable String username, @RequestParam String route){
+//
+//
+//    }
 
 //    @DeleteMapping("/follow")
 //    public RedirectView unFollowUser(){}
@@ -90,6 +90,7 @@ public class UserApplicationController {
     public String getUserProfile(Model m,@PathVariable long id){
         UserApplication user = userApplicationRepository.findById(id).get();
         m.addAttribute("user",user);
+        m.addAttribute("posts", postRepository.findAllByUser_id(user.getId()));
         return "profile";
     }
 
@@ -105,8 +106,6 @@ public class UserApplicationController {
     public RedirectView getMyProfile(Principal p, Model m){
         UserApplication user = userApplicationRepository.findByUsername(p.getName());
         long id = user.getId();
-        m.addAttribute("user", user);
-        m.addAttribute("posts", postRepository.findByUserId(user.getId()));
         return new RedirectView("/profile/"+id);
     }
 
