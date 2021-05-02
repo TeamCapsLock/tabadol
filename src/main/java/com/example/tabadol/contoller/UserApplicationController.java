@@ -48,5 +48,15 @@ public class UserApplicationController {
         return "home.html";
     }
 
+    @GetMapping("/login")
+    public String loginForm(){
+        return "login.html";
+    }
+
+
+    @GetMapping("/profile")
+    public String profile(){
+        return "profile.html";
+    }
 
 }
