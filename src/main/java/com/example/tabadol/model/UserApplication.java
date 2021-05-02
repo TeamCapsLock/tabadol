@@ -29,6 +29,7 @@ public class UserApplication implements UserDetails {
             @JoinColumn(name ="user_id")},
             inverseJoinColumns = {
             @JoinColumn(name ="following_user")
+                    
     })
 
 
