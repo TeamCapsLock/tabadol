@@ -1,10 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>profile</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
 </head>
 <body>
+
+<h1>Profile</h1>
+
+
+<div th:each="post :${posts}">
+    <div>
+        <div>
+            <img src="">
+            <h2>User</h2>
+        </div>
+        <p class="body"><span th:text="${post.category}"></span></p>
+        <p class="body"><span th:text="${post.type}"></span></p>
+        <p class="body"><span th:text="${post.body}"></span></p>
+        <p class="body"><span th:text="${post.weight}"></span></p>
+    </div>
+
+</div>
 
 </body>
 </html>

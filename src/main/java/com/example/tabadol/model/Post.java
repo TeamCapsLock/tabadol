@@ -20,15 +20,16 @@ public class Post {
 
 
     public Post(){}
-    public Post(String body, String category, String type, Integer weight, String status) {
+    public Post(String body, String category, String type, Integer weight, String status,UserApplication user) {
         this.body = body;
         this.category = category;
         this.type = type;
         this.weight = weight;
         this.status = status;
+        this.user=user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -70,5 +71,13 @@ public class Post {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public UserApplication getUser() {
+        return user;
+    }
+
+    public void setUser(UserApplication user) {
+        this.user = user;
     }
 }
