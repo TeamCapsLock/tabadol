@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posts</title>
+</head>
+<body>
+
+<div th:each="post :${posts}">
+    <div>
+        <div>
+        <img src="">
+        <h2>User</h2>
+        </div>
+        <p class="body"><span th:text="${post.category}"></span></p>
+        <p class="body"><span th:text="${post.type}"></span></p>
+        <p class="body"><span th:text="${post.body}"></span></p>
+        <p class="body"><span th:text="${post.weight}"></span></p>
+    </div>
+
+</div>
+
+</body>
+</html>
