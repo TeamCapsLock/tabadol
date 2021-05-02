@@ -4,9 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity(name = "users")
 public class UserApplication implements UserDetails {
@@ -24,6 +22,16 @@ public class UserApplication implements UserDetails {
     private String password;
     private String skills;
     private String bio;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "followers",
+    joinColumns =  {
+            @JoinColumn(name ="user_id")},
+            inverseJoinColumns = {
+            @JoinColumn(name ="following_user")
+                    
+    })
+    Set<UserApplication> followers = new HashSet<>();
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
