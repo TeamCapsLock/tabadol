@@ -40,3 +40,5 @@ out/
 src/main/resources/application.properties
 
 application.properties
+../tabadol/src/main/resources/application.properties
+./tabadol/src/main/resources/application.properties
