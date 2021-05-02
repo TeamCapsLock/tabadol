@@ -3,10 +3,7 @@ package com.example.tabadol.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -16,7 +13,10 @@ public class UserApplication implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String username;
+    @Column(unique = true)
+    private String email;
     private String firstname;
     private String lastname;
     private String password;
@@ -26,15 +26,23 @@ public class UserApplication implements UserDetails {
     public UserApplication() {
     }
 
-    public UserApplication(String username, String firstname, String lastname, String password, String skills, String bio) {
+    public UserApplication(String username,String email, String firstname, String lastname, String password, String skills, String bio) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.skills = skills;
         this.bio = bio;
+        this.email = email;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getId() {
         return id;
