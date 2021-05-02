@@ -31,13 +31,7 @@ public class UserApplication implements UserDetails {
             @JoinColumn(name ="following_user")
                     
     })
-
-
     Set<UserApplication> followers = new HashSet<>();
-
-
-
-
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();

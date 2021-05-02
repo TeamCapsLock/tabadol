@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Profile</title>
+</head>
+<body>
+
+
+    <div class="cont">
+        <!-- <div th:if="${isSameUser == false && isFollowed == false }">
+            <form method="POST" th:action="@{/followUser/{username}(username = ${user.username})}">
+                <input id="button_follow" type="submit" value="Follow">
+            </form>
+        </div>
+        <div th:if="${isSameUser == false && isFollowed == true }">
+            <form method="POST" th:action="@{/unfollowUser/{username}(username = ${user.username})}">
+                <input id="button_follow" type="submit" value="UnFollow">
+            </form>
+        </div> -->
+
+        
+        <div th:each="user : ${users}">
+            <div th:if="${myUsername != user.username}">
+                <h3>This is <span th:text=${user.username}></span>'s page</h3>
+                <p>Profile picture: </p>
+                <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100" >
+                <p>Username: <span th:text=${user.username}></span></p>
+                <p>Bio: <span th:text=${user.bio}></span></p>
+                <button><a th:href="'profile/'+${user.id}">View Profile</a></button>
+    
+                <form method="POST" th:action="'/follow/'+${user.username}+'?route=allusers'">
+                    <input id="button_follow" type="submit" value="Follow">
+                </form>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+</body>
+</html>
