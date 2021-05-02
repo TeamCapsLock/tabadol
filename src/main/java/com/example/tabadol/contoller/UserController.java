@@ -1,7 +1,7 @@
 package com.example.tabadol.contoller;
 
 
-import com.example.tabadol.model.UserRepository;
+import com.example.tabadol.repository.UserApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserApplicationRepository userApplicationRepository;
 
 
 
