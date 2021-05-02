@@ -1,9 +1,6 @@
 package com.example.tabadol.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Post {
@@ -15,6 +12,12 @@ public class Post {
     private String type;
     private Integer weight;
     private String status;
+
+
+    @ManyToOne
+    UserApplication user;
+
+
 
     public Post(){}
     public Post(String body, String category, String type, Integer weight, String status) {

@@ -4,9 +4,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@Entity
+@Entity(name = "users")
 public class UserApplication implements UserDetails {
 
     @Id
@@ -22,6 +24,9 @@ public class UserApplication implements UserDetails {
     private String password;
     private String skills;
     private String bio;
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    List<Post> posts = new ArrayList<>();
 
     public UserApplication() {
     }
