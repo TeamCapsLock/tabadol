@@ -42,8 +42,3 @@ src/main/resources/application.properties
 application.properties
 ../tabadol/src/main/resources/application.properties
 ./tabadol/src/main/resources/application.properties
-
-.Testfile.txt
-Testfile.txt
-.TEST2.txt
-TEST2.txt
