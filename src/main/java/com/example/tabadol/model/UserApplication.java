@@ -22,6 +22,7 @@ public class UserApplication implements UserDetails {
     private String password;
     private String skills;
     private String bio;
+    private int numberOfFollowers =0;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "followers",
@@ -29,9 +30,11 @@ public class UserApplication implements UserDetails {
             @JoinColumn(name ="user_id")},
             inverseJoinColumns = {
             @JoinColumn(name ="following_user")
-                    
+
+
     })
-    Set<UserApplication> followers = new HashSet<>();
+    Set<UserApplication> users_I_follow = new HashSet<>();
+
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
@@ -47,6 +50,45 @@ public class UserApplication implements UserDetails {
         this.skills = skills;
         this.bio = bio;
         this.email = email;
+    }
+
+    public Set<UserApplication> getFollowers() {
+        return users_I_follow;
+    }
+    public void followUser (UserApplication userToFollow){
+        if(!users_I_follow.contains(userToFollow)){
+            users_I_follow.add(userToFollow);
+
+        }
+    }
+
+    public boolean isFollowingUser(UserApplication user){
+        return users_I_follow.contains(user);
+    }
+
+    public int numberOfPeopleIfollow(){
+        return users_I_follow.size();
+    }
+
+
+
+    public void unfollowUser (UserApplication userTounFollow){
+        if(!users_I_follow.isEmpty()){
+            users_I_follow.remove(userTounFollow);
+        }
+    }
+
+
+
+
+
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public String getEmail() {
@@ -109,6 +151,7 @@ public class UserApplication implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+
     }
 
     public String getPassword() {
@@ -133,5 +176,17 @@ public class UserApplication implements UserDetails {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public int getNumberOfFollowers() {
+        return numberOfFollowers;
+    }
+
+    public void increaseNumberOfFollowers() {
+        this.numberOfFollowers++;
+    }
+
+    public void decreaseNumberOfFollowers() {
+        this.numberOfFollowers--;
     }
 }

@@ -12,22 +12,24 @@
 <body>
 
     <div class="cont">
-        <!-- <div th:if="${isSameUser == false && isFollowed == false }">
-            <form method="POST" th:action="@{/followUser/{username}(username = ${user.username})}">
-                <input id="button_follow" type="submit" value="Follow">
-            </form>
-        </div>
-        <div th:if="${isSameUser == false && isFollowed == true }">
-            <form method="POST" th:action="@{/unfollowUser/{username}(username = ${user.username})}">
-                <input id="button_follow" type="submit" value="UnFollow">
-            </form>
-        </div> -->
+
+        <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST" th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
+            <input id="button_follow" type="submit" value="Follow">
+        </form>
+
+        <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST" th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}+'&_method=DELETE'">
+            <input id="button_unfollow" type="submit" value="unFollow">
+        </form>
 
 
         <div th:if="${user != null}">
             <h3>This is <span th:text=${user.username}></span>'s page</h3>
             <p>Profile picture: </p>
             <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100">
+
+            <p>Following: <span th:text=${user.numberOfPeopleIfollow()}></span></p>
+            <p>Followers: <span th:text=${user.getNumberOfFollowers()}></span></p>
+
             <p>Username: <span th:text=${user.username}></span></p>
             <p>First Name: <span th:text=${user.firstname}></span></p>
             <p>Last Name: <span th:text=${user.lastname}></span></p>

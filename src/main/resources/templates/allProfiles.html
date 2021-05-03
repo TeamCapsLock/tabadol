@@ -29,8 +29,12 @@
                 <p>Bio: <span th:text=${user.bio}></span></p>
                 <button><a th:href="'profile/'+${user.id}">View Profile</a></button>
     
-                <form method="POST" th:action="'/follow/'+${user.username}+'?route=allusers'">
+                <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST" th:action="'/follow/'+${user.username}+'?route=/allUsers'">
                     <input id="button_follow" type="submit" value="Follow">
+                </form>
+
+                <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST" th:action="'/unfollow/'+${user.username}+'?route=/allUsers&_method=DELETE'">
+                    <input id="button_unfollow" type="submit" value="unFollow">
                 </form>
                 <hr>
             </div>

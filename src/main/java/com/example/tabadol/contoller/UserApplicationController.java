@@ -68,39 +68,53 @@ public class UserApplicationController {
 
     
 
-//    @PostMapping("/follow/{username}")
-//    public RedirectView followUser(Principal p, @PathVariable String username, @RequestParam String route){
-//
-//
-//    }
+    @PostMapping("/follow/{username}")
+    public RedirectView followUser(Principal p, @PathVariable String username, @RequestParam String route){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        UserApplication userToFollow = userApplicationRepository.findByUsername(username);
 
-//    @DeleteMapping("/follow")
-//    public RedirectView unFollowUser(){}
+        loggedInUser.followUser(userToFollow);
+         userToFollow.increaseNumberOfFollowers();
+        userApplicationRepository.save(loggedInUser);
+        userApplicationRepository.save(userToFollow);
+        return new RedirectView(route);
+    }
 
-    @GetMapping("/allusers")
+    @DeleteMapping ("/unfollow/{username}")
+    public RedirectView unFollowUser(Principal p, @PathVariable String username, @RequestParam String route){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        UserApplication userToUnFollow = userApplicationRepository.findByUsername(username);
+        loggedInUser.unfollowUser(userToUnFollow);
+        userToUnFollow.decreaseNumberOfFollowers();
+        userApplicationRepository.save(loggedInUser);
+        userApplicationRepository.save(userToUnFollow);
+        return new RedirectView(route);
+    }
+
+
+
+    @GetMapping("/allUsers")
     public String getAllusers(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<UserApplication> users = userApplicationRepository.findAll();
         m.addAttribute("users",users);
         m.addAttribute("myUsername",p.getName());
+        m.addAttribute("loggedInUser",loggedInUser);
         return "allProfiles";
     }
 
 
     @GetMapping("/profile/{id}")
-    public String getUserProfile(Model m,@PathVariable long id){
+    public String getUserProfile(Principal p,Model m,@PathVariable long id){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         UserApplication user = userApplicationRepository.findById(id).get();
         m.addAttribute("user",user);
         m.addAttribute("posts", postRepository.findAllByUser_id(user.getId()));
+        m.addAttribute("loggedInUser",loggedInUser);
         return "profile";
     }
 
-// @GetMapping("/myprofile")
-//     public String getUserProfilePage(Principal p,Model m ){
-//         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
-//         m.addAttribute("user", ((UsernamePasswordAuthenticationToken)p).getPrincipal());
-//         m.addAttribute("posts", postRepository.findByUserId(currentUser.getId()));
-//         return "profile.html";
-//     }
+
 
     @GetMapping("/myprofile")
     public RedirectView getMyProfile(Principal p, Model m){
