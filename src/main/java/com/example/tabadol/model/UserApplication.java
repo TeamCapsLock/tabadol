@@ -23,6 +23,12 @@ public class UserApplication implements UserDetails {
     private String skills;
     private String bio;
     private int numberOfFollowers =0;
+    private long sumOfTotalRates =5;
+    private long numberOfRaters =1;
+    private double rating;
+
+
+
 
 
 
@@ -187,5 +193,29 @@ public class UserApplication implements UserDetails {
 
     public void decreaseNumberOfFollowers() {
         this.numberOfFollowers--;
+    }
+
+    public long getSumOfTotalRates() {
+        return sumOfTotalRates;
+    }
+
+    public void addTOSumOfTotalRates(long sumOfTotalRates) {
+        this.sumOfTotalRates += sumOfTotalRates;
+    }
+
+    public long getNumberOfRaters() {
+        return numberOfRaters;
+    }
+
+    public void increaseNumberOfRaters(){
+        this.numberOfRaters++;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
