@@ -27,8 +27,8 @@
             <p>Profile picture: </p>
             <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100">
 
-            <p>Following: <span th:text=${user.numberOfPeopleIfollow()}></span></p>
-            <p>Followers: <span th:text=${user.getNumberOfFollowers()}></span></p>
+            <p><a th:href="'/followinglist/'+${user.username}">Following:</a> <span th:text=${user.numberOfPeopleIfollow()}></span></p>
+            <p><a th:href="'/followerslist/'+${user.username}">Followers:</a> <span th:text=${user.getNumberOfFollowers()}></span></p>
 
             <p>Username: <span th:text=${user.username}></span></p>
             <p>First Name: <span th:text=${user.firstname}></span></p>

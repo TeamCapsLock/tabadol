@@ -22,12 +22,11 @@
         
         <div th:each="user : ${users}">
             <div th:if="${myUsername != user.username}">
-                <h3>This is <span th:text=${user.username}></span>'s page</h3>
                 <p>Profile picture: </p>
                 <img src="https://www.computerhope.com/jargon/g/guest-user.jpg" alt="user's image" width="100" height="100" >
                 <p>Username: <span th:text=${user.username}></span></p>
                 <p>Bio: <span th:text=${user.bio}></span></p>
-                <button><a th:href="'profile/'+${user.id}">View Profile</a></button>
+                <button><a th:href="'/profile/'+${user.id}">View Profile</a></button>
     
                 <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST" th:action="'/follow/'+${user.username}+'?route=/allUsers'">
                     <input id="button_follow" type="submit" value="Follow">

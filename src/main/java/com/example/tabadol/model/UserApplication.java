@@ -24,6 +24,8 @@ public class UserApplication implements UserDetails {
     private String bio;
     private int numberOfFollowers =0;
 
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "followers",
     joinColumns =  {
@@ -52,14 +54,11 @@ public class UserApplication implements UserDetails {
         this.email = email;
     }
 
-    public Set<UserApplication> getFollowers() {
+    public Set<UserApplication> getUsers_I_follow() {
         return users_I_follow;
     }
     public void followUser (UserApplication userToFollow){
-        if(!users_I_follow.contains(userToFollow)){
             users_I_follow.add(userToFollow);
-
-        }
     }
 
     public boolean isFollowingUser(UserApplication user){
