@@ -32,6 +32,9 @@ public class UserApplication implements UserDetails {
 
 
 
+    private String phone;
+    private String image;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "followers",
     joinColumns =  {
@@ -50,7 +53,7 @@ public class UserApplication implements UserDetails {
     public UserApplication() {
     }
 
-    public UserApplication(String username,String email, String firstname, String lastname, String password, String skills, String bio) {
+    public UserApplication(String username,String email, String firstname, String lastname, String password, String skills, String bio, String phone, String image) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -58,6 +61,8 @@ public class UserApplication implements UserDetails {
         this.skills = skills;
         this.bio = bio;
         this.email = email;
+        this.phone = phone;
+        this.image = image;
     }
 
     public Set<UserApplication> getUsers_I_follow() {
@@ -193,6 +198,20 @@ public class UserApplication implements UserDetails {
 
     public void decreaseNumberOfFollowers() {
         this.numberOfFollowers--;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getSumOfTotalRates() {

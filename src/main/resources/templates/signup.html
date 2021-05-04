@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign up</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
     <style>
         label{
             display: block;
@@ -13,15 +15,17 @@
 <body>
 
     <form action="/signup" method="POST">
-        <label for="">Username: <input name="username" type="text"></label>
-        <label for="">firstName: <input name="firstname" type="text"></label>
-        <label for="">lastName: <input name="lastname" type="text"></label>
-        <label for="">E-mail: <input name="email" type="email"></label>
-        <label for="">Skills: <input name="skills" type="text"></label>
-        <label for="">Bio: <input name="bio" type="text"></label>
-        <label for="">Password: <input name="password" type="password"></label>
-        <label for="">Confirm password: <input name="confirm" type="password"></label>
-        <label><input type="submit" value="Sign Up"></label>
+        <label for="">Username: <input required name="username" type="text"></label>
+        <label for="">firstName: <input required name="firstname" type="text"></label>
+        <label for="">lastName: <input required name="lastname" type="text"></label>
+        <label for="">E-mail: <input required name="email" type="email"></label>
+        <label for="">Skills: <input required name="skills" type="text"></label>
+        <label for="">Bio: <input required name="bio" type="text"></label>
+        <label for="">Phone: <input required name="phone" type="text" id="phone"></label>
+        <label for="">Image url: <input name="image" type="text" id="image_url" ></label>
+        <label for="">Password: <input required name="password" type="password" id="password"></label>
+        <label for="">Confirm password: <input required name="confirm" type="password" id="confirm-password"></label>
+        <label><input type="submit" value="Sign Up" id="signup-btn"></label>
     </form>
 
 

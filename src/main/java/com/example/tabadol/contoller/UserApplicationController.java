@@ -38,16 +38,18 @@ public class UserApplicationController {
     @PostMapping("/signup")
     public RedirectView signup(String username, String email, String firstname,
                                String lastname, String password, String confirm,
-                               String skills, String bio) {
-        if (password.equals(confirm)) {
-            UserApplication newUser = new UserApplication(username, email, firstname, lastname, bCryptPasswordEncoder.encode(password), skills, bio);
+                               String skills, String bio, String phone, String image)
+    {
+            final String imageUrl = "https://www.computerhope.com/jargon/g/guest-user.jpg";
+        //if the user did not enter an url image
+            if(image.length() == 0)
+                image = imageUrl;
+            UserApplication newUser = new UserApplication(username,email,firstname,lastname,
+                    bCryptPasswordEncoder.encode(password),skills,bio,phone, image);
             userApplicationRepository.save(newUser);
 
             return new RedirectView("/login");
-        }
 
-
-        return new RedirectView("/signup");
     }
 
     @GetMapping("/")
@@ -143,6 +145,20 @@ public class UserApplicationController {
         return new RedirectView("/profile/" + id);
     }
 
+    @PostMapping("/edit-profile/{id}")
+    public RedirectView editProfile(@PathVariable(value="id") long id,String firstname, String lastname, String skills, String bio, String phone, String image){
+
+        UserApplication userToEdit = userApplicationRepository.findById(id).get();
+        userToEdit.setFirstname(firstname);
+        userToEdit.setLastname(lastname);
+        userToEdit.setSkills(skills);
+        userToEdit.setBio(bio);
+        userToEdit.setPhone(phone);
+        userToEdit.setImage(image);
+        userApplicationRepository.save(userToEdit);
+        return new RedirectView("/myprofile");
+    }
+
 
     @PostMapping("/rate/{username}")
         public RedirectView getRating(int sumOfTotalRates, @PathVariable String username){
@@ -170,3 +186,5 @@ public class UserApplicationController {
 //    newUser = applicationUserRepository.save(newUser);
 //    Authentication authentication = new UsernamePasswordAuthenticationToken(newUser,null,new ArrayList<>());
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
