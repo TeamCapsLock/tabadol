@@ -45,9 +45,11 @@
             <p>Phone Number: <span th:text=${user.phone}></span></p>
             <p>Skills: <span th:text=${user.skills}></span></p>
             <p>Bio: <span th:text=${user.bio}></span></p>
-            <button id="edit-profile-btn">Edit Profile</button>
 
-            <form th:action="'/edit-profile/' + ${user.id} + '?_method = put'" method="post" id="edit-profile-form">
+            <button th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+
+            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method = put'"
+                method="post" id="edit-profile-form">
                 <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
                         type="text"></label>
                 <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
@@ -59,11 +61,74 @@
                 <button type="submit">Update</button>
             </form>
 
-            <form th:action="'/rate/'+${user.username}" method="post">
+            <form th:if="${user.id != loggedInUser.id}" th:action="'/rate/'+${user.username}" method="post">
                 <label>Rate User</label>
                 <input type="number" max="5" min="0" value="5" name="sumOfTotalRates">
                 <button>Rate</button>
             </form>
+
+            <div th:each="post :${posts}">
+                <div>
+                    <div>
+                        <img src="">
+                        <h2>User</h2>
+                    </div>
+                    <p class="body"><span th:text="${post.category}"></span></p>
+                    <p class="body"><span th:text="${post.type}"></span></p>
+                    <p class="body"><span th:text="${post.body}"></span></p>
+                    <p class="body"><span th:text="${post.weight}"></span></p>
+
+                    <button th:if="${user.id == loggedInUser.id}" id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
+
+                    <div th:if="${user.id == loggedInUser.id}">
+                        <form th:action="'/delete-post/' + ${post.id} + '?_method=DELETE'" method="POST">
+                            <button id="delete-btn">Delete</button>
+                        </form>
+
+
+                        <form th:action="'/edit-post/' + ${post.id} + '?_method=PUT'" method="post" th:id=${post.id}
+                            class="edit-form">
+                            <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
+                                    placeholder="Describe your service ..." required
+                                    th:text=${post.body}></textarea></label><br>
+
+                            <label for="category">Category: </label>
+                            <select name="category" id="category" required>
+                                <option value="education">Education</option>
+                                <option value="instructor">Instructor</option>
+                                <option value="tutoring">Tutoring</option>
+                                <option value="computer ">Computer </option>
+                                <option value="video">Video</option>
+                                <option value="copywriting">Copywriting</option>
+                                <option value="other">Other</option>
+                            </select>
+
+
+                            <p>Type:</p>
+                            <input type="radio" id="service" name="type" value="service" checked>
+                            <label for="service">Service</label>
+
+                            <input type="radio" id="product" name="type" value="product">
+                            <label for="product">Product</label><br>
+
+                            <label for="status">Available?</label><br>
+                            <input type="checkbox" id="status" name="status" value="available" checked>
+
+                            <label for="weight">Weight</label>
+                            <input type="number" id="weight" name="weight" min="1" max="10" th:value=${post.weight}><br>
+
+                            <button type="submit">Save Edits</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
         </div>
 
         <div th:unless="${user != null}">
@@ -73,59 +138,7 @@
 
 
 
-    <div th:each="post :${posts}">
-        <div>
-            <div>
-                <img src="">
-                <h2>User</h2>
-            </div>
-            <p class="body"><span th:text="${post.category}"></span></p>
-            <p class="body"><span th:text="${post.type}"></span></p>
-            <p class="body"><span th:text="${post.body}"></span></p>
-            <p class="body"><span th:text="${post.weight}"></span></p>
 
-            <button id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
-            <form th:action="'/delete-post/' + ${post.id} + '?_method=delete'" method="post">
-                <button id="delete-btn">Delete</button>
-            </form>
-
-
-            <form th:action="'/edit-post/' + ${post.id} + '?_method=put'" method="post" th:id=${post.id}
-                class="edit-form">
-                <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
-                        placeholder="Describe your service ..." required th:text=${post.body}></textarea></label><br>
-
-                <label for="category">Category: </label>
-                <select name="category" id="category" required>
-                    <option value="education">Education</option>
-                    <option value="instructor">Instructor</option>
-                    <option value="tutoring">Tutoring</option>
-                    <option value="computer ">Computer </option>
-                    <option value="video">Video</option>
-                    <option value="copywriting">Copywriting</option>
-                    <option value="other">Other</option>
-                </select>
-
-
-                <p>Type:</p>
-                <input type="radio" id="service" name="type" value="service" checked>
-                <label for="service">Service</label>
-
-                <input type="radio" id="product" name="type" value="product">
-                <label for="product">Product</label><br>
-
-                <label for="status">Available?</label><br>
-                <input type="checkbox" id="status" name="status" value="available" checked>
-
-                <label for="weight">Weight</label>
-                <input type="number" id="weight" name="weight" min="1" max="10" th:value=${post.weight}><br>
-
-                <button type="submit">Save Edits</button>
-
-            </form>
-        </div>
-
-    </div>
 
 </body>
 

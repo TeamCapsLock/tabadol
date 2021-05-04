@@ -13,12 +13,13 @@
     <div>
         <div>
         <img src="">
-        <h2>User</h2>
+        <h2>User: <span th:text="${post.user.username}"></span></h2>
         </div>
         <p class="body"><span th:text="${post.category}"></span></p>
         <p class="body"><span th:text="${post.type}"></span></p>
         <p class="body"><span th:text="${post.body}"></span></p>
         <p class="body"><span th:text="${post.weight}"></span></p>
+        <button th:if="${post.user.id != loggedInUser.id}">Make offer</button>
     </div>
 
 </div>
