@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,11 +102,13 @@ public class UserApplicationController {
         UserApplication user = userApplicationRepository.findByUsername(username);
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Long> followersIDs = userApplicationRepository.findAllByFollowing_user(user.getId());
+        List<UserApplication> followers = followersIDs.stream().map(id -> userApplicationRepository.findById(id).get()).collect(Collectors.toList());
+
+ // another way of doing it
 //        List<UserApplication> followers2 = new ArrayList<>();
 //        for( long id : followersIDs){
 //            followers.add(userApplicationRepository.findById(id).get());
 //        }
-        List<UserApplication> followers = followersIDs.stream().map(id -> userApplicationRepository.findById(id).get()).collect(Collectors.toList());
         m.addAttribute("loggedInUser", loggedInUser);
         m.addAttribute("users", followers);
         m.addAttribute("userWithTheList", username);
@@ -154,6 +158,26 @@ public class UserApplicationController {
         userApplicationRepository.save(userToEdit);
         return new RedirectView("/myprofile");
     }
+
+
+    @PostMapping("/rate/{username}")
+        public RedirectView getRating(int sumOfTotalRates, @PathVariable String username){
+        UserApplication userToBeRated = userApplicationRepository.findByUsername(username);
+        long usersId= userToBeRated.getId();
+
+        userToBeRated.addTOSumOfTotalRates(sumOfTotalRates);
+        userToBeRated.increaseNumberOfRaters();
+       double rate = ((double)userToBeRated.getSumOfTotalRates()/(double) userToBeRated.getNumberOfRaters());
+        DecimalFormat decimalFormat = new DecimalFormat("#0.##");
+        rate = Double.parseDouble(decimalFormat.format(rate));
+        userToBeRated.setRating(rate);
+        userApplicationRepository.save(userToBeRated);
+        return new RedirectView("/profile/" + usersId);
+        }
+
+
+
+
 
 
 }

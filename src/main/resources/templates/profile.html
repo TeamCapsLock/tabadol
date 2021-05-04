@@ -16,20 +16,27 @@
 
     <div class="cont">
 
-        <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST" th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
+
+        <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
+            th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
             <input id="button_follow" type="submit" value="Follow">
         </form>
 
-        <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST" th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}+'&_method=DELETE'">
+        <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
+            th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}+'&_method=DELETE'">
             <input id="button_unfollow" type="submit" value="unFollow">
         </form>
 
 
         <div th:if="${user != null}">
+
+            <h2>Rating: <span th:text="${user.rating}"></span></h2>
             <h3>This is <span th:text=${user.username}></span>'s page</h3>
             <p>Profile picture: </p>
-            <p><a th:href="'/followinglist/'+${user.username}">Following:</a> <span th:text=${user.numberOfPeopleIfollow()}></span></p>
-            <p><a th:href="'/followerslist/'+${user.username}">Followers:</a> <span th:text=${user.getNumberOfFollowers()}></span></p>
+            <p><a th:href="'/followinglist/'+${user.username}">Following:</a> <span
+                    th:text=${user.numberOfPeopleIfollow()}></span></p>
+            <p><a th:href="'/followerslist/'+${user.username}">Followers:</a> <span
+                    th:text=${user.getNumberOfFollowers()}></span></p>
             <img th:src=${user.image} alt="user's image" width="100" height="100" id="profile-image">
             <p>Username: <span th:text=${user.username}></span></p>
             <p>First Name: <span th:text=${user.firstname}></span></p>
@@ -39,19 +46,27 @@
             <p>Skills: <span th:text=${user.skills}></span></p>
             <p>Bio: <span th:text=${user.bio}></span></p>
             <button id="edit-profile-btn">Edit Profile</button>
-            
+
             <form th:action="'/edit-profile/' + ${user.id} + '?_method = put'" method="post" id="edit-profile-form">
-                <label for="">firstName: <input th:value=${user.firstname}  name="firstname" required type="text"></label>
+                <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
+                        type="text"></label>
                 <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
                 <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
                 <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
                 <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
-                <label for="">Image url: <input th:value=${user.image} name="image" required type="text" id="image_url" ></label>
+                <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
+                        id="image_url"></label>
                 <button type="submit">Update</button>
+            </form>
+
+            <form th:action="'/rate/'+${user.username}" method="post">
+                <label>Rate User</label>
+                <input type="number" max="5" min="0" value="5" name="sumOfTotalRates">
+                <button>Rate</button>
             </form>
         </div>
 
-        <div th:unless="${user != null}">                                      
+        <div th:unless="${user != null}">
             <h2>Ooops, User Id Is Not Exist..</h2>
         </div>
     </div>
@@ -68,14 +83,15 @@
             <p class="body"><span th:text="${post.type}"></span></p>
             <p class="body"><span th:text="${post.body}"></span></p>
             <p class="body"><span th:text="${post.weight}"></span></p>
-            
+
             <button id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
             <form th:action="'/delete-post/' + ${post.id} + '?_method=delete'" method="post">
                 <button id="delete-btn">Delete</button>
             </form>
 
 
-            <form th:action="'/edit-post/' + ${post.id} + '?_method=put'" method="post" th:id=${post.id} class="edit-form">
+            <form th:action="'/edit-post/' + ${post.id} + '?_method=put'" method="post" th:id=${post.id}
+                class="edit-form">
                 <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
                         placeholder="Describe your service ..." required th:text=${post.body}></textarea></label><br>
 
