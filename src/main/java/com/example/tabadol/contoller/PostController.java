@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -39,6 +40,25 @@ public class PostController {
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
         Post newPost=new Post(body,category,type,weight,status,currentUser);
         postRepository.save(newPost);
+        return new RedirectView("/myprofile");
+    }
+
+    @PostMapping("/edit-post/{id}")
+    public RedirectView editPost(@PathVariable long id, String body, String category, String type, Integer weight, String status, Principal p){
+        UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
+        Post postToEdit = postRepository.findById(id).get();
+        postToEdit.setBody(body);
+        postToEdit.setCategory(category);
+        postToEdit.setType(type);
+        postToEdit.setWeight(weight);
+        postToEdit.setStatus(status);
+        postRepository.save(postToEdit);
+        return new RedirectView("/myprofile");
+    }
+
+    @PostMapping("/delete-post/{id}")
+    public RedirectView deletePost(@PathVariable(value = "id") long id){
+        postRepository.deleteById(id);
         return new RedirectView("/myprofile");
     }
 
