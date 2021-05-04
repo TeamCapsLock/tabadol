@@ -19,7 +19,36 @@
         <p class="body"><span th:text="${post.type}"></span></p>
         <p class="body"><span th:text="${post.body}"></span></p>
         <p class="body"><span th:text="${post.weight}"></span></p>
-        <button th:if="${post.user.id != loggedInUser.id}">Make offer</button>
+
+
+        <button id="make-offer" th:if="${post.user.id != loggedInUser.id}">Make offer</button>
+
+        <form id="make-offer-form" th:if="${post.user.id != loggedInUser.id}" method="POST" th:action="'/makeOffer/'+${post.id}">
+            <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text" placeholder="Describe your offer ..." required></textarea></label><br>
+
+            <label for="category">Category: </label>
+            <select name="category" id="category" required>
+                <option value="education">Education</option>
+                <option value="instructor">Instructor</option>
+                <option value="tutoring">Tutoring</option>
+                <option value="computer ">Computer </option>
+                <option value="video">Video</option>
+                <option value="copywriting">Copywriting</option>
+                <option value="other">Other</option>
+            </select>
+        
+            <p>Type:</p>
+            <input type="radio" id="service" name="type" value="service" checked>
+            <label for="service">Service</label>
+            <input type="radio" id="product" name="type" value="product">
+            <label for="product">Product</label><br>
+        
+            <label for="weight">Weight</label>
+            <input type="number" id="weight" name="weight" min="1" max="10" value="1"><br>
+        
+            <input type="submit" value="Add Offer">
+        
+        </form>
     </div>
 
 </div>
