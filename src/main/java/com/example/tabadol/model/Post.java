@@ -1,6 +1,10 @@
 package com.example.tabadol.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Post {
@@ -11,21 +15,57 @@ public class Post {
     private String category;
     private String type;
     private Integer weight;
-    private String status;
+    private Boolean available;
+    private String createdAt;
+    private String offerType="General";
+
+
 
 
     @ManyToOne
     UserApplication user;
 
 
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "offers",
+//            joinColumns =  {
+//                    @JoinColumn(name ="source_id")},
+//            inverseJoinColumns = {
+//                    @JoinColumn(name ="destination_id")
+//            })
+//    Set<UserApplication> offers = new HashSet<>();
+
+    @OneToMany(mappedBy = "source_id")
+    Set<Offer> sources = new HashSet<>();
+
+    @OneToMany(mappedBy = "destination_id")
+    Set<Offer> destinations = new HashSet<>();
+
+    public Set<Offer> getSources() {
+        return sources;
+    }
+
+    public void setSources(Set<Offer> sources) {
+        this.sources = sources;
+    }
+
+    public Set<Offer> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(Set<Offer> destinations) {
+        this.destinations = destinations;
+    }
 
     public Post(){}
-    public Post(String body, String category, String type, Integer weight, String status,UserApplication user) {
+    public Post(String body, String category, String type, Integer weight, Boolean available, UserApplication user) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm");
+        this.createdAt = sdf.format(new Timestamp(System.currentTimeMillis()).getTime());
         this.body = body;
         this.category = category;
         this.type = type;
         this.weight = weight;
-        this.status = status;
+        this.available = true;
         this.user=user;
     }
 
@@ -65,12 +105,12 @@ public class Post {
         this.weight = weight;
     }
 
-    public String getStatus() {
-        return status;
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public UserApplication getUser() {
@@ -79,5 +119,17 @@ public class Post {
 
     public void setUser(UserApplication user) {
         this.user = user;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getOfferType() {
+        return offerType;
+    }
+
+    public void setOfferType(String offerType) {
+        this.offerType = offerType;
     }
 }

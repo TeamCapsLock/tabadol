@@ -38,7 +38,7 @@ public class PostController {
     @PostMapping("/addPost")
     public RedirectView addPost(String body, String category, String type, Integer weight, String status, Principal p){
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
-        Post newPost=new Post(body,category,type,weight,status,currentUser);
+        Post newPost=new Post(body,category,type,weight,true,currentUser);
         postRepository.save(newPost);
         return new RedirectView("/myprofile");
     }
@@ -51,7 +51,7 @@ public class PostController {
         postToEdit.setCategory(category);
         postToEdit.setType(type);
         postToEdit.setWeight(weight);
-        postToEdit.setStatus(status);
+        postToEdit.setAvailable(status.equals("true"));
         postRepository.save(postToEdit);
         return new RedirectView("/myprofile");
     }
