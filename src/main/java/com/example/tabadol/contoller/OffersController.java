@@ -67,10 +67,20 @@ public class OffersController {
 
         return new RedirectView("/posts");
 
-
-
     }
 
+    @PostMapping("/acceptoffer")
+    public RedirectView acceptTheOffer(long source_id, long destination_id){
+        Post sourcePost = postRepository.findById(source_id).get();
+        Post receivedPost = postRepository.findById(destination_id).get();
+
+
+
+
+
+        // return to new page .. that holds contact info..
+        return new RedirectView("/receivedoffers");
+    }
 
 
 }

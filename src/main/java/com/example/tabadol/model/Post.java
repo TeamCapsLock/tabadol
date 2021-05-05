@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+//@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +34,23 @@ public class Post {
             inverseJoinColumns = {
                     @JoinColumn(name ="destination_id")
             })
-
     Set<Post> offers = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "post",cascade =CascadeType.ALL)
+    @ManyToMany(mappedBy="offers")
     Set<Post> receivedOffers = new HashSet<>();
+
+
+
+
+
+
+
+
+//    @OneToMany(mappedBy = "post",cascade =CascadeType.ALL)
+//    Set<Post> receivedOffers = new HashSet<>();
+
+
 
 //    @OneToMany(mappedBy = "source_post_id",cascade=CascadeType.ALL)
 //    Set<Offer> sources = new HashSet<>();
