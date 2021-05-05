@@ -1,5 +1,4 @@
 
-delete from offer;
 delete from post;
 delete from users;
 
@@ -13,13 +12,13 @@ JNa7S8uIFulotFGl/PE.si1We3WwwcPZQ43nuWBa7DnS3b2ld7m','0797000587',5,'admin',5,'a
 
 
 insert into post (available,body,category,created_at,offer_type,type,weight,user_id) 
-values (true,'1st post','music','5am','general','product',7,4);
+values (true,'1st post','music','5am','general','product',7,1);
 
 insert into post (available,body,category,created_at,offer_type,type,weight,user_id) 
-values (true,'2nd post','music','5am','general','product',6,4);
+values (true,'2nd post','music','5am','general','product',6,1);
 
 insert into post (available,body,category,created_at,offer_type,type,weight,user_id) 
-values (true,'3rd post','music','5am','general','product',5,5);
+values (true,'3rd post','music','5am','general','product',5,2);
 
 insert into post (available,body,category,created_at,offer_type,type,weight,user_id) 
-values (true,'4th post','music','5am','general','product',4,5);
+values (true,'4th post','music','5am','general','product',4,2);

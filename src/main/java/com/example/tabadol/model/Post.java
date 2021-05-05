@@ -17,7 +17,7 @@ public class Post {
     private Integer weight;
     private Boolean available;
     private String createdAt;
-    private String offerType="General";
+    private String offerType="general";
 
 
 
@@ -26,35 +26,24 @@ public class Post {
     UserApplication user;
 
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "offers",
-//            joinColumns =  {
-//                    @JoinColumn(name ="source_id")},
-//            inverseJoinColumns = {
-//                    @JoinColumn(name ="destination_id")
-//            })
-//    Set<UserApplication> offers = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "offers",
+            joinColumns =  {
+                    @JoinColumn(name ="source_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name ="destination_id")
+            })
+    Set<Post> offers = new HashSet<>();
 
-    @OneToMany(mappedBy = "source_id")
-    Set<Offer> sources = new HashSet<>();
+//    @OneToMany(mappedBy = "source_post_id",cascade=CascadeType.ALL)
+//    Set<Offer> sources = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "destination_post_id",cascade=CascadeType.ALL)
+//    Set<Offer> destinations = new HashSet<>();
 
-    @OneToMany(mappedBy = "destination_id")
-    Set<Offer> destinations = new HashSet<>();
 
-    public Set<Offer> getSources() {
-        return sources;
-    }
-
-    public void setSources(Set<Offer> sources) {
-        this.sources = sources;
-    }
-
-    public Set<Offer> getDestinations() {
-        return destinations;
-    }
-
-    public void setDestinations(Set<Offer> destinations) {
-        this.destinations = destinations;
+    public Set<Post> getOffers() {
+        return offers;
     }
 
     public Post(){}
@@ -67,6 +56,19 @@ public class Post {
         this.weight = weight;
         this.available = true;
         this.user=user;
+    }
+
+    public void makeOffer(Post postToMakeOffer){
+        offers.add(postToMakeOffer);
+    }
+
+    public void deleteOffer(Post postToDelete){
+        if(offers.contains(postToDelete))
+            offers.remove(postToDelete);
+    }
+
+    public boolean isThereOfferOf(Post postToCheck){
+        return offers.contains(postToCheck);
     }
 
     public long getId() {
