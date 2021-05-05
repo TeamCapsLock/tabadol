@@ -33,7 +33,12 @@ public class Post {
             inverseJoinColumns = {
                     @JoinColumn(name ="destination_id")
             })
+
     Set<Post> offers = new HashSet<>();
+
+
+    @OneToMany(cascade =CascadeType.ALL)
+    Set<Post> receivedOffers = new HashSet<>();
 
 //    @OneToMany(mappedBy = "source_post_id",cascade=CascadeType.ALL)
 //    Set<Offer> sources = new HashSet<>();
@@ -45,6 +50,8 @@ public class Post {
     public Set<Post> getOffers() {
         return offers;
     }
+
+
 
     public Post(){}
     public Post(String body, String category, String type, Integer weight, Boolean available, UserApplication user) {
@@ -60,6 +67,14 @@ public class Post {
 
     public void makeOffer(Post postToMakeOffer){
         offers.add(postToMakeOffer);
+    }
+
+    public void receiveOffer(Post offerToReceive){
+        receivedOffers.add(offerToReceive);
+    }
+
+    public Set<Post> getReceivedOffers() {
+        return receivedOffers;
     }
 
     public void deleteOffer(Post postToDelete){

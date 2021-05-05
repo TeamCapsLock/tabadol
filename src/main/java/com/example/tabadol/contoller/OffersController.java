@@ -31,12 +31,17 @@ public class OffersController {
         sourcePost.setOfferType("Private");
         Post postToMakeOffer = postRepository.findById(id).get();
         sourcePost.makeOffer(postToMakeOffer);
-        postRepository.save(sourcePost);
+        Post savedSourcePost = postRepository.save(sourcePost);
+        postToMakeOffer.receiveOffer(savedSourcePost);
+        postRepository.save(postToMakeOffer);
         return new RedirectView("/posts");
     }
 
     @GetMapping("/receivedoffers")
     public String getMyOffersPage(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+        m.addAttribute("posts", posts);
 
         return "myOffers";
     }
@@ -45,13 +50,6 @@ public class OffersController {
     public String getMySentOffersPage(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
-        for( Post post : posts){
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println(post.getOffers());
-        }
-
         m.addAttribute("posts", posts);
         return "sentOffers";
     }

@@ -1,27 +1,57 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Posts</title>
+    <style>
+        .offers {
+            display: inline-block;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid black;
+        }
+    </style>
+    <title>sent offers</title>
 </head>
+
 <body>
 
-<div th:each="post :${posts}">
-    <div th:if='${post.offerType != "general"}'>
-        <h3>This offer was made by: <span th:text="${post.user.username}"></span> To <span></span></h3>
-        <h2>User: <span th:text="${post.user.username}"></span></h2>
-        <p class="body"><span th:text="${post.category}"></span></p>
-        <p class="body"><span th:text="${post.type}"></span></p>
-        <p class="body"><span th:text="${post.body}"></span></p>
-        <p class="body"><span th:text="${post.weight}"></span></p>
-        <p class="body"><span th:text="${post.createdAt}"></span></p>
+    <div th:each="post :${posts}">
+        <div>
+            <div th:each="offer : ${post.offers}">
+                <h3>This offer was made by: 
+                    <span th:text="${post.user.username}"></span> 
+                    To 
+                    <span th:text="${offer.user.username}"></span>
+                 </h3>
+                <div class="offers">
+                    <a th:href="'/profile/'+${post.user.id}">
+                        <h3>User: <span th:text="${post.user.username}"></span></h3>
+                    </a>
+                    <p class="body"><span th:text="${post.category}"></span></p>
+                    <p class="body"><span th:text="${post.type}"></span></p>
+                    <p class="body"><span th:text="${post.body}"></span></p>
+                    <p class="body"><span th:text="${post.weight}"></span></p>
+                    <p class="body"><span th:text="${post.createdAt}"></span></p>
+                </div>
+                <div class="offers">
+                    <a th:href="'/profile/'+${offer.user.id}">
+                        <h3>User: <span th:text="${offer.user.username}"></span></h3>
+                    </a>
+                    <p class="body"><span th:text="${offer.category}"></span></p>
+                    <p class="body"><span th:text="${offer.type}"></span></p>
+                    <p class="body"><span th:text="${offer.body}"></span></p>
+                    <p class="body"><span th:text="${offer.weight}"></span></p>
+                    <p class="body"><span th:text="${offer.createdAt}"></span></p>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>

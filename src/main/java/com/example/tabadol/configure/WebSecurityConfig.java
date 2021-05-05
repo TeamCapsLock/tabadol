@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/error").and().logout()
+                .failureUrl("/login").and().logout()
                 .logoutUrl("/perform_logout").deleteCookies("JSESSIONID");
     }
 }
