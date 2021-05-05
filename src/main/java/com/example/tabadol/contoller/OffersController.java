@@ -54,4 +54,23 @@ public class OffersController {
         return "sentOffers";
     }
 
+    @PostMapping("/exchange/{id}")
+    public  RedirectView exchangeOffers (@PathVariable long id, Model m, Principal p, long exhcangethispost){
+        UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
+        Post sourcePost = postRepository.findById(exhcangethispost).get();
+        Post postToMakeOffer = postRepository.findById(id).get();
+
+        sourcePost.makeOffer(postToMakeOffer);
+        postToMakeOffer.receiveOffer(sourcePost);
+        postRepository.save(sourcePost);
+        postRepository.save(postToMakeOffer);
+
+        return new RedirectView("/posts");
+
+
+
+    }
+
+
+
 }

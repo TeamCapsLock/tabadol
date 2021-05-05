@@ -37,7 +37,7 @@ public class Post {
     Set<Post> offers = new HashSet<>();
 
 
-    @OneToMany(cascade =CascadeType.ALL)
+    @OneToMany(mappedBy = "post",cascade =CascadeType.ALL)
     Set<Post> receivedOffers = new HashSet<>();
 
 //    @OneToMany(mappedBy = "source_post_id",cascade=CascadeType.ALL)

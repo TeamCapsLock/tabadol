@@ -25,6 +25,8 @@ public class PostController {
     @GetMapping("/posts")
     public String getPosts(Model m, Principal p){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+
+
         m.addAttribute("posts",postRepository.findAll());
         m.addAttribute("loggedInUser",loggedInUser);
         return "posts.html";
