@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
 
     <title>Tabadol</title>
     <meta content="" name="description">
@@ -92,10 +94,16 @@
                             <p class="body"><span th:text="${post.createdAt}"></span></p>
 
 
-                            <button id="make-offer" th:if="${post.user.id != loggedInUser.id}">Make offer</button>
+                            <button th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'" id="make-offer" th:if="${post.user.id != loggedInUser.id}">Make offer</button>
+                            
+                            <div style="display: none;" th:id="'btn-div'+${post.id}">
+                            <button th:onclick="'showOneEditForm(\'make-offer-form' + ${post.id} + '\')'">Add Offer</button>
+                            <button th:onclick="'showOneEditForm(\'make-exchange-form' + ${post.id} + '\')'">Exchange</button>
+                            </div>
 
-                            <form id="make-offer-form" th:if="${post.user.id != loggedInUser.id}" method="POST"
-                                th:action="'/makeOffer/'+${post.id}">
+
+                            <form th:id="'make-offer-form'+${post.id}" th:if="${post.user.id != loggedInUser.id}" method="POST"
+                                th:action="'/makeOffer/'+${post.id}" style="display: none;">
                                 <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
                                         placeholder="Describe your offer ..." required></textarea></label><br>
 
@@ -123,7 +131,7 @@
 
                             </form>
 
-                            <form th:action="'/exchange/'+${post.id}" method="POST">
+                            <form style="display:none;" th:id="'make-exchange-form'+${post.id}" th:action="'/exchange/'+${post.id}" method="POST">
                                 <div th:each="innerpost :${posts}"
                                     th:if="${innerpost.user.id == loggedInUser.id && !(innerpost.isThereOfferOf(post) && post.receivedOffers.contains(innerpost))}">
 

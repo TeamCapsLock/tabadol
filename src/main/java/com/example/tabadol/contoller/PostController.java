@@ -49,7 +49,7 @@ public class PostController {
         return new RedirectView("/myprofile");
     }
 
-    @PutMapping("/edit-post/{id}")
+    @PostMapping("/edit-post/{id}")
     public RedirectView editPost(@PathVariable long id, String body, String category, String type, Integer weight, String status, Principal p){
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
         Post postToEdit = postRepository.findById(id).get();
@@ -62,7 +62,7 @@ public class PostController {
         return new RedirectView("/myprofile");
     }
 
-    @DeleteMapping("/delete-post/{id}")
+    @PostMapping("/delete-post/{id}")
     public RedirectView deletePost(@PathVariable(value = "id") long id){
         postRepository.deleteById(id);
         return new RedirectView("/myprofile");
