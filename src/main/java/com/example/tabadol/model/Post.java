@@ -21,8 +21,6 @@ public class Post {
     private String offerType="general";
 
 
-
-
     @ManyToOne
     UserApplication user;
 
