@@ -53,9 +53,16 @@ public class UserApplicationController {
     }
 
     @GetMapping("/")
-    public String getHome() {
-
-        return "home.html";
+    public String getHome(Model m,Principal p) {
+        UserApplication loggedInUser = null;
+        try{
+              loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        m.addAttribute("loggedInUser",loggedInUser);
+        return "index.html";
     }
 
     @GetMapping("/login")

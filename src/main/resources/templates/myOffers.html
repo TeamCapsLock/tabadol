@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .offers {
+            display: inline-block;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid black;
+        }
+    </style>
+    <title>Received offers</title>
+</head>
+
+<body>
+
+    <div th:each="post :${posts}">
+        <div>
+            <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}">
+                <h3>This offer was received From:
+                    <span th:text="${offer.user.username}"></span>
+                </h3>
+                <div class="offers">
+                    <a th:href="'/profile/'+${offer.user.id}">
+                        <h3>User: <span th:text="${offer.user.username}"></span></h3>
+                    </a>
+                    <p class="body"><span th:text="${offer.category}"></span></p>
+                    <p class="body"><span th:text="${offer.type}"></span></p>
+                    <p class="body"><span th:text="${offer.body}"></span></p>
+                    <p class="body"><span th:text="${offer.weight}"></span></p>
+                    <p class="body"><span th:text="${offer.createdAt}"></span></p>
+                </div>
+
+                <div class="offers">
+                    <a th:href="'/profile/'+${post.user.id}">
+                        <h3>User: <span th:text="${post.user.username}"></span></h3>
+                    </a>
+                    <p class="body"><span th:text="${post.category}"></span></p>
+                    <p class="body"><span th:text="${post.type}"></span></p>
+                    <p class="body"><span th:text="${post.body}"></span></p>
+                    <p class="body"><span th:text="${post.weight}"></span></p>
+                    <p class="body"><span th:text="${post.createdAt}"></span></p>
+                </div>
+
+                
+                <form action="/acceptoffer" method="post">
+                    <input type="hidden" name="source_id" th:value="${offer.id}">
+                    <input type="hidden" name="destination_id" th:value="${post.id}">
+                    <button>Accept Offer</button>
+                </form>
+                <form action="/declineoffer" method="post">
+                    <input type="hidden" name="source_id" th:value="${offer.id}">
+                    <input type="hidden" name="destination_id" th:value="${post.id}">
+                    <button>Decline Offer</button>
+                </form>
+
+
+                
+               
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

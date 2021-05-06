@@ -198,6 +198,8 @@ public class UserApplication implements UserDetails {
 
     public void decreaseNumberOfFollowers() {
         this.numberOfFollowers--;
+    }
+
     public String getPhone() {
         return phone;
     }

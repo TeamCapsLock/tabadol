@@ -7,9 +7,7 @@ import com.example.tabadol.repository.UserApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -25,8 +23,16 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public String getPosts(Model m){
+    public String getPosts(Model m, Principal p){
+        UserApplication loggedInUser = null;
+        try{
+            loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         m.addAttribute("posts",postRepository.findAll());
+        m.addAttribute("loggedInUser",loggedInUser);
         return "posts.html";
     }
 
@@ -38,12 +44,12 @@ public class PostController {
     @PostMapping("/addPost")
     public RedirectView addPost(String body, String category, String type, Integer weight, String status, Principal p){
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
-        Post newPost=new Post(body,category,type,weight,status,currentUser);
+        Post newPost=new Post(body,category,type,weight,true,currentUser);
         postRepository.save(newPost);
         return new RedirectView("/myprofile");
     }
 
-    @PostMapping("/edit-post/{id}")
+    @PutMapping("/edit-post/{id}")
     public RedirectView editPost(@PathVariable long id, String body, String category, String type, Integer weight, String status, Principal p){
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
         Post postToEdit = postRepository.findById(id).get();
@@ -51,12 +57,12 @@ public class PostController {
         postToEdit.setCategory(category);
         postToEdit.setType(type);
         postToEdit.setWeight(weight);
-        postToEdit.setStatus(status);
+        postToEdit.setAvailable(status.equals("true"));
         postRepository.save(postToEdit);
         return new RedirectView("/myprofile");
     }
 
-    @PostMapping("/delete-post/{id}")
+    @DeleteMapping("/delete-post/{id}")
     public RedirectView deletePost(@PathVariable(value = "id") long id){
         postRepository.deleteById(id);
         return new RedirectView("/myprofile");
