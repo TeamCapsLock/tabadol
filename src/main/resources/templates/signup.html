@@ -1,33 +1,195 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Sign up</title>
-    <script src="/webjars/jquery/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Tabadol</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <script src="/js/app.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
     <style>
         label{
             display: block;
         }
     </style>
+
 </head>
+
 <body>
 
-    <form action="/signup" method="POST">
-        <label for="">Username: <input required name="username" type="text"></label>
-        <label for="">firstName: <input required name="firstname" type="text"></label>
-        <label for="">lastName: <input required name="lastname" type="text"></label>
-        <label for="">E-mail: <input required name="email" type="email"></label>
-        <label for="">Skills: <input required name="skills" type="text"></label>
-        <label for="">Bio: <input required name="bio" type="text"></label>
-        <label for="">Phone: <input required name="phone" type="text" id="phone"></label>
-        <label for="">Image url: <input name="image" type="text" id="image_url" ></label>
-        <label for="">Password: <input required name="password" type="password" id="password"></label>
-        <label for="">Confirm password: <input required name="confirm" type="password" id="confirm-password"></label>
-        <label><input type="submit" value="Sign Up" id="signup-btn"></label>
-    </form>
+<!-- ======= Header ======= -->
+<header id="header"     style="background-color: #37517e;" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
+        <h1 class="logo me-auto"><a href="/">Tabadol</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto active" href="/">Home</a></li>
+                <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
+                <li><a class="nav-link scrollto" href="/signup">SignUp</a></li>
+                <li><a class="nav-link   scrollto" href="/login">Login</a></li>
+                <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+
+    </div>
+</header>
+<!-- End Header -->
+
+<main id="main">
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <br><br><br>
+        <div class="section-title">
+          <h2>Sign Up</h2>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch"> -->
+
+          <div style="width: 60%;margin-left: 20%;">
+            <form action="/signup" method='POST' class="email-form">
+                <div class="row">
+              <div class="form-group col-md-6">
+                <label>FirstName</label>
+                <input type="text" class="form-control" name="firstName" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>lastName</label>
+                <input type="text" class="form-control" name="lastName" required>
+              </div>
+              </div>
+              <div class="row">
+              <div class="form-group col-md-6">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username" value="" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Phone</label>
+                <input type="text" class="form-control" name="phone" id="phone" required>
+              </div>
+              </div>
+              <div class="row">
+              <div class="form-group col-md-6">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Confirm password</label>
+                <input type="password" class="form-control" name="confirm" id="confirm-password" required>
+              </div>
+            </div>
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+              <div class="form-group">
+                <label>Skills</label>
+                <input type="text" class="form-control" name="skills" required>
+              </div>
+              <div class="form-group">
+                <label>Bio</label>
+                <input type="text" class="form-control" name="bio" required>
+              </div>
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" class="form-control" name="image" id="image_url" required>
+              </div>
+              <br>
+              <div class="text-center"><input class="btn-form-input" name="submit" type="submit" value="SignUp" id="signup-btn"></div><br>
+              <div class="text-center">Have an account already? <a href="/signup"> Login</a></div><br>
+            </form>
+
+
+            <!-- <form action="/signup" method="POST">
+                <label for="">Username: <input required name="username" type="text"></label>
+                <label for="">firstName: <input required name="firstname" type="text"></label>
+                <label for="">lastName: <input required name="lastname" type="text"></label>
+                <label for="">E-mail: <input required name="email" type="email"></label>
+                <label for="">Skills: <input required name="skills" type="text"></label>
+                <label for="">Bio: <input required name="bio" type="text"></label>
+                <label for="">Phone: <input required name="phone" type="text" id="phone"></label>
+                <label for="">Image url: <input name="image" type="text" id="image_url" ></label>
+                <label for="">Password: <input required name="password" type="password" id="password"></label>
+                <label for="">Confirm password: <input required name="confirm" type="password" id="confirm-password"></label>
+                <label><input type="submit" value="Sign Up" id="signup-btn"></label>
+            </form> -->
+
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container footer-bottom clearfix">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Arsha</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
 
 </body>
+
 </html>
