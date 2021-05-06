@@ -53,11 +53,13 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="/">Home</a></li>
-                <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
-                <li><a class="nav-link scrollto" href="/signup">SignUp</a></li>
-                <li><a class="nav-link   scrollto" href="/login">Login</a></li>
-                <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
+              <li><a class="nav-link scrollto active" href="/">Home</a></li>
+              <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
+              <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/signup">SignUp</a></li>
+              <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/login">Login</a></li>
+              <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a></li>
+              <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/logout">Logout</a></li>
+              <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>

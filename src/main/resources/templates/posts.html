@@ -43,8 +43,10 @@
             <ul>
                 <li><a class="nav-link scrollto active" href="/">Home</a></li>
                 <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
-                <li><a class="nav-link scrollto" href="/signup">SignUp</a></li>
-                <li><a class="nav-link   scrollto" href="/login">Login</a></li>
+                <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/signup">SignUp</a></li>
+                <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/login">Login</a></li>
+                <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a></li>
+                <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/logout">Logout</a></li>
                 <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -60,10 +62,21 @@
       <div class="container" data-aos="fade-up">
 
         <br><br><br>
-        <div class="section-title">
+        <div th:if="${loggedInUser == null}" class="section-title">
+          <h2><a href="/login">Login First</h2>
+        </div>
+
+        <div th:if="${loggedInUser != null}" class="section-title">
           <h2>Posts</h2>
         </div>
         
+
+        <div th:if="${posts.isEmpty() && loggedInUser != null}">
+        <h2>No Posts Available</h2>
+        <a class="btn-form-input" href="/addPost">Add Post</h2>
+        </div>
+
+
         <div th:each="post :${posts}">
         <div class="shadow p-3 mb-5 bg-white rounded bg-light" data-aos="zoom-in" data-aos-delay="100">
             <div th:if='${post.offerType == "general"}'>
