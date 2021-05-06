@@ -118,17 +118,15 @@
 
                                     <div th:if='${innerpost.offerType == "general"}'>
 
-                                        <input type="checkbox" id="exchangepost" name="exhcangethispost"
-                                            th:value="${innerpost.id}">
-                                        <label for="exchangepost">Select post</label>
-
                                         <h2>User: <span th:text="${innerpost.user.username}"></span></h2>
                                         <p class="body"><span th:text="${innerpost.category}"></span></p>
                                         <p class="body"><span th:text="${innerpost.type}"></span></p>
                                         <p class="body"><span th:text="${innerpost.body}"></span></p>
                                         <p class="body"><span th:text="${innerpost.weight}"></span></p>
                                         <p class="body"><span th:text="${innerpost.createdAt}"></span></p>
-
+                                        <input type="radio" id="exchangepost" name="exhcangethispost"
+                                            th:value="${innerpost.id}">
+                                        <label for="exchangepost">Select post</label>
                                     </div>
                                 </div>
 
