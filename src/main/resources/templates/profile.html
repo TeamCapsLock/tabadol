@@ -57,8 +57,7 @@
                 <button>Accepted Offers</button>
             </form>
 
-            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method = put'"
-                method="post" id="edit-profile-form">
+            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method=put'" method="post" id="edit-profile-form">
                 <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
                         type="text"></label>
                 <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
@@ -91,12 +90,12 @@
                     <button th:if="${user.id == loggedInUser.id}" id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
 
                     <div th:if="${user.id == loggedInUser.id}">
-                        <form th:action="'/delete-post/' + ${post.id} + '?_method=DELETE'" method="POST">
+                        <form th:action="'/delete-post/' + ${post.id}" method="POST">
                             <button id="delete-btn">Delete</button>
                         </form>
 
 
-                        <form th:action="'/edit-post/' + ${post.id} + '?_method=PUT'" method="post" th:id=${post.id}
+                        <form th:action="'/edit-post/' + ${post.id}" method="post" th:id=${post.id}
                             class="edit-form">
                             <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
                                     placeholder="Describe your service ..." required
