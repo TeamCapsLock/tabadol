@@ -55,7 +55,7 @@ public class UserApplicationController {
     @GetMapping("/")
     public String getHome() {
 
-        return "home.html";
+        return "index.html";
     }
 
     @GetMapping("/login")
