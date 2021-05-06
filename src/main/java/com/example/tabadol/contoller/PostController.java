@@ -24,9 +24,13 @@ public class PostController {
 
     @GetMapping("/posts")
     public String getPosts(Model m, Principal p){
-        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
-
-
+        UserApplication loggedInUser = null;
+        try{
+            loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         m.addAttribute("posts",postRepository.findAll());
         m.addAttribute("loggedInUser",loggedInUser);
         return "posts.html";
