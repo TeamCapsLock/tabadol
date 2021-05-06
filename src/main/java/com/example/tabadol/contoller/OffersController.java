@@ -54,6 +54,14 @@ public class OffersController {
         return "sentOffers";
     }
 
+    @GetMapping("/acceptedoffers")
+    public String getAcceptedOffersPage(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+        m.addAttribute("posts", posts);
+        return "acceptedOffers";
+    }
+
     @PostMapping("/exchange/{id}")
     public  RedirectView exchangeOffers (@PathVariable long id, Model m, Principal p, long exhcangethispost){
         UserApplication currentUser = userApplicationRepository.findByUsername(p.getName());
@@ -72,11 +80,62 @@ public class OffersController {
     @PostMapping("/acceptoffer")
     public RedirectView acceptTheOffer(long source_id, long destination_id){
         Post sourcePost = postRepository.findById(source_id).get();
-        Post receivedPost = postRepository.findById(destination_id).get();
+        Post destinationPost = postRepository.findById(destination_id).get();
+
+        sourcePost.deleteAllOffers();
+        sourcePost.deleteAllReceivedOffers();
+
+        for (Post post : destinationPost.getReceivedOffers()){
+             post.deleteOffer(destinationPost);
+        }
+
+        destinationPost.deleteAllOffers();
+        destinationPost.deleteAllReceivedOffers();
+
+        sourcePost.setAvailable(false);
+        destinationPost.setAvailable(false);
+
+        sourcePost.makeOffer(destinationPost);
+        destinationPost.receiveOffer(sourcePost);
+
+        postRepository.save(sourcePost);
+        postRepository.save(destinationPost);
 
 
 
 
+
+
+        System.out.println("-------------");
+        System.out.println("-------------");
+        System.out.println("-------------");
+        System.out.println("source id : "+ source_id);
+        System.out.println("destination id : "+ destination_id);
+        System.out.println("------------------");
+        System.out.println("------------------");
+        System.out.println("received offers by destination id");
+        for( Post post : destinationPost.getReceivedOffers() )
+            System.out.println( post.getId() + "\t" + post.getBody());
+        System.out.println("------------------");
+        System.out.println("------------------");
+        System.out.println("sent offers by source id");
+        for( Post post : sourcePost.getOffers() )
+            System.out.println( post.getId() + "\t" + post.getBody());
+
+
+
+        // return to new page .. that holds contact info..
+        return new RedirectView("/receivedoffers");
+    }
+
+
+
+    @PostMapping("/declineoffer")
+    public RedirectView declineTheOffer(long source_id, long destination_id){
+        Post sourcePost = postRepository.findById(source_id).get();
+        Post destinationPost = postRepository.findById(destination_id).get();
+        sourcePost.deleteOffer(destinationPost);
+        postRepository.save(sourcePost);
 
         // return to new page .. that holds contact info..
         return new RedirectView("/receivedoffers");

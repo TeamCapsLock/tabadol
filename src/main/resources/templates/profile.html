@@ -53,6 +53,9 @@
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/sentoffers} method="GET">
                 <button>Sent Offers</button>
             </form>
+            <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
+                <button>Accepted Offers</button>
+            </form>
 
             <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method = put'"
                 method="post" id="edit-profile-form">

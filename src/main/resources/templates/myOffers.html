@@ -21,7 +21,7 @@
 
     <div th:each="post :${posts}">
         <div>
-            <div th:each="offer : ${post.receivedOffers}">
+            <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}">
                 <h3>This offer was received From:
                     <span th:text="${offer.user.username}"></span>
                 </h3>

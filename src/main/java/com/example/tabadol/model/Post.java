@@ -92,6 +92,22 @@ public class Post {
             offers.remove(postToDelete);
     }
 
+    public void deleteReceivedOffer(Post postToDelete){
+        if(receivedOffers.contains(postToDelete))
+            receivedOffers.remove(postToDelete);
+    }
+
+    public void deleteAllOffers(){
+       offers.clear();
+    }
+
+    public void deleteAllReceivedOffers(){
+        receivedOffers.clear();
+    }
+
+
+
+
     public boolean isThereOfferOf(Post postToCheck){
         return offers.contains(postToCheck);
     }
@@ -132,7 +148,7 @@ public class Post {
         this.weight = weight;
     }
 
-    public Boolean getAvailable() {
+    public Boolean isAvailable() {
         return available;
     }
 
