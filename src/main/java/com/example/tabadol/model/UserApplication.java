@@ -1,6 +1,5 @@
 package com.example.tabadol.model;
 
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,10 +9,29 @@ import java.util.*;
 @Entity(name = "users")
 public class UserApplication implements UserDetails {
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "followers",
+            joinColumns = {
+                    @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "following_user")
+
+
+            })
+    Set<UserApplication> users_I_follow = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Post> posts = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "rates",
+            joinColumns = {
+                    @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "rated_user_id")
+            })
+    Set<UserApplication> rates = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(unique = true)
     private String username;
     @Column(unique = true)
@@ -23,60 +41,17 @@ public class UserApplication implements UserDetails {
     private String password;
     private String skills;
     private String bio;
-    private int numberOfFollowers =0;
-    private long sumOfTotalRates =5;
-    private long numberOfRaters =1;
-    private double rating=5;
-
-
-
-
-
-
+    private int numberOfFollowers = 0;
+    private long sumOfTotalRates = 5;
+    private long numberOfRaters = 1;
+    private double rating = 5;
     private String phone;
     private String image;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "followers",
-    joinColumns =  {
-            @JoinColumn(name ="user_id")},
-            inverseJoinColumns = {
-            @JoinColumn(name ="following_user")
-
-
-    })
-    Set<UserApplication> users_I_follow = new HashSet<>();
-
-
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
-    List<Post> posts = new ArrayList<>();
-
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "rates",
-            joinColumns =  {
-                    @JoinColumn(name ="user_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name ="rated_user_id")
-            })
-    Set<UserApplication> rates = new HashSet<>();
-
-    public Set<UserApplication> getRates() {
-        return rates;
-    }
-
-    public void rateUser(UserApplication userToRate) {
-        this.rates.add(userToRate);
-    }
-
-    public boolean didRateTheUser(UserApplication userToCheckIfRated){
-        return rates.contains(userToCheckIfRated);
-    }
 
     public UserApplication() {
     }
 
-    public UserApplication(String username,String email, String firstname, String lastname, String password, String skills, String bio, String phone, String image) {
+    public UserApplication(String username, String email, String firstname, String lastname, String password, String skills, String bio, String phone, String image) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -88,32 +63,40 @@ public class UserApplication implements UserDetails {
         this.image = image;
     }
 
+    public Set<UserApplication> getRates() {
+        return rates;
+    }
+
+    public void rateUser(UserApplication userToRate) {
+        this.rates.add(userToRate);
+    }
+
+    public boolean didRateTheUser(UserApplication userToCheckIfRated) {
+        return rates.contains(userToCheckIfRated);
+    }
+
     public Set<UserApplication> getUsers_I_follow() {
         return users_I_follow;
     }
-    public void followUser (UserApplication userToFollow){
-            users_I_follow.add(userToFollow);
+
+    public void followUser(UserApplication userToFollow) {
+        users_I_follow.add(userToFollow);
     }
 
-    public boolean isFollowingUser(UserApplication user){
+    public boolean isFollowingUser(UserApplication user) {
         return users_I_follow.contains(user);
     }
 
-    public int numberOfPeopleIfollow(){
+    public int numberOfPeopleIfollow() {
         return users_I_follow.size();
     }
 
 
-
-    public void unfollowUser (UserApplication userTounFollow){
-        if(!users_I_follow.isEmpty()){
+    public void unfollowUser(UserApplication userTounFollow) {
+        if (!users_I_follow.isEmpty()) {
             users_I_follow.remove(userTounFollow);
         }
     }
-
-
-
-
 
 
     public List<Post> getPosts() {
@@ -141,6 +124,10 @@ public class UserApplication implements UserDetails {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -159,10 +146,6 @@ public class UserApplication implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstname() {
@@ -251,7 +234,7 @@ public class UserApplication implements UserDetails {
         return numberOfRaters;
     }
 
-    public void increaseNumberOfRaters(){
+    public void increaseNumberOfRaters() {
         this.numberOfRaters++;
     }
 
