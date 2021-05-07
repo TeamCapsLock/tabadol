@@ -59,6 +59,9 @@ public class OffersController {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
         m.addAttribute("posts", posts);
+
+
+
         return "acceptedOffers";
     }
 

@@ -35,7 +35,7 @@ public class Post {
     Set<Post> offers = new HashSet<>();
 
 
-    @ManyToMany(mappedBy="offers")
+    @ManyToMany(mappedBy="offers", cascade = CascadeType.ALL)
     Set<Post> receivedOffers = new HashSet<>();
 
 

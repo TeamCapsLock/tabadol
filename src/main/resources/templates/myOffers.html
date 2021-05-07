@@ -20,54 +20,52 @@
 <body>
 
     <div th:each="post :${posts}">
-        <div>
-            <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}">
-                <h3>This offer was received From:
-                    <span th:text="${offer.user.username}"></span>
-                </h3>
-                <div class="offers">
-                    <a th:href="'/profile/'+${offer.user.id}">
-                        <h3>User: <span th:text="${offer.user.username}"></span></h3>
-                    </a>
-                    <p class="body"><span th:text="${offer.category}"></span></p>
-                    <p class="body"><span th:text="${offer.type}"></span></p>
-                    <p class="body"><span th:text="${offer.body}"></span></p>
-                    <p class="body"><span th:text="${offer.weight}"></span></p>
-                    <p class="body"><span th:text="${offer.createdAt}"></span></p>
-                </div>
-
-                <div class="offers">
-                    <a th:href="'/profile/'+${post.user.id}">
-                        <h3>User: <span th:text="${post.user.username}"></span></h3>
-                    </a>
-                    <p class="body"><span th:text="${post.category}"></span></p>
-                    <p class="body"><span th:text="${post.type}"></span></p>
-                    <p class="body"><span th:text="${post.body}"></span></p>
-                    <p class="body"><span th:text="${post.weight}"></span></p>
-                    <p class="body"><span th:text="${post.createdAt}"></span></p>
-                </div>
-
-                
-                <form action="/acceptoffer" method="post">
-                    <input type="hidden" name="source_id" th:value="${offer.id}">
-                    <input type="hidden" name="destination_id" th:value="${post.id}">
-                    <button>Accept Offer</button>
-                </form>
-                <form action="/declineoffer" method="post">
-                    <input type="hidden" name="source_id" th:value="${offer.id}">
-                    <input type="hidden" name="destination_id" th:value="${post.id}">
-                    <button>Decline Offer</button>
-                </form>
-
-
-                
-               
-
+        <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}">
+            <h3>This offer was received From:
+                <span th:text="${offer.user.username}"></span>
+            </h3>
+            <div class="offers">
+                <a th:href="'/profile/'+${offer.user.id}">
+                    <h3>User: <span th:text="${offer.user.username}"></span></h3>
+                </a>
+                <p class="body"><span th:text="${offer.category}"></span></p>
+                <p class="body"><span th:text="${offer.type}"></span></p>
+                <p class="body"><span th:text="${offer.body}"></span></p>
+                <p class="body"><span th:text="${offer.weight}"></span></p>
+                <p class="body"><span th:text="${offer.createdAt}"></span></p>
             </div>
+
+            <div class="offers">
+                <a th:href="'/profile/'+${post.user.id}">
+                    <h3>User: <span th:text="${post.user.username}"></span></h3>
+                </a>
+                <p class="body"><span th:text="${post.category}"></span></p>
+                <p class="body"><span th:text="${post.type}"></span></p>
+                <p class="body"><span th:text="${post.body}"></span></p>
+                <p class="body"><span th:text="${post.weight}"></span></p>
+                <p class="body"><span th:text="${post.createdAt}"></span></p>
+            </div>
+
+
+            <form action="/acceptoffer" method="post">
+                <input type="hidden" name="source_id" th:value="${offer.id}">
+                <input type="hidden" name="destination_id" th:value="${post.id}">
+                <button>Accept Offer</button>
+            </form>
+            <form action="/declineoffer" method="post">
+                <input type="hidden" name="source_id" th:value="${offer.id}">
+                <input type="hidden" name="destination_id" th:value="${post.id}">
+                <button>Decline Offer</button>
+            </form>
+
+
 
 
 
         </div>
+
+
+
 
     </div>
 

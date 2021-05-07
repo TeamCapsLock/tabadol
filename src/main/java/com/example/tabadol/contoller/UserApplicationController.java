@@ -65,10 +65,10 @@ public class UserApplicationController {
         return "index.html";
     }
 
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login.html";
-    }
+        @GetMapping("/login")
+        public String loginForm() {
+            return "login.html";
+        }
 
 
     @PostMapping("/follow/{username}")
@@ -168,9 +168,12 @@ public class UserApplicationController {
 
 
     @PostMapping("/rate/{username}")
-        public RedirectView getRating(int sumOfTotalRates, @PathVariable String username){
+        public RedirectView getRating(int sumOfTotalRates, @PathVariable String username, Principal p){
         UserApplication userToBeRated = userApplicationRepository.findByUsername(username);
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         long usersId= userToBeRated.getId();
+
+        loggedInUser.rateUser(userToBeRated);
 
         userToBeRated.addTOSumOfTotalRates(sumOfTotalRates);
         userToBeRated.increaseNumberOfRaters();
@@ -179,6 +182,7 @@ public class UserApplicationController {
         rate = Double.parseDouble(decimalFormat.format(rate));
         userToBeRated.setRating(rate);
         userApplicationRepository.save(userToBeRated);
+        userApplicationRepository.save(loggedInUser);
         return new RedirectView("/profile/" + usersId);
         }
 

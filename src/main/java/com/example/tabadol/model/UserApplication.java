@@ -1,5 +1,6 @@
 package com.example.tabadol.model;
 
+import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,7 +26,7 @@ public class UserApplication implements UserDetails {
     private int numberOfFollowers =0;
     private long sumOfTotalRates =5;
     private long numberOfRaters =1;
-    private double rating;
+    private double rating=5;
 
 
 
@@ -49,6 +50,28 @@ public class UserApplication implements UserDetails {
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "rates",
+            joinColumns =  {
+                    @JoinColumn(name ="user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name ="rated_user_id")
+            })
+    Set<UserApplication> rates = new HashSet<>();
+
+    public Set<UserApplication> getRates() {
+        return rates;
+    }
+
+    public void rateUser(UserApplication userToRate) {
+        this.rates.add(userToRate);
+    }
+
+    public boolean didRateTheUser(UserApplication userToCheckIfRated){
+        return rates.contains(userToCheckIfRated);
+    }
 
     public UserApplication() {
     }

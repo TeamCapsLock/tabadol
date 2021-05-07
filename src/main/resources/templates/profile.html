@@ -69,14 +69,14 @@
                 <button type="submit">Update</button>
             </form>
 
-            <form th:if="${user.id != loggedInUser.id}" th:action="'/rate/'+${user.username}" method="post">
+            <form th:if="${ (user.id != loggedInUser.id) && (!loggedInUser.didRateTheUser(user)) }" th:action="'/rate/'+${user.username}" method="post">
                 <label>Rate User</label>
                 <input type="number" max="5" min="0" value="5" name="sumOfTotalRates">
                 <button>Rate</button>
             </form>
 
             <div th:each="post :${posts}">
-                <div th:if='${post.offerType == "general"}'>
+                <div th:if='${post.offerType == "general" && post.isAvailable()}'>
                     <div>
                         <img src="">
                         <h2>User</h2>
