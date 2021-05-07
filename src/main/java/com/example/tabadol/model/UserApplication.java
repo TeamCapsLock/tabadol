@@ -29,6 +29,8 @@ public class UserApplication implements UserDetails {
                     @JoinColumn(name = "rated_user_id")
             })
     Set<UserApplication> rates = new HashSet<>();
+
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
