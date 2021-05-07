@@ -82,7 +82,7 @@ public class UserApplicationController {
         return new RedirectView(route);
     }
 
-    @DeleteMapping("/unfollow/{username}")
+    @PostMapping("/unfollow/{username}")
     public RedirectView unFollowUser(Principal p, @PathVariable String username, @RequestParam String route) {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         UserApplication userToUnFollow = userApplicationRepository.findByUsername(username);
