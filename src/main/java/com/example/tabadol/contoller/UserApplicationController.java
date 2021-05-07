@@ -40,7 +40,7 @@ public class UserApplicationController {
                                String lastname, String password, String confirm,
                                String skills, String bio, String phone, String image)
     {
-            final String imageUrl = "https://www.computerhope.com/jargon/g/guest-user.jpg";
+            final String imageUrl = "https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg";
         //if the user did not enter an url image
             if(image.length() == 0)
                 image = imageUrl;
@@ -82,7 +82,7 @@ public class UserApplicationController {
         return new RedirectView(route);
     }
 
-    @DeleteMapping("/unfollow/{username}")
+    @PostMapping("/unfollow/{username}")
     public RedirectView unFollowUser(Principal p, @PathVariable String username, @RequestParam String route) {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         UserApplication userToUnFollow = userApplicationRepository.findByUsername(username);
