@@ -100,10 +100,11 @@
                                 th:if="${post.user.id != loggedInUser.id}">Make offer</button>
 
                             <div style="display: none;" th:id="'btn-div'+${post.id}">
-                                <button th:onclick="'showOneEditForm(\'make-offer-form' + ${post.id} + '\')'">Add Offer
+                                <button th:onclick="'showOneForm(' + ${post.id} + ', \'add\' )'">Add Offer
                                 </button>
                                 <button
-                                    th:onclick="'showOneEditForm(\'make-exchange-form' + ${post.id} + '\')'">Exchange
+                                
+                                    th:onclick="'showOneForm(' + ${post.id} + ', \'exchange\' )'">Exchange
                                 </button>
                             </div>
 

@@ -1,6 +1,6 @@
 package com.example.tabadol.model;
 
-import org.graalvm.compiler.lir.LIRInstruction;
+//import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
