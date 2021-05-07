@@ -39,9 +39,9 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header"     style="background-color: #37517e;" class="fixed-top ">
+    <header id="header" style="background-color: #37517e;" class="fixed-top ">
         <div class="container d-flex align-items-center">
-    
+
             <h1 class="logo me-auto"><a href="/">Tabadol</a></h1>
             <nav id="navbar" class="navbar">
                 <ul>
@@ -49,13 +49,15 @@
                     <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
                     <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/signup">SignUp</a></li>
                     <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/login">Login</a></li>
-                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a></li>
-                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/perform_logout">Logout</a></li>
+                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a>
+                    </li>
+                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/perform_logout">Logout</a>
+                    </li>
                     <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-    
+
         </div>
     </header><!-- End Header -->
 
@@ -65,23 +67,23 @@
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
 
-        <br><br><br>
-        <div th:if="${loggedInUser == null}" class="section-title">
-          <h2><a href="/login">Login First</h2>
-        </div>
+                <br><br><br>
+                <div th:if="${loggedInUser == null}" class="section-title">
+                    <h2><a href="/login">Login First</h2>
+                </div>
 
-        <div th:if="${loggedInUser != null}" class="section-title">
-          <h2>Posts</h2>
-        </div>
-        <div th:if="${posts.isEmpty() && loggedInUser != null}">
-            <h2>No Posts Available</h2>
-            <a class="btn-form-input" href="/addPost">Add Post</h2>
-            </div>
+                <div th:if="${loggedInUser != null}" class="section-title">
+                    <h2>Posts</h2>
+                </div>
+                <div th:if="${posts.isEmpty() && loggedInUser != null}">
+                    <h2>No Posts Available</h2>
+                    <a class="btn-form-input" href="/addPost">Add Post</h2>
+                </div>
 
 
                 <div th:each="post :${posts}" th:if="${post.user.id != loggedInUser.id}">
                     <div class="shadow p-3 mb-5 bg-white rounded bg-light" data-aos="zoom-in" data-aos-delay="100">
-                        <div th:if='${post.offerType == "general"}'>
+                        <div th:if='${post.offerType == "general" && post.isAvailable()}'>
 
                             <div>
                                 <img src="">
@@ -94,18 +96,24 @@
                             <p class="body"><span th:text="${post.createdAt}"></span></p>
 
 
-                            <button th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'" id="make-offer" th:if="${post.user.id != loggedInUser.id}">Make offer</button>
-                            
+                            <button th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'" id="make-offer"
+                                th:if="${post.user.id != loggedInUser.id}">Make offer</button>
+
                             <div style="display: none;" th:id="'btn-div'+${post.id}">
-                            <button th:onclick="'showOneEditForm(\'make-offer-form' + ${post.id} + '\')'">Add Offer</button>
-                            <button th:onclick="'showOneEditForm(\'make-exchange-form' + ${post.id} + '\')'">Exchange</button>
+                                <button th:onclick="'showOneEditForm(\'make-offer-form' + ${post.id} + '\')'">Add Offer
+                                </button>
+                                <button
+                                    th:onclick="'showOneEditForm(\'make-exchange-form' + ${post.id} + '\')'">Exchange
+                                </button>
                             </div>
 
 
-                            <form th:id="'make-offer-form'+${post.id}" th:if="${post.user.id != loggedInUser.id}" method="POST"
-                                th:action="'/makeOffer/'+${post.id}" style="display: none;">
-                                <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
-                                        placeholder="Describe your offer ..." required></textarea></label><br>
+                            <form th:id="'make-offer-form'+${post.id}" th:if="${post.user.id != loggedInUser.id}"
+                                method="POST" th:action="'/makeOffer/'+${post.id}" style="display: none;">
+                                <label for="body">
+                                    <textarea id="body" cols="30" rows="10" name="body" type="text"
+                                        placeholder="Describe your offer ..." required></textarea>
+                                </label><br>
 
                                 <label for="category">Category: </label>
                                 <select name="category" id="category" required>
@@ -121,21 +129,24 @@
                                 <p>Type:</p>
                                 <input type="radio" id="service" name="type" value="service" checked>
                                 <label for="service">Service</label>
+
                                 <input type="radio" id="product" name="type" value="product">
-                                <label for="product">Product</label><br>
+                                <label for="product">Product</label>
+                                <br>
 
                                 <label for="weight">Weight</label>
-                                <input type="number" id="weight" name="weight" min="1" max="10" value="1"><br>
+                                <input type="number" id="weight" name="weight" min="1" max="10" value="1">
+                                <br>
 
                                 <input type="submit" value="Add Offer">
 
                             </form>
 
-                            <form style="display:none;" th:id="'make-exchange-form'+${post.id}" th:action="'/exchange/'+${post.id}" method="POST">
+                            <form style="display:none;" th:id="'make-exchange-form'+${post.id}"
+                                th:action="'/exchange/'+${post.id}" method="POST">
                                 <div th:each="innerpost :${posts}"
                                     th:if="${innerpost.user.id == loggedInUser.id && !(innerpost.isThereOfferOf(post) && post.receivedOffers.contains(innerpost))}">
-
-                                    <div th:if='${innerpost.offerType == "general"}'>
+                                    <div th:if='${innerpost.offerType == "general" && innerpost.isAvailable()}'>
 
                                         <h2>User: <span th:text="${innerpost.user.username}"></span></h2>
                                         <p class="body"><span th:text="${innerpost.category}"></span></p>
