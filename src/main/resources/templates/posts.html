@@ -99,11 +99,12 @@
                             <button  class="btn btn-primary" th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'" id="make-offer"
                                 th:if="${post.user.id != loggedInUser.id}">Make offer</button>
 
-                            <span style="display:none;" th:id="'btn-div'+${post.id}">
-                                <button  class="btn btn-success" th:onclick="'showOneEditForm(\'make-offer-form' + ${post.id} + '\')'">Add Offer
+                            <div style="display: none;" th:id="'btn-div'+${post.id}">
+                                <button th:onclick="'showOneForm(' + ${post.id} + ', \'add\' )'">Add Offer
                                 </button>
-                                <button  class="btn btn-success" 
-                                    th:onclick="'showOneEditForm(\'make-exchange-form' + ${post.id} + '\')'">Exchange
+                                <button
+                                
+                                    th:onclick="'showOneForm(' + ${post.id} + ', \'exchange\' )'">Exchange
                                 </button>
                             </span>
 
