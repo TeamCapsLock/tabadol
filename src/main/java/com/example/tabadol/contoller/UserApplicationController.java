@@ -65,10 +65,10 @@ public class UserApplicationController {
         return "index.html";
     }
 
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login.html";
-    }
+        @GetMapping("/login")
+        public String loginForm() {
+            return "login.html";
+        }
 
 
     @PostMapping("/follow/{username}")

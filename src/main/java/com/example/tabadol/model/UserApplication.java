@@ -51,6 +51,7 @@ public class UserApplication implements UserDetails {
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
 
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "rates",
             joinColumns =  {
