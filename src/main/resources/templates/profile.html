@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta name="viewport"
@@ -56,6 +56,7 @@
     width: 100%;
   background: #eee;
   display: flex;
+  align-items: flex-start;
 }
 
 
@@ -227,6 +228,7 @@ button {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: flex-start;
+    margin-top: 6.5%;
     }
 
     .vl {
@@ -621,21 +623,6 @@ button {
 
                     <div class="secondsection">
 
-                        <div class="btn">
-                        <button class="btn3" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
-                        <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
-                            <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
-                                    type="text"></label>
-                            <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
-                            <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
-                            <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
-                            <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
-                            <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
-                                    id="image_url"></label>
-                            <button class="btn2" type="submit">Update</button>
-                            <hr>
-                        </form>
-                    </div>
 
                         <div style="display: flex;flex-wrap: wrap;justify-content: center;">
                             <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
@@ -655,6 +642,23 @@ button {
                                 <button class="btn0">Accepted Offers</button>
                             </form>
                         </div>
+
+                        
+                        <div class="btn">
+                          <button class="btn3" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+                          <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
+                              <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
+                                      type="text"></label>
+                              <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
+                              <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
+                              <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
+                              <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
+                              <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
+                                      id="image_url"></label>
+                              <button class="btn2" type="submit">Update</button>
+                              <hr>
+                          </form>
+                      </div>
                            
     
                     </div>
