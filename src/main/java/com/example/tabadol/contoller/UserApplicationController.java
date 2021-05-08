@@ -66,7 +66,9 @@ public class UserApplicationController {
     }
 
         @GetMapping("/login")
-        public String loginForm() {
+        public String loginForm(Principal p, Model m) {
+            UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+            m.addAttribute("loggedInUser", loggedInUser);
             return "login.html";
         }
 

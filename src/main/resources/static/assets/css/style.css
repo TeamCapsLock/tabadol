@@ -8,9 +8,33 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+.div_margin50{
+  height:10px;
+  width:100%;
+  margin: 50px 0;
+}
+.div_margin100{
+  height:10px;
+  width:100%;
+  margin: 100px 0;
+}
+.div_margin100{
+  height:10px;
+  width:100%;
+  margin: 200px 0;
+}
+main{
+  width:100%;
+  min-height:100vh;
+  padding:0;
+  margin:100px 0;
+  margin-bottom: 400px;
+}
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
+  min-height:100vh ;
+  width:100% ;
 }
 
 a {
@@ -1620,8 +1644,12 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  font-size: 14px;
-  background: #37517e;
+    position: fixed;
+    font-size: 14px;
+    width: 100%;
+    bottom: 0;
+    background: #37517eb6;
+    height: 55px;
 }
 
 #footer .footer-newsletter {
@@ -1866,7 +1894,9 @@ section {
 
 body {
     background-color: #eee;
-    font-family: 'Roboto', sans-serif
+    font-family: 'Roboto', sans-serif;
+    min-height:100vh ;
+    width:100% ;
 }
 
 .card {

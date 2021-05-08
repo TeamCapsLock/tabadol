@@ -37,7 +37,9 @@ public class PostController {
     }
 
     @GetMapping("/addPost")
-    public String getAddPostsForm(){
+    public String getAddPostsForm(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        m.addAttribute("loggedInUser",loggedInUser);
         return "addPosts.html";
     }
 

@@ -8,30 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
+    <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marck+Script">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rakkas">
@@ -46,105 +23,84 @@
 <body>
 
 
-    <!-- ======= Header ======= -->
-    <header id="header" style="background-color: #37517e;" class="fixed-top ">
-        <div class="container d-flex align-items-center">
-
-            <h1 class="logo me-auto"><a href="/">Tabadol</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto active" href="/">Home</a></li>
-                    <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
-                    <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/signup">SignUp</a></li>
-                    <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/login">Login</a></li>
-                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a>
-                    </li>
-                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/logout">Logout</a></li>
-                    <li><a class="nav-link scrollto" href="/aboutus">About Us</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-            <!-- .navbar -->
-
-        </div>
-    </header>
-    <!-- End Header -->
+    <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
 
     <div class="offerMargin-bottom"></div>
-
-    <div th:each="post :${posts}" class="offerMain">
-        <div th:each="offer : ${post.offers}" th:if="${offer.isAvailable()}" class="contOfCont">
-            <div class="offerContainer">
-                <div class="offerLogo flexRowItem1"><img
-                        src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
-                </div>
-                <div class="flexRowItem2">
-                    <h1 class="offers">
-                        <a th:href="'/profile/'+${post.user.id}">
-                            <span th:text="${post.user.firstname}"></span>
-                            <span th:text="${post.user.lastname}"></span>
-                        </a>
-                    </h1>
-                    <h3 class="offers">Category: <span th:text="${post.category}"></span>
-                        <span class="postType">Type: <span th:text="${post.type}"></span></span>
-                    </h3>
-                    <div class="line"></div>
-                    <p class="bio">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
-                        temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
-                        consequatur nesciunt laboriosam! Iusto.
-                        <span th:text="${post.body}"></span>
-                    </p>
-                    <div class="line"></div>
-                    <div class="spaceBetween">
-                        <p class="createdAt"><span th:text="${post.createdAt}"></span></p>
-                        <p class="weight">Weight: <span th:text="${post.weight}"></span></p>
+    <main>
+        <div th:each="post :${posts}" class="offerMain">
+            <div th:each="offer : ${post.offers}" th:if="${offer.isAvailable()}" class="contOfCont">
+                <div class="offerContainer">
+                    <div class="offerLogo flexRowItem1"><img
+                            src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
+                    </div>
+                    <div class="flexRowItem2">
+                        <h1 class="offers">
+                            <a th:href="'/profile/'+${post.user.id}">
+                                <span th:text="${post.user.firstname}"></span>
+                                <span th:text="${post.user.lastname}"></span>
+                            </a>
+                        </h1>
+                        <h3 class="offers">Category: <span th:text="${post.category}"></span>
+                            <span class="postType">Type: <span th:text="${post.type}"></span></span>
+                        </h3>
+                        <div class="line"></div>
+                        <p class="bio">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
+                            temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
+                            consequatur nesciunt laboriosam! Iusto.
+                            <span th:text="${post.body}"></span>
+                        </p>
+                        <div class="line"></div>
+                        <div class="spaceBetween">
+                            <p class="createdAt"><span th:text="${post.createdAt}"></span></p>
+                            <p class="weight">Weight: <span th:text="${post.weight}"></span></p>
+                        </div>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-                <div class="arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </div>
-
-
-            <div class="offerContainer">
-                <div class="offerLogo flexRowItem1"><img
-                        src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
-                </div>
-                <div class="flexRowItem2">
-                    <h1 class="offers">
-                        <a th:href="'/profile/'+${post.user.id}">
-                            <span th:text="${offer.user.firstname}"></span> 
-                            <span th:text="${offer.user.lastname}"></span>
-                        </a>
-                    </h1>
-                    <h3 class="offers">Category: <span th:text="${offer.category}"></span>
-                        <span class="postType">Type: <span th:text="${offer.type}"></span></span>
-                    </h3>
-                    <div class="line"></div>
-                    <p class="bio">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
-                        temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
-                        consequatur nesciunt laboriosam! Iusto.
-                        <span th:text="${offer.body}"></span>
-                    </p>
-                    <div class="line"></div>
-                    <div class="spaceBetween">
-                        <p class="createdAt"><span th:text="${offer.createdAt}"></span></p>
-                        <p class="weight">Weight: <span th:text="${offer.weight}"></span></p>
+    
+    
+                <div class="offerContainer">
+                    <div class="offerLogo flexRowItem1"><img
+                            src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
+                    </div>
+                    <div class="flexRowItem2">
+                        <h1 class="offers">
+                            <a th:href="'/profile/'+${post.user.id}">
+                                <span th:text="${offer.user.firstname}"></span> 
+                                <span th:text="${offer.user.lastname}"></span>
+                            </a>
+                        </h1>
+                        <h3 class="offers">Category: <span th:text="${offer.category}"></span>
+                            <span class="postType">Type: <span th:text="${offer.type}"></span></span>
+                        </h3>
+                        <div class="line"></div>
+                        <p class="bio">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
+                            temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
+                            consequatur nesciunt laboriosam! Iusto.
+                            <span th:text="${offer.body}"></span>
+                        </p>
+                        <div class="line"></div>
+                        <div class="spaceBetween">
+                            <p class="createdAt"><span th:text="${offer.createdAt}"></span></p>
+                            <p class="weight">Weight: <span th:text="${offer.weight}"></span></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
 
+    <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
 
 
 </body>
 
 </html>
+
+
