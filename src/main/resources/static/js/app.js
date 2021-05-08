@@ -76,11 +76,9 @@ function showOneEditForm(id){
 
 function showOneForm(id, operation){
     if(operation == "add"){
-        alert("add")
         $(`#make-offer-form${id}`).fadeToggle(animationTime);
         $(`#make-exchange-form${id}`).hide();
     }else{
-        alert("exchange")
         $(`#make-offer-form${id}`).hide();
         $(`#make-exchange-form${id}`).fadeToggle(animationTime);
     }

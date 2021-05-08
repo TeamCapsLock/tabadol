@@ -1,0 +1,13 @@
+.buttons-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button-margin{
+  margin-right: 15px;
+}
+
+.custom-text{
+  color:#47b2e4;
+}

@@ -31,6 +31,7 @@
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/custom-style.css">
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -74,127 +75,158 @@
 
                 <div th:if="${loggedInUser != null}" class="section-title">
                     <h2>Posts</h2>
-                    <h2><a class="btn-form-input" href="/addPost">Add Post</a></h2>
+                    <!-- <a class="btn-get-started scrollto" href="/addPost">Add Post</a> -->
+                    <a href="/addPost"><button class="btn btn-primary">Add Post</button></a>
+                    <!-- <a href="/addPost" class="btn-get-started scrollto">Add Post</a> -->
                 </div>
                 <div th:if="${posts.isEmpty() && loggedInUser != null}">
                     <h2>No Posts Available</h2>
-                    <a class="btn-form-input" href="/addPost">Add Post</a></h2>
+                    <!-- <a href="/addPost">Add Post</a> -->
+                    <!-- <button class="btn btn-primary"><a href="/addPost">Add Post</a></button> -->
+                    <!-- <a href="/addPost" class="btn-get-started scrollto">Add Post</a> -->
+                    <a href="/addPost"><button class="btn btn-primary">Add Post</button></a>
                 </div>
 
-            <div style="display:flex;flex-wrap: wrap;justify-content: center">
-                <div th:each="post :${posts}" th:if="${post.user.id != loggedInUser.id}">
-                    <div style="width: 400px;" th:if='${post.offerType == "general"}' class="p-3 m-5 shadow p-3 bg-white rounded bg-light" data-aos="zoom-in" data-aos-delay="100">
-                        <div th:if='${post.offerType == "general" && post.isAvailable()}'>
+                <div style="display:flex;flex-wrap: wrap;justify-content: center">
+                    <div th:each="post :${posts}" th:if="${post.user.id != loggedInUser.id}">
+                        <div style="width: 400px;" th:if='${post.offerType == "general"}'
+                            class="p-3 m-5 shadow p-3 bg-white rounded bg-light" data-aos="zoom-in"
+                            data-aos-delay="100">
+                            <div th:if='${post.offerType == "general" && post.isAvailable()}'>
 
-                            <div>
-                                <h4><img style="width: 45px;margin-right: 15px;" th:src="${post.user.image}"><span th:text="${post.user.username}"></span></h4>
-                            </div>
-                            <p class="text-success">Category: &nbsp;<span class="text-secondary" th:text="${post.category}"></span></p>
-                            <p class="text-success">Type: &nbsp;<span class="text-secondary" th:text="${post.type}"></span></p>
-                            <p class="p-2 border border-primary"><span class="text-secondary" th:text="${post.body}"></span></p>
-                            <p class="text-success">Weight : &nbsp;<span class="text-secondary" th:text="${post.weight}"></span></p>
-                            <p><span class="text-secondary" th:text="${post.createdAt}"></span></p>
-
-
-                            <button  class="btn btn-primary" th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'" id="make-offer"
-                                th:if="${post.user.id != loggedInUser.id}">Make offer</button>
-
-                            <div style="display: none;" th:id="'btn-div'+${post.id}">
-                                <button th:onclick="'showOneForm(' + ${post.id} + ', \'add\' )'">Add Offer
-                                </button>
-                                <button
-                                
-                                    th:onclick="'showOneForm(' + ${post.id} + ', \'exchange\' )'">Exchange
-                                </button>
-                            </span>
-
-
-                            <br>
-                            <br>
-                            <form class="email-form" th:id="'make-offer-form'+${post.id}" th:if="${post.user.id != loggedInUser.id}"
-                                method="POST" th:action="'/makeOffer/'+${post.id}" style="display: none;">
-
-                                <div class="form-group">
-                                    <label for="body"><textarea class="form-group" id="body" cols="35" rows="10" name="body" type="text" placeholder="Describe your service/product ..." required></textarea></label><br>
-                                  </div>
-
-                                <div class="form-group">
-                                    <label for="category">Category: </label>
-                                    <select style="width: 97%;" class="form-group" name="category" id="category" required>
-                                        <option value="education">Education</option>
-                                        <option value="instructor">Instructor</option>
-                                        <option value="tutoring">Tutoring</option>
-                                        <option value="computer ">Computer </option>
-                                        <option value="video">Video</option>
-                                        <option value="copywriting">Copywriting</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                  </div>
-                                  
-                                  <br>
-                                <div class="row">
-                                <p>Type:</p>
-                                <div class="form-group col-md-6">
-                                Service &nbsp;<input type="radio" id="service" name="type" value="service" checked>
+                                <div>
+                                    <h4><img style="width: 45px;margin-right: 15px;" th:src="${post.user.image}"><span
+                                            th:text="${post.user.username}"></span></h4>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    Product &nbsp;<input type="radio" id="product" name="type" value="product">
+                                <p class="custom-text">Category: &nbsp;<span class="text-secondary"
+                                        th:text="${post.category}"></span></p>
+                                <p class="custom-text">Type: &nbsp;<span class="text-secondary"
+                                        th:text="${post.type}"></span></p>
+                                <p class="p-2 border border-primary"><span class="text-secondary"
+                                        th:text="${post.body}"></span></p>
+                                <p class="custom-text">Weight : &nbsp;<span class="text-secondary"
+                                        th:text="${post.weight}"></span></p>
+                                <p><span class="text-secondary" th:text="${post.createdAt}"></span></p>
+
+                                <div class="buttons-container">
+                                    <div>
+                                        <button class="btn btn-primary button-margin"
+                                            th:onclick="'showOneEditForm(\'btn-div' + ${post.id} + '\')'"
+                                            id="make-offer" th:if="${post.user.id != loggedInUser.id}">Make
+                                            offer</button>
                                     </div>
+                                    <div style="display: none;" th:id="'btn-div'+${post.id}">
+                                        <button class="btn btn-primary button-margin"
+                                            th:onclick="'showOneForm(' + ${post.id} + ', \'add\' )'">Add Offer
+                                        </button>
+                                        <button class="btn btn-primary button-margin"
+                                            th:onclick="'showOneForm(' + ${post.id} + ', \'exchange\' )'">Exchange
+                                        </button>
                                     </div>
+
+
+
                                     <br>
+                                    <br>
+                                    <form class="email-form" th:id="'make-offer-form'+${post.id}"
+                                        th:if="${post.user.id != loggedInUser.id}" method="POST"
+                                        th:action="'/makeOffer/'+${post.id}" style="display: none;">
 
-                                <div class="row">                      
-                                    <div class="form-group col-md-6">
-                                      Weight &nbsp; <input style="width: 80px;display: -webkit-inline-box;" class="form-control" type="number" id="weight" name="weight" min="1" max="10" value="1">
-                                    </div>
-                                      </div>
+                                        <div class="form-group">
+                                            <label for="body"><textarea class="form-group" id="body" cols="35" rows="10"
+                                                    name="body" type="text"
+                                                    placeholder="Describe your service/product ..."
+                                                    required></textarea></label><br>
+                                        </div>
 
-                                      <br>
-                                <input class="btn btn-success" type="submit" value="Add Offer">
-
-                            </form>
-
-                            <form style="display:none;" th:id="'make-exchange-form'+${post.id}"
-                                th:action="'/exchange/'+${post.id}" method="POST">
-                                <div th:each="innerpost :${posts}"
-                                    th:if="${innerpost.user.id == loggedInUser.id && !(innerpost.isThereOfferOf(post) && post.receivedOffers.contains(innerpost))}">
-                                    <div th:if='${innerpost.offerType == "general" && innerpost.isAvailable()}'>
-
+                                        <div class="form-group">
+                                            <label for="category">Category: </label>
+                                            <select style="width: 97%;" class="form-group" name="category" id="category"
+                                                required>
+                                                <option value="education">Education</option>
+                                                <option value="instructor">Instructor</option>
+                                                <option value="tutoring">Tutoring</option>
+                                                <option value="computer ">Computer </option>
+                                                <option value="video">Video</option>
+                                                <option value="copywriting">Copywriting</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
 
                                         <br>
-                                        <div>
-                                            <h4><img style="width: 45px;margin-right: 15px;" th:src="${post.user.image}"><span th:text="${post.user.username}"></span></h4>
+                                        <div class="row">
+                                            <p>Type:</p>
+                                            <div class="form-group col-md-6">
+                                                Service &nbsp;<input type="radio" id="service" name="type"
+                                                    value="service" checked>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                Product &nbsp;<input type="radio" id="product" name="type"
+                                                    value="product">
+                                            </div>
                                         </div>
-                                        <p class="text-success">Category: &nbsp;<span class="text-secondary" th:text="${post.category}"></span></p>
-                                        <p class="text-success">Type: &nbsp;<span class="text-secondary" th:text="${post.type}"></span></p>
-                                        <p class="p-2 border border-primary"><span class="text-secondary" th:text="${post.body}"></span></p>
-                                        <p class="text-success">Weight : &nbsp;<span class="text-secondary" th:text="${post.weight}"></span></p>
-                                        <p><span class="text-secondary" th:text="${post.createdAt}"></span></p>
-                                        <!-- <h2>User: <span th:text="${innerpost.user.username}"></span></h2>
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                Weight &nbsp; <input style="width: 80px;display: -webkit-inline-box;"
+                                                    class="form-control" type="number" id="weight" name="weight" min="1"
+                                                    max="10" value="1">
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                        <input class="btn btn-primary" type="submit" value="Add Offer">
+
+                                    </form>
+
+                                    <form style="display:none;" th:id="'make-exchange-form'+${post.id}"
+                                        th:action="'/exchange/'+${post.id}" method="POST">
+                                        <div th:each="innerpost :${posts}"
+                                            th:if="${innerpost.user.id == loggedInUser.id && !(innerpost.isThereOfferOf(post) && post.receivedOffers.contains(innerpost))}">
+                                            <div th:if='${innerpost.offerType == "general" && innerpost.isAvailable()}'>
+
+
+                                                <br>
+                                                <div>
+                                                    <h4><img style="width: 45px;margin-right: 15px;"
+                                                            th:src="${post.user.image}"><span
+                                                            th:text="${post.user.username}"></span></h4>
+                                                </div>
+                                                <p class="custom-text">Category: &nbsp;<span class="text-secondary"
+                                                        th:text="${post.category}"></span></p>
+                                                <p class="custom-text">Type: &nbsp;<span class="text-secondary"
+                                                        th:text="${post.type}"></span></p>
+                                                <p class="p-2 border border-primary"><span class="text-secondary"
+                                                        th:text="${post.body}"></span></p>
+                                                <p class="custom-text">Weight : &nbsp;<span class="text-secondary"
+                                                        th:text="${post.weight}"></span></p>
+                                                <p><span class="text-secondary" th:text="${post.createdAt}"></span></p>
+                                                <!-- <h2>User: <span th:text="${innerpost.user.username}"></span></h2>
                                         <p class="body"><span th:text="${innerpost.category}"></span></p>
                                         <p class="body"><span th:text="${innerpost.type}"></span></p>
                                         <p class="body"><span th:text="${innerpost.body}"></span></p>
                                         <p class="body"><span th:text="${innerpost.weight}"></span></p>
                                         <p class="body"><span th:text="${innerpost.createdAt}"></span></p> -->
-                                        <input type="radio" id="exchangepost" name="exhcangethispost"
-                                            th:value="${innerpost.id}">
-                                        <label for="exchangepost">Select post</label>
-                                        <hr>
-                                    </div>
+                                                <input type="radio" id="exchangepost" name="exhcangethispost"
+                                                    th:value="${innerpost.id}">
+                                                <label for="exchangepost">Select post</label>
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-primary" id="exchange">Exchange</button>
+
+                                    </form>
+
+
                                 </div>
 
-                                <button class="btn btn-success" id="exchange">Exchange</button>
-
-                            </form>
-
+                            </div>
 
                         </div>
-
                     </div>
-
                 </div>
-                </div>
-            </div>
 
         </section>
         <!-- End Contact Section -->
@@ -205,9 +237,13 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-        <div class="container footer-bottom clearfix">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Tabadol</span></strong>. All Rights Reserved
+        <div class="container footer-bottom clearfix" style="display: flex; justify-content: center;">
+            <div class="copyright" style="text-align: center;">
+                <p>
+                    &copy; Copyright <strong> <span> Tabadol</span> </strong>. All Rights Reserved
+                </p>
+            </div>
+            <div class="credits">
             </div>
         </div>
     </footer><!-- End Footer -->
