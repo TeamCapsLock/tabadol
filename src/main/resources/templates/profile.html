@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta name="viewport"
@@ -39,6 +39,264 @@
 
 <body>
 
+    <style>
+       * {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+
+
+.upper-card,
+.lower-card{
+  padding: 0 40px;
+}
+.user-detail-container {
+    width: 100%;
+  background: #eee;
+  display: flex;
+  align-items: flex-start;
+}
+
+
+.user-detail {
+padding: 20px;
+width: 70%; 
+}
+
+.card{
+    background-color: #449ccc78;
+}
+.user-detail .card {
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+  border: 0;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.user-detail .card .card-body {
+  padding: 0;
+}
+.user-detail .card .card-img-top {
+  width: 100%;
+  text-align: center;
+}
+
+.user-detail .card .card-img-top img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.user-detail .user-profile-card {
+  text-align: center;
+}
+
+.parent-container {
+  padding: 0 0 0 20px;
+  width: 100%;
+}
+
+.user-detail .user-profile-card h3 {
+  margin: 5px 0;
+}
+
+.user-detail .user-detail-card span {
+  font-size: 18px;
+  color: var(--primary);
+  font-weight: 300;
+}
+
+.faq {
+  list-style: none;
+  padding-left: 40px;
+  margin-right: 40px;
+}
+.faq li {
+  border-bottom: 1px solid #999999;
+  margin-bottom: 15px;
+}
+.faq li.active .answer {
+  max-height: 100% !important;
+  padding-bottom: 25px;
+  transition: max-height 0.5s ease, padding-bottom 0.5s ease;
+}
+.faq li.active .question {
+  color: #333;
+  transition: color 0.5s ease;
+}
+.faq .answer {
+  color: #090909;
+  font-family: serif;
+  font-size: 16px;
+  line-height: 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding-bottom 0.5s ease;
+}
+.faq .plus-minus-toggle {
+  cursor: pointer;
+  height: 21px;
+  position: absolute;
+  width: 21px;
+  left: -30px;
+  top: 50%;
+  z-index: 2;
+}
+.faq .plus-minus-toggle:before, .faq .plus-minus-toggle:after {
+  background: #333;
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 15px;
+  transition: transform 500ms ease;
+}
+.faq .plus-minus-toggle:after {
+  transform-origin: center;
+}
+.faq .plus-minus-toggle.collapsed:after {
+  transform: rotate(90deg);
+}
+.faq .plus-minus-toggle.collapsed:before {
+  transform: rotate(180deg);
+}
+.faq .question {
+  color: #333;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  padding: 10px 0;
+  transition: color 0.5s ease;
+}
+@media screen and (max-width: 767px) {
+  .faq .question {
+    font-size: 18px;
+  }
+}
+
+.answer .list-title {
+  font-weight: bold;
+  color: var(--primary);
+  padding: 0;
+  margin-bottom: 2px;
+}
+
+.answer .img-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.answer .img-gallery img {
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  object-fit: cover;
+}
+
+:root {
+      --small-green-circle: #78eea6;
+      --main-accent-color: #449ccc;
+    --secondary-accent-color: #37517e;
+    }
+
+button {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+      overflow: visible;
+      -webkit-appearance: button;
+    }
+
+    .followcont{
+        display: flex;
+        flex-wrap: nowrap;
+    justify-content: space-evenly;
+    color: whitesmoke;
+    }
+
+    .secondsection{
+        display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 6.5%;
+    }
+
+    .vl {
+        border-left: 6px solid #37517e;
+    height: 450px;
+    margin-right: 4%;
+    margin-top: 7%;
+    margin-bottom: 5%;
+}
+
+
+.btn0{
+    border-radius: 15px !important;
+    font-size: larger;
+    background-color: #449ccc78;
+    margin: 4%;
+    padding: 10px;
+    width: 110%;
+    /* font-size: small; */
+}
+ 
+.btn1{
+    border-radius: 15px !important;
+    font-size: larger;
+    background-color: #449ccc78;
+    margin: 4%;
+    padding: 10px;
+    width: 149%;
+ 
+}
+
+.btn2{
+    border-radius: 15px !important;
+    font-size: larger;
+   
+    margin: 4%;
+    padding: 10px;
+    width: 110%;
+    /* font-size: small; */
+}
+
+.btn3{
+    border-radius: 15px !important;
+    font-size: larger;
+   
+    margin: -7%;
+    margin-bottom: 3%;
+    padding: 10px;
+    width: 149%;
+    background-color: #37517e;
+
+}
+
+.btn-form-input{
+  color: white;
+  background-color: #47b2e4;
+  border: 0px;
+  width: 100px;
+  height: 40px;
+  border-radius: 25px!important;
+}
+    
+
+
+
+
+    </style>
+
     <!-- ======= Header ======= -->
     <header id="header" style="background-color: #37517e;" class="fixed-top ">
         <div class="container d-flex align-items-center">
@@ -61,90 +319,36 @@
 
         </div>
     </header><!-- End Header -->
-
-
     <br><br><br>
-    <!-- <main id="main">
+    
+      <!-- ======= Header ======= -->
+      <header id="header" style="background-color: #37517e;" class="fixed-top ">
+        <div class="container d-flex align-items-center">
 
-        <div class="cont">
+            <h1 class="logo me-auto"><a href="/">Tabadol</a></h1>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/posts">Tabadol</a></li>
+                    <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/signup">SignUp</a></li>
+                    <li th:if="${loggedInUser == null}"><a class="nav-link scrollto" href="/login">Login</a></li>
+                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/myprofile">My Profile</a>
+                    </li>
+                    <li th:if="${loggedInUser != null}"><a class="nav-link scrollto" href="/perform_logout">Logout</a>
+                    </li>
+                    <li><a class="nav-link scrollto" href="/">About Us</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
 
-
-            <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
-                th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
-                <input id="button_follow" type="submit" value="Follow">
-            </form>
-    
-            <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
-                th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}+'&_method=DELETE'">
-                <input id="button_unfollow" type="submit" value="unFollow">
-            </form>
-    
-    
-            <div th:if="${user != null}">
-    
-                <h2>Rating: <span th:text="${user.rating}"></span></h2>
-                <h3>This is <span th:text=${user.username}></span>'s page</h3>
-                <p>Profile picture: </p>
-                <p><a th:href="'/followinglist/'+${user.username}">Following:</a> <span
-                        th:text=${user.numberOfPeopleIfollow()}></span></p>
-                <p><a th:href="'/followerslist/'+${user.username}">Followers:</a> <span
-                        th:text=${user.getNumberOfFollowers()}></span></p>
-                <img th:src=${user.image} alt="user's image" width="100" height="100" id="profile-image">
-                <p>Username: <span th:text=${user.username}></span></p>
-                <p>First Name: <span th:text=${user.firstname}></span></p>
-                <p>Last Name: <span th:text=${user.lastname}></span></p>
-                <p>E-mail: <span th:text=${user.email}></span></p>
-                <p>Phone Number: <span th:text=${user.phone}></span></p>
-                <p>Skills: <span th:text=${user.skills}></span></p>
-                <p>Bio: <span th:text=${user.bio}></span></p>
-    
-                <button th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
-                <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
-                    <button>Received Offers</button>
-                </form>
-                <form th:if="${user.id == loggedInUser.id}" th:action=@{/sentoffers} method="GET">
-                    <button>Sent Offers</button>
-                </form>
-                <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
-                    <button>Accepted Offers</button>
-                </form>
-    
-                <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method=put'" method="post" id="edit-profile-form">
-                    <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
-                            type="text"></label>
-                    <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
-                    <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
-                    <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
-                    <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
-                    <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
-                            id="image_url"></label>
-                    <button type="submit">Update</button>
-                </form>
-    
-                <form th:if="${ (user.id != loggedInUser.id) && (!loggedInUser.didRateTheUser(user)) }" th:action="'/rate/'+${user.username}" method="post">
-                    <label>Rate User</label>
-                    <input type="number" max="5" min="0" value="5" name="sumOfTotalRates">
-                    <button>Rate</button>
-                </form>
-            -->
-               
-    
-    
-    
-    
-    <!--
-            </div>
-    
-            <div th:unless="${user != null}">
-                <h2>Ooops, User Id Is Not Exist..</h2>
-            </div>
         </div>
+    </header><!-- End Header -->
+
+
+
     
 
-
-    </main> -->
-    <!-- End #main -->
-
+<!-- 
     <div class="container mt-5 d-flex justify-content-center">
         <div class="card p-4 mt-3">
             <div class="first">
@@ -165,16 +369,16 @@
             <div class="second d-flex flex-row mt-2">
                 <div class="image mr-3"> <img th:src=${user.image} class="shadow p-1 mb-5 .bg-secondary rounded rounded-circle" width="200" /> </div>
                 <div class="">
-                    <!-- <div class="d-flex flex-row mb-1"> <span>@hairtaje</span>
+                    <div class="d-flex flex-row mb-1"> <span>@hairtaje</span>
                         <div class="ratings ml-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
                     </div> -->
                     <!-- <div> <button class="btn btn-outline-dark btn-sm px-2">+ follow</button> <button class="btn btn-outline-dark btn-sm">See Profile</button> <button class="btn btn-outline-dark btn-sm"><i class="fa fa-comment-o"></i></button> </div> -->
-                </div>
+                <!-- </div>
             </div>
-            <hr>
+            <hr> --> 
 
-            <button class="btn btn-primary m-2" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
-            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id} + '?_method=put'" method="post" id="edit-profile-form">
+            <!-- <button class="btn btn-primary m-2" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
                 <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
                         type="text"></label>
                 <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
@@ -185,10 +389,10 @@
                         id="image_url"></label>
                 <button class="btn btn-success" type="submit">Update</button>
                 <hr>
-            </form>
+            </form> -->
 
 
-
+<!-- 
             <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
                 <button class="btn btn-success m-2">Received Offers</button>
@@ -199,17 +403,17 @@
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
                 <button class="btn btn-success m-2">Accepted Offers</button>
             </form>
-            </div>
+            </div> -->
 
-            <hr class="line-color">
-            <!-- <h6>48 comments</h6> -->
+            <!-- <hr class="line-color">
+          
             <h6><a style="color:green;" th:href="'/followinglist/'+${user.username}">Following:</a> <span
                 th:text=${user.numberOfPeopleIfollow()}></span></h6>
             <h6><a  style="color:green;" th:href="'/followerslist/'+${user.username}">Followers:</a> <span
-                th:text=${user.getNumberOfFollowers()}></span></h6>
+                th:text=${user.getNumberOfFollowers()}></span></h6> -->
 
 
-            <div class="third mt-4"> 
+            <!-- <div class="third mt-4"> 
                 <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
                 th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
                 <input class="btn btn-success" id="button_follow" type="submit" value="Follow">
@@ -226,14 +430,14 @@
                 <button class="btn btn-success" >Rate</button>
             </form>
 
-            </div>
+            </div> -->
         </div>
     </div>
     </div>
 
     <br><br><br><br>
 
-    <div th:each="post :${posts}">
+    <!-- <div th:each="post :${posts}">
         <div th:if='${post.offerType == "general" && post.isAvailable()}'>
             <div>
                 <img src="">
@@ -290,7 +494,230 @@
             </div>
         </div>
 
+    </div> -->
+
+
+
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+    <div class="trail">
+        <div class="user-detail-container">
+
+                <div class="user-detail">
+                    <div class="firstsection">
+
+                  <div class="upper-card">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card user-profile-card" data-mh="card-one">
+                        <div class="card-img-top">
+                          <img th:src=${user.image} alt="">
+                        </div>
+                        <div class="card-body">
+                          <h3><span th:text=${user.username}></h3>
+                            <h4><span th:text="${user.rating}"></span>&nbsp;<i class="bi bi-star-fill"></i></h4>
+                            <div class="followcont">
+                            <h5><a style="color:#37517e;" th:href="'/followinglist/'+${user.username}">Following:</a> <span
+                                th:text=${user.numberOfPeopleIfollow()}></span></h5>
+                            <h5><a  style="color:#37517e;" th:href="'/followerslist/'+${user.username}">Followers:</a> <span
+                                th:text=${user.getNumberOfFollowers()}></span></h5>
+                            </div>
+                            
+                            
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card user-detail-card" data-mh="card-one">
+                          <p> First Name:<span th:text=${user.firstname}></span></p>
+                        <p>Last Name: <span th:text=${user.lastname}></span></p>
+                        <p>Email: <span th:text=${user.email}></span></p>
+                        <p>Phone: <span th:text=${user.phone}></span></p>
+                        <p><span>Skills: <span th:text=${user.skills}></p>
+                            <p>Bio: <span th:text=${user.bio}></span></p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  <div class="lower-card">
+                      <div class="card">
+                        <div class="box">
+                            <!-- User Detail -->
+                            <div class="parent-container">
+                              <ul class="faq">
+                                <li class="postdiv" th:each="post :${posts}" th:if='${post.offerType == "general" && post.isAvailable()}'>
+                                  <h3 class="question">
+                                    <span th:text="${post.category}"></span>
+                                    <div class="plus-minus-toggle collapsed"></div>
+                                  </h3>
+                                  <div class="answer">
+                                     <p class="list-title">Post(<span th:text="${post.id}"></span>)</p>
+                                    <p style="margin: 12px;"><span th:text="${post.body}"></span></p>
+                                    <span class="list-title">Type: </span>
+                                    <p><span th:text="${post.type}"></span></p>
+                                    <span class="list-title">Weight:</span>
+                                    <p><span th:text="${post.weight}"></span></p>
+                                    <span class="list-title">Created At:</span>
+                                    <p><span th:text="${post.createdAt}"></p>
+
+                                       
+                           
+                                        <button th:if="${user.id == loggedInUser.id}" id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
+                                        <div th:if="${user.id == loggedInUser.id}">
+                                            <form th:action="'/delete-post/' + ${post.id}" method="POST">
+                                                <button id="delete-btn">Delete</button>
+                                            </form>
+                            
+                            
+                                            <form th:action="'/edit-post/' + ${post.id}" method="post" th:id=${post.id}
+                                                class="edit-form">
+                                                <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
+                                                        placeholder="Describe your service ..." required
+                                                        th:text=${post.body}></textarea></label><br>
+                            
+                                                <label for="category">Category: </label>
+                                                <select name="category" id="category" required>
+                                                    <option value="education">Education</option>
+                                                    <option value="instructor">Instructor</option>
+                                                    <option value="tutoring">Tutoring</option>
+                                                    <option value="computer ">Computer </option>
+                                                    <option value="video">Video</option>
+                                                    <option value="copywriting">Copywriting</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                            
+                            
+                                                <p>Type:</p>
+                                                <input type="radio" id="service" name="type" value="service" checked>
+                                                <label for="service">Service</label>
+                            
+                                                <input type="radio" id="product" name="type" value="product">
+                                                <label for="product">Product</label><br>
+                            
+                                                <label for="status">Available?</label><br>
+                                                <input type="checkbox" id="status" name="status" value="true" checked>
+                            
+                                                <label for="weight">Weight</label>
+                                                <input type="number" id="weight" name="weight" min="1" max="10" th:value=${post.weight}><br>
+                            
+                                                <button  type="submit">Save Edits</button>
+                            
+                                            </form>
+                                        </div>
+
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+
+
+
+                    </div>
+                    <div class="vl"></div>
+
+                    <div class="secondsection">
+
+
+                        <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                            <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
+                                <button class="btn0">Received Offers</button>
+                            </form>
+                        </div>
+
+                        <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                            <form th:if="${user.id == loggedInUser.id}" th:action=@{/sentoffers} method="GET">
+                                <button class="btn1">Sent Offers</button>
+                            </form>
+                        </div>
+
+
+                            <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                            <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
+                                <button class="btn0">Accepted Offers</button>
+                            </form>
+                        </div>
+
+                        
+                        <div class="btn">
+                          <button class="btn3" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+                          <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
+                              <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
+                                      type="text"></label>
+                              <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
+                              <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
+                              <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
+                              <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
+                              <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
+                                      id="image_url"></label>
+                              <button class="btn2" type="submit">Update</button>
+                              <hr>
+                          </form>
+                      </div>
+                           
+    
+                    </div>
+            </div>
+
+        <div class="btns">
+
+           
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
+                    <button class="btn btn-success m-2">Received Offers</button>
+                </form>
+                <form th:if="${user.id == loggedInUser.id}" th:action=@{/sentoffers} method="GET">
+                    <button class="btn btn-success m-2">Sent Offers</button>
+                </form>
+                <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
+                    <button class="btn btn-success m-2">Accepted Offers</button>
+                </form>
+                </div> -->
+
+
+                
+
+
+
+
+
+
+            <!-- ///////////////////// -->
+            <!-- <button class="btn btn-primary m-2" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+            <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
+                <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
+                        type="text"></label>
+                <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
+                <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
+                <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
+                <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
+                <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
+                        id="image_url"></label>
+                <button class="btn btn-success" type="submit">Update</button>
+                <hr>
+            </form> -->
+
+        </div>
     </div>
+
+    
+
 
 
     
@@ -320,6 +747,22 @@
 
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
+
+
+
+
+
+
+   
+
+
+<script>
+    // Toggle Collapse
+$('.faq li .question').click(function () {
+  $(this).find('.plus-minus-toggle').toggleClass('collapsed');
+  $(this).parent().toggleClass('active');
+});
+</script>
 
 
 </body>
