@@ -6,6 +6,9 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marck+Script">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rakkas">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
@@ -18,82 +21,85 @@
 
 <body>
 
+    <header th:replace="../static/fragments/fragment.html :: header"> </header>
+
 
     <div class="offerMargin-bottom"></div>
-
-    <div th:each="post :${posts}" class="offerMain">
-        <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}" class="contOfCont">
-            <div class="offerContainer">
-                <div class="offerLogo flexRowItem1"><img
-                        src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
-                </div>
-                <div class="flexRowItem2">
-                    <h1 class="offers">
-                        <a th:href="'/profile/'+${offer.user.id}">
-                            <span th:text="${offer.user.firstname}"></span>
-                            <span th:text="${offer.user.lastname}"></span>
-                        </a>
-                    </h1>
-                    <h3 class="offers">Category: <span th:text="${offer.category}"></span>
-                        <span class="offerType">Type: <span th:text="${offer.type}"></span></span>
-                    </h3>
-                    <div class="line"></div>
-                    <p class="bio">
-                        <span th:text="${offer.body}"></span>
-                    </p>
-                    <div class="line"></div>
-                    <div class="spaceBetween">
-                        <p class="createdAt"><span th:text="${offer.createdAt}"></span></p>
-                        <p class="weight">Weight: <span th:text="${offer.weight}"></span></p>
+    <main>
+        <div th:each="post :${posts}" class="offerMain">
+            <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}" class="contOfCont">
+                <div class="offerContainer">
+                    <div class="offerLogo flexRowItem1"><img
+                            src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
+                    </div>
+                    <div class="flexRowItem2">
+                        <h1 class="offers">
+                            <a th:href="'/profile/'+${offer.user.id}">
+                                <span th:text="${offer.user.firstname}"></span>
+                                <span th:text="${offer.user.lastname}"></span>
+                            </a>
+                        </h1>
+                        <h3 class="offers">Category: <span th:text="${offer.category}"></span>
+                            <span class="offerType">Type: <span th:text="${offer.type}"></span></span>
+                        </h3>
+                        <div class="line"></div>
+                        <p class="bio">
+                            <span th:text="${offer.body}"></span>
+                        </p>
+                        <div class="line"></div>
+                        <div class="spaceBetween">
+                            <p class="createdAt"><span th:text="${offer.createdAt}"></span></p>
+                            <p class="weight">Weight: <span th:text="${offer.weight}"></span></p>
+                        </div>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-                <div class="arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </div>
-
-
-            <div class="offerContainer">
-                <div class="offerLogo flexRowItem1"><img
-                        src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
-                </div>
-                <div class="flexRowItem2">
-                    <h1 class="offers">
-                        <a th:href="'/profile/'+${post.user.id}">
-                            <span th:text="${post.user.firstname}"></span>
-                            <span th:text="${post.user.lastname}"></span>
-                        </a>
-                    </h1>
-                    <h3 class="offers">Category: <span th:text="${post.category}"></span>
-                        <span class="postType">Type: <span th:text="${post.type}"></span></span>
-                    </h3>
-                    <div class="line"></div>
-                    <p class="bio">
-                        <span th:text="${post.body}"></span>
-                    </p>
-                    <div class="line"></div>
-                    <div class="spaceBetween">
-                        <p class="createdAt"><span th:text="${post.createdAt}"></span></p>
-                        <p class="weight">Weight: <span th:text="${post.weight}"></span></p>
+    
+    
+                <div class="offerContainer">
+                    <div class="offerLogo flexRowItem1"><img
+                            src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
+                    </div>
+                    <div class="flexRowItem2">
+                        <h1 class="offers">
+                            <a th:href="'/profile/'+${post.user.id}">
+                                <span th:text="${post.user.firstname}"></span>
+                                <span th:text="${post.user.lastname}"></span>
+                            </a>
+                        </h1>
+                        <h3 class="offers">Category: <span th:text="${post.category}"></span>
+                            <span class="postType">Type: <span th:text="${post.type}"></span></span>
+                        </h3>
+                        <div class="line"></div>
+                        <p class="bio">
+                            <span th:text="${post.body}"></span>
+                        </p>
+                        <div class="line"></div>
+                        <div class="spaceBetween">
+                            <p class="createdAt"><span th:text="${post.createdAt}"></span></p>
+                            <p class="weight">Weight: <span th:text="${post.weight}"></span></p>
+                        </div>
                     </div>
                 </div>
+                <div class="offersButtonContainer">
+                    <form action="/acceptoffer" method="post">
+                        <input type="hidden" name="source_id" th:value="${offer.id}">
+                        <input type="hidden" name="destination_id" th:value="${post.id}">
+                        <button class="accept">Accept</button>
+                    </form>
+                    <form action="/declineoffer" method="post">
+                        <input type="hidden" name="source_id" th:value="${offer.id}">
+                        <input type="hidden" name="destination_id" th:value="${post.id}">
+                        <button class="decline">Decline</button>
+                    </form>
+                </div>
+    
             </div>
-            <div class="offersButtonContainer">
-                <form action="/acceptoffer" method="post">
-                    <input type="hidden" name="source_id" th:value="${offer.id}">
-                    <input type="hidden" name="destination_id" th:value="${post.id}">
-                    <button class="accept">Accept</button>
-                </form>
-                <form action="/declineoffer" method="post">
-                    <input type="hidden" name="source_id" th:value="${offer.id}">
-                    <input type="hidden" name="destination_id" th:value="${post.id}">
-                    <button class="decline">Decline</button>
-                </form>
-            </div>
-
         </div>
-    </div>
-
+    </main>
+    <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
 
 </body>
 

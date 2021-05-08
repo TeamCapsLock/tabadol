@@ -2,11 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Following Users' Profiles</title>
-</head>
-
-<body>
+  <meta charset="UTF-8">
+  <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
 
   <style>
     html {
@@ -27,15 +24,15 @@
     --secondary-accent-color: #37517e;
     }
 
-    a {
+    a.allusers {
       background-color: transparent;
     }
 
-    img {
+    img.allusers{
       border-style: none;
     }
 
-    button {
+    button.allusers {
       font-family: inherit;
       font-size: 100%;
       line-height: 1.15;
@@ -44,13 +41,13 @@
       -webkit-appearance: button;
     }
 
-    button::-moz-focus-inner,
+    button.allusers::-moz-focus-inner,
     [type="button"]::-moz-focus-inner {
       border-style: none;
       padding: 0;
     }
 
-    body {
+    body.allusers {
       margin: 0;
       background: #e6b2c6;
       /* background: -webkit-linear-gradient(to right, #e6b2c6, #d6e5fa); */
@@ -59,10 +56,10 @@
       font-family: "Lato", sans-serif;
       font-weight: normal;
       /* background-repeat: no-repeat; */
-      height: 100vh;
+      min-height: 100vh;
     }
 
-    .container {
+    .all_users_container {  
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -73,7 +70,7 @@
       text-align: center;
     }
 
-    .card {
+    .all_users_card {  
       padding: 1em;
       border-radius: 0.8em;
       background-color: #fefefe;
@@ -86,7 +83,7 @@
       width: 35%;
     }
 
-    .card:after {
+    .all_users_card:after { 
       content: "";
       position: absolute;
       width: 15px;
@@ -187,12 +184,12 @@
     }
 
     @media (min-width: 425px) {
-      .card {
+      .all_users_card { 
         padding: 3em;
         margin: 1em;
       }
 
-      .card:after {
+      .all_users_card:after {
         top: 50px;
         right: 160px;
       }
@@ -205,82 +202,88 @@
         padding: 0.9em 1.8em;
       }
 
-      a{
+      a.allusers{
         text-decoration: none;
         
       }
-      a:visited{
+      a.allusers:visited{
         color: #449ccc;
       }
 
-      a:active{
+      a.allusers:active{
         color:  #449ccc;
       }
     }
   </style>
+  <title>Following Users' Profiles</title>
+</head>
 
-    <main class="container">
-        <div class="card" th:each="user : ${users}" th:if="${myUsername != user.username}">
-            <img th:src=${user.image} alt="user's image" class="card__image"
-                width="100" height="100" />
+<body class="allusers">
 
+  <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
-            <div class="card__text">
-                <h2>Username:<span th:text=${user.username}></span></h2>
-
-                <p>Bio: <span th:text=${user.bio}></span></p>
-            </div>
+  <main class="all_users_container">
+    <div class="all_users_card" th:each="user : ${users}" th:if="${myUsername != user.username}">
+      <img th:src=${user.image} alt="user's image" class="allusers card__image" width="100" height="100" />
 
 
+      <div class="card__text">
+        <h2>Username:<span th:text=${user.username}></span></h2>
 
-            <ul class="card__info">
-                <li>
-                    <span class="card__info__stats"><span th:text="${user.rating}"></span></span>
-                    <span>Rating</span>
-                </li>
-                <li>
-                    <span class="card__info__stats"><span th:text=${user.getNumberOfFollowers()}></span></span>
-                    <span><a th:href="'/followerslist/'+${user.username}">Followers</a></span>
-                </li>
-                <li>
-                    <span class="card__info__stats"><span th:text=${user.numberOfPeopleIfollow()}></span></span>
-                    <span><a th:href="'/followinglist/'+${user.username}">Following</a></span>
-                </li>
-            </ul>
+        <p>Bio: <span th:text=${user.bio}></span></p>
+      </div>
 
 
-            <div class="card__action">
-                <a th:href="'/profile/'+${user.id}"><button class="card__action__button card__action--follow">View Profile</button></a>
-               
-                <div th:if="${loggedInUser.username != user.username}">
-                    <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST"
-                        th:action="'/follow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
-                        
-                        <button class="card__action__button card__action--follow" id="button_follow" type="submit"
-                value="Follow">Follow</button>
-                        
-                    </form>
-    
-                    <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
-                        th:action="'/unfollow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
-                        
-                        <button class="card__action__button card__action--message" id="button_unfollow" type="submit"
-                value="unFollow">unFollow</button>
 
-                        
-                    </form>
-                </div>
+      <ul class="card__info">
+        <li>
+          <span class="card__info__stats"><span th:text="${user.rating}"></span></span>
+          <span>Rating</span>
+        </li>
+        <li>
+          <span class="card__info__stats"><span th:text=${user.getNumberOfFollowers()}></span></span>
+          <span><a class="allusers" th:href="'/followerslist/'+${user.username}">Followers</a></span>
+        </li>
+        <li>
+          <span class="card__info__stats"><span th:text=${user.numberOfPeopleIfollow()}></span></span>
+          <span><a class="allusers" th:href="'/followinglist/'+${user.username}">Following</a></span>
+        </li>
+      </ul>
 
-               
-               
-               
-               
-            </div>
+
+      <div class="card__action">
+        <a class="allusers" th:href="'/profile/'+${user.id}"><button class="allusers card__action__button card__action--follow ">View
+            Profile</button></a>
+
+        <div th:if="${loggedInUser.username != user.username}">
+          <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST"
+            th:action="'/follow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
+
+            <button class="allusers card__action__button card__action--follow" id="button_follow" type="submit"
+              value="Follow">Follow</button>
+
+          </form>
+
+          <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
+            th:action="'/unfollow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
+
+            <button class="allusers card__action__button card__action--message" id="button_unfollow" type="submit"
+              value="unFollow">unFollow</button>
+
+
+          </form>
         </div>
-    </main>
 
 
-<!-- 
+
+
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- 
     <div class="cont">
 
         <div th:each="user : ${users}">
@@ -307,8 +310,8 @@
 
     </div> -->
 
-    
 
+  <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
 
 
 

@@ -3,10 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>All Profile</title>
-</head>
 
-<body>
+  <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
   <style>
     html {
       line-height: 1.15;
@@ -26,15 +24,15 @@
     --secondary-accent-color: #37517e;
     }
 
-    a {
+    a.allusers {
       background-color: transparent;
     }
 
-    img {
+    img.allusers{
       border-style: none;
     }
 
-    button {
+    button.allusers {
       font-family: inherit;
       font-size: 100%;
       line-height: 1.15;
@@ -43,13 +41,13 @@
       -webkit-appearance: button;
     }
 
-    button::-moz-focus-inner,
+    button.allusers::-moz-focus-inner,
     [type="button"]::-moz-focus-inner {
       border-style: none;
       padding: 0;
     }
 
-    body {
+    body.allusers {
       margin: 0;
       background: #e6b2c6;
       /* background: -webkit-linear-gradient(to right, #e6b2c6, #d6e5fa); */
@@ -58,10 +56,10 @@
       font-family: "Lato", sans-serif;
       font-weight: normal;
       /* background-repeat: no-repeat; */
-      height: 100vh;
+      min-height: 100vh;
     }
 
-    .container {
+    .all_users_container {  
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -72,7 +70,7 @@
       text-align: center;
     }
 
-    .card {
+    .all_users_card {  
       padding: 1em;
       border-radius: 0.8em;
       background-color: #fefefe;
@@ -85,7 +83,7 @@
       width: 35%;
     }
 
-    .card:after {
+    .all_users_card:after { 
       content: "";
       position: absolute;
       width: 15px;
@@ -186,12 +184,12 @@
     }
 
     @media (min-width: 425px) {
-      .card {
+      .all_users_card { 
         padding: 3em;
         margin: 1em;
       }
 
-      .card:after {
+      .all_users_card:after {
         top: 50px;
         right: 160px;
       }
@@ -204,31 +202,38 @@
         padding: 0.9em 1.8em;
       }
 
-      a{
+      a.allusers{
         text-decoration: none;
         
       }
-      a:visited{
+      a.allusers:visited{
         color: #449ccc;
       }
 
-      a:active{
+      a.allusers:active{
         color:  #449ccc;
       }
     }
   </style>
+  
+  <title>All Profile</title>
+  
+</head>
+
+<body class="allusers">
+
+  <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
 
+  <main class="allusers" style="width:100%; min-height: 100vh; margin-bottom: 500px; margin-top: 100px;">
+
+    <div class="all_users_container">
 
 
-  <main>
-    <div class="container">
-
-
-      <div class="card" th:each="user : ${users}" th:if="${myUsername != user.username}">
+      <div class="all_users_card" th:each="user : ${users}" th:if="${myUsername != user.username}">
         <div th:if="${myUsername != user.username}">
 
-          <img th:src=${user.image} alt="user's image" class="card__image" width="100" height="100" id="profile-image">
+          <img  th:src=${user.image} alt="user's image" class="card__image allusers" width="100" height="100" id="profile-image">
 
           <div class="card__text">
             <h2>Username: <span th:text=${user.username}></span></h2>
@@ -245,11 +250,11 @@
             </li>
             <li>
               <span class="card__info__stats"><span th:text=${user.getNumberOfFollowers()}></span>
-                <a th:href="'/followerslist/'+${user.username}">Followers</a>
+                <a class="allusers" th:href="'/followerslist/'+${user.username}">Followers</a>
             </li>
             <li>
               <span class="card__info__stats"><span th:text=${user.numberOfPeopleIfollow()}></span></span>
-              <span><a th:href="'/followinglist/'+${user.username}">Following</a></span>
+              <span><a class="allusers" th:href="'/followinglist/'+${user.username}">Following</a></span>
           </li>
           </ul>
 
@@ -262,7 +267,7 @@
                     </form> -->
 
 
-            <a th:href="'/profile/'+${user.id}"><button class="card__action__button card__action--follow">View
+            <a class="allusers" th:href="'/profile/'+${user.id}"><button class=" allusers card__action__button card__action--follow">View
                 Profile</button></a>
             <!-- <button class="card__action__button card__action--follow"><a th:href="'/profile/'+${user.id}">View Profile</a></button> -->
             <!-- <input class="card__action__button card__action--follow" id="button_viewprofile" type="submit" value="View Profile"> -->
@@ -274,7 +279,7 @@
             <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST"
               th:action="'/follow/'+${user.username}+'?route=/allUsers'">
 
-              <button class="card__action__button card__action--follow" id="button_follow" type="submit"
+              <button class="card__action__button card__action--follow allusers" id="button_follow" type="submit"
                 value="Follow">Follow</button>
               <!-- <input class="card__action__button card__action--follow" id="button_follow" type="submit" value="Follow"> -->
             </form>
@@ -282,7 +287,7 @@
             <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
               th:action="'/unfollow/'+${user.username}+'?route=/allUsers'">
 
-              <button class="card__action__button card__action--message" id="button_unfollow" type="submit"
+              <button class="card__action__button card__action--message allusers" id="button_unfollow" type="submit"
                 value="unFollow">unFollow</button>
               <!-- <input  class="card__action__button card__action--message" id="button_unfollow" type="submit" value="unFollow"> -->
 
@@ -298,6 +303,9 @@
 
 
   </main>
+  
+  <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
+
 </body>
 
 </html>

@@ -42,6 +42,7 @@ public class OffersController {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
         m.addAttribute("posts", posts);
+        m.addAttribute("loggedInUser", loggedInUser);
 
         return "myOffers";
     }
@@ -51,6 +52,7 @@ public class OffersController {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
         m.addAttribute("posts", posts);
+        m.addAttribute("loggedInUser", loggedInUser);
         return "sentOffers";
     }
 
@@ -59,8 +61,7 @@ public class OffersController {
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
         m.addAttribute("posts", posts);
-
-
+        m.addAttribute("loggedInUser", loggedInUser);
 
         return "acceptedOffers";
     }
