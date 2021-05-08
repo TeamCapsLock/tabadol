@@ -291,7 +291,11 @@ button {
   border-radius: 25px!important;
 }
     
-
+.inputEditProfile{
+  border-radius: 15px;
+    height: 40px;
+    padding: 5px;
+}
 
 
 
@@ -552,7 +556,7 @@ button {
                                     <div class="plus-minus-toggle collapsed"></div>
                                   </h3>
                                   <div class="answer">
-                                     <p class="list-title">Post(<span th:text="${post.id}"></span>)</p>
+                                     <p class="list-title">Post</p>
                                     <p style="margin: 12px;"><span th:text="${post.body}"></span></p>
                                     <span class="list-title">Type: </span>
                                     <p><span th:text="${post.type}"></span></p>
@@ -563,16 +567,16 @@ button {
 
                                        
                            
-                                        <button th:if="${user.id == loggedInUser.id}" id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
+                                        <button style="background-color: #37517e;color: white;" class="btn1 w-25" th:if="${user.id == loggedInUser.id}" id="edit-post-btn" th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
                                         <div th:if="${user.id == loggedInUser.id}">
                                             <form th:action="'/delete-post/' + ${post.id}" method="POST">
-                                                <button id="delete-btn">Delete</button>
+                                                <button style="background-color: #37517e;color: white;" class="btn1 w-25" id="delete-btn">Delete</button>
                                             </form>
                             
                             
                                             <form th:action="'/edit-post/' + ${post.id}" method="post" th:id=${post.id}
-                                                class="edit-form">
-                                                <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text"
+                                                class="edit-form" style="    background-color: #add3e8;width: 320px;padding: 20px;">
+                                                <label for="body">Body: <textarea class="form-control shadow p-3 mb-5 bg-white rounded" id="body" cols="30" rows="10" name="body" type="text"
                                                         placeholder="Describe your service ..." required
                                                         th:text=${post.body}></textarea></label><br>
                             
@@ -588,20 +592,24 @@ button {
                                                 </select>
                             
                             
-                                                <p>Type:</p>
+                                                <br>
+                                                <br>
+                                                <label>Type:</label>
                                                 <input type="radio" id="service" name="type" value="service" checked>
                                                 <label for="service">Service</label>
                             
                                                 <input type="radio" id="product" name="type" value="product">
-                                                <label for="product">Product</label><br>
+                                                <label for="product">Product</label><br><br>
                             
-                                                <label for="status">Available?</label><br>
+                                                <label for="status">Available?</label>
                                                 <input type="checkbox" id="status" name="status" value="true" checked>
                             
+                                                <br><br>
                                                 <label for="weight">Weight</label>
                                                 <input type="number" id="weight" name="weight" min="1" max="10" th:value=${post.weight}><br>
                             
-                                                <button  type="submit">Save Edits</button>
+                                                <br><br>
+                                                <button  class="btn btn-primary" type="submit">Save Edits</button>
                             
                                             </form>
                                         </div>
@@ -637,28 +645,55 @@ button {
                         </div>
 
 
+
+                        <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                          <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
+                          th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
+                          <br><br>
+                          <input class="btn1" id="button_follow" type="submit" value="Follow">
+                      </form>
+              
+                      <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
+                          th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}">
+                          <br><br>
+                          <input class="btn1" id="button_unfollow" type="submit" value="Unfollow">
+                      </form>
+                        </div>
+
+
+                        <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                          <form th:if="${ (user.id != loggedInUser.id) && (!loggedInUser.didRateTheUser(user)) }" th:action="'/rate/'+${user.username}" method="post">
+                            <br>
+                          
+                            <div style="display: flex;">
+                            <label>Rate User</label>
+                              <input style="height: 35px;margin-top: 13px;" type="number" max="5" min="0" value="5" name="sumOfTotalRates">
+                              <button style="width:80px;" class="btn1" >Rate</button>
+                              </div>
+                          </form>
+                          </div>
+
+
                             <div style="display: flex;flex-wrap: wrap;justify-content: center;">
                             <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
                                 <button class="btn0">Accepted Offers</button>
                             </form>
                         </div>
 
-                        
-                        <div class="btn">
-                          <button class="btn3" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button>
+                          <div><button style="background-color: #37517e;color: white;width: 176px;" class="btn0" th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button></div>
+                          
                           <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post" id="edit-profile-form">
-                              <label for="">firstName: <input th:value=${user.firstname} name="firstname" required
-                                      type="text"></label>
-                              <label for="">lastName: <input th:value=${user.lastname} name="lastname" required type="text"></label>
-                              <label for="">Skills: <input th:value=${user.skills} name="skills" required type="text"></label>
-                              <label for="">Bio: <input th:value=${user.bio} name="bio" required type="text"></label>
-                              <label for="">Phone: <input th:value=${user.phone} name="phone" required type="text" id="phone"></label>
-                              <label for="">Image url: <input th:value=${user.image} name="image" required type="text"
-                                      id="image_url"></label>
-                              <button class="btn2" type="submit">Update</button>
+                              <label for="">First Name: <br><input class="inputEditProfile" th:value=${user.firstname} name="firstname" required
+                                      type="text"></label><br>
+                              <label for="">Last Name: <br><input class="inputEditProfile" th:value=${user.lastname} name="lastname" required type="text"></label><br>
+                              <label for="">Skills: <br><input class="inputEditProfile" th:value=${user.skills} name="skills" required type="text"></label><br>
+                              <label for="">Bio: <br><input class="inputEditProfile" th:value=${user.bio} name="bio" required type="text"></label><br>
+                              <label for="">Phone: <br><input class="inputEditProfile"  th:value=${user.phone} name="phone" required type="text" id="phone"></label><br>
+                              <label for="">Image url: <br><input class="inputEditProfile" th:value=${user.image} name="image" required type="text"
+                                      id="image_url"></label><br>
+                              <button class="w-50 btn2" type="submit">Update</button>
                               <hr>
                           </form>
-                      </div>
                            
     
                     </div>
