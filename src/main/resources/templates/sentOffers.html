@@ -83,8 +83,11 @@
                         src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
                 </div>
                 <div class="flexRowItem2">
-                    <h1 class="offers">Mohammad<span th:text="${post.user.firstname}"></span> <span
-                            th:text="${post.user.lastname}"></span>
+                    <h1 class="offers">
+                        <a th:href="'/profile/'+${post.user.id}">
+                            <span th:text="${post.user.firstname}"></span>
+                            <span th:text="${post.user.lastname}"></span>
+                        </a>
                     </h1>
                     <h3 class="offers">Category: <span th:text="${post.category}"></span>
                         <span class="postType">Type: <span th:text="${post.type}"></span></span>
@@ -106,13 +109,18 @@
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </div>
+
+
             <div class="offerContainer">
                 <div class="offerLogo flexRowItem1"><img
                         src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
                 </div>
                 <div class="flexRowItem2">
-                    <h1 class="offers"><span th:text="${offer.user.firstname}"></span> <span
-                            th:text="${offer.user.lastname}"></span>
+                    <h1 class="offers">
+                        <a th:href="'/profile/'+${post.user.id}">
+                            <span th:text="${offer.user.firstname}"></span> 
+                            <span th:text="${offer.user.lastname}"></span>
+                        </a>
                     </h1>
                     <h3 class="offers">Category: <span th:text="${offer.category}"></span>
                         <span class="postType">Type: <span th:text="${offer.type}"></span></span>
