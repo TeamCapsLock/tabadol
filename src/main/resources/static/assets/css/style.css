@@ -27,7 +27,7 @@ main{
   width:100%;
   min-height:100vh;
   padding:0;
-  margin:100px 0;
+  margin:70px 0 100px 0;
   margin-bottom: 400px;
 }
 body {
@@ -535,6 +535,7 @@ section {
 .section-title {
   text-align: center;
   padding-bottom: 30px;
+  margin-top: 125px;
 }
 
 .section-title h2 {
@@ -1929,3 +1930,31 @@ body {
 }
 
 /* _______________________End-Profile______________________ */
+
+.btn-primary{
+  border-color: #38517ee3;
+  background-color:#38517ee3;
+  outline:none;
+}
+
+.btn-primary:hover{
+  border-color: #38517ee3;
+  background-color:#38517ee3;
+  transform: translateY(3px);
+  opacity:.8;
+  outline:none;
+}
+
+.btn-primary:focus{
+  border-color: #38517ee3;
+  background-color:#38517ee3;
+}
+
+.btn-primary:active{
+  border-color: #38517ee3;
+  background-color:#38517ee3;
+}
+.btn-primary:visited{
+  border-color: #38517ee3;
+  background-color:#38517ee3;
+}

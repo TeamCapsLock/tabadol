@@ -21,14 +21,14 @@
     :root {
       --small-green-circle: #78eea6;
       --main-accent-color: #449ccc;
-    --secondary-accent-color: #37517e;
+      --secondary-accent-color: #37517e;
     }
 
     a.allusers {
       background-color: transparent;
     }
 
-    img.allusers{
+    img.allusers {
       border-style: none;
     }
 
@@ -59,7 +59,7 @@
       min-height: 100vh;
     }
 
-    .all_users_container {  
+    .all_users_container {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -70,7 +70,7 @@
       text-align: center;
     }
 
-    .all_users_card {  
+    .all_users_card {
       padding: 1em;
       border-radius: 0.8em;
       background-color: #fefefe;
@@ -83,7 +83,7 @@
       width: 35%;
     }
 
-    .all_users_card:after { 
+    .all_users_card:after {
       content: "";
       position: absolute;
       width: 15px;
@@ -184,7 +184,7 @@
     }
 
     @media (min-width: 425px) {
-      .all_users_card { 
+      .all_users_card {
         padding: 3em;
         margin: 1em;
       }
@@ -202,17 +202,28 @@
         padding: 0.9em 1.8em;
       }
 
-      a.allusers{
+      a.allusers {
         text-decoration: none;
-        
+
       }
-      a.allusers:visited{
+
+      a.allusers:visited {
         color: #449ccc;
       }
 
-      a.allusers:active{
-        color:  #449ccc;
+      a.allusers:active {
+        color: #449ccc;
       }
+
+      .section-title h2 {
+        color: whitesmoke;
+      }
+
+      .empty-offer{
+      width: 100%;
+      text-align: center;
+      color:#7a3e3e;
+}
     }
   </style>
   <title>Following Users' Profiles</title>
@@ -222,6 +233,12 @@
 
   <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
+  <div class="section-title">
+    <h2>People You're Following</h2>
+  </div>
+  <div th:if="${users.isEmpty()}" class="empty-offer">
+    <h3>This User Is Not Following Anyone</h3>
+  </div>
   <main class="all_users_container">
     <div class="all_users_card" th:each="user : ${users}" th:if="${myUsername != user.username}">
       <img th:src=${user.image} alt="user's image" class="allusers card__image" width="100" height="100" />
@@ -252,7 +269,8 @@
 
 
       <div class="card__action">
-        <a class="allusers" th:href="'/profile/'+${user.id}"><button class="allusers card__action__button card__action--follow ">View
+        <a class="allusers" th:href="'/profile/'+${user.id}"><button
+            class="allusers card__action__button card__action--follow ">View
             Profile</button></a>
 
         <div th:if="${loggedInUser.username != user.username}">

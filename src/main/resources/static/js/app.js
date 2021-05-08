@@ -63,6 +63,7 @@ $(document).ready(function(){
            }
         }
     });
+  
 });
 
 function showOneEditForm(id){
@@ -83,4 +84,11 @@ function showOneForm(id, operation){
         $(`#make-exchange-form${id}`).fadeToggle(animationTime);
     }
 }
+
+
+
+
+
+
+
 

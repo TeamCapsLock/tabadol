@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class OffersController {
@@ -41,7 +44,10 @@ public class OffersController {
     public String getMyOffersPage(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+        List<List<Post>> listToCheck = posts.stream().map(p1 -> p1.getReceivedOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
+        listToCheck= listToCheck.stream().filter(pp-> ! pp.isEmpty()).collect( Collectors.toList());
         m.addAttribute("posts", posts);
+        m.addAttribute("listToCheck", listToCheck);
         m.addAttribute("loggedInUser", loggedInUser);
 
         return "myOffers";
@@ -51,6 +57,10 @@ public class OffersController {
     public String getMySentOffersPage(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+        List<List<Post>> listToCheck = posts.stream().map(p1 -> p1.getOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
+        listToCheck= listToCheck.stream().filter(pp-> ! pp.isEmpty()).collect( Collectors.toList());
+
+        m.addAttribute("listToCheck", listToCheck);
         m.addAttribute("posts", posts);
         m.addAttribute("loggedInUser", loggedInUser);
         return "sentOffers";
@@ -60,6 +70,17 @@ public class OffersController {
     public String getAcceptedOffersPage(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+
+
+        List<List<Post>> listToCheck1 = posts.stream().map(p1 -> p1.getOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
+        List<List<Post>> listToCheck2 = posts.stream().map(p1 -> p1.getReceivedOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
+        List<List<Post>> listToCheck = new ArrayList<>();
+        listToCheck.addAll(listToCheck1);
+        listToCheck.addAll(listToCheck2);
+        listToCheck= listToCheck.stream().filter(pp-> ! pp.isEmpty()).collect( Collectors.toList());
+
+        m.addAttribute("listToCheck", listToCheck);
+
         m.addAttribute("posts", posts);
         m.addAttribute("loggedInUser", loggedInUser);
 

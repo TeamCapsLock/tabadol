@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Tabadol</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <title>Tabadol</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
-    <style>
-        label{
-            display: block;
-        }
-    </style>
+  <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
+  <style>
+    textarea {
+      width: 75%;
+      margin: auto;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      display: block;
+      text-align: center;
+    }
+
+    .email-form {
+      background-color: #ffffff12;
+      width: 80%;
+      margin: auto;
+    }
+    .my_group_cont{
+      width:50%;
+      margin-left: 12%;
+    }
+
+  </style>
 
 </head>
 
@@ -25,7 +43,7 @@
 
   <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
-<main id="main">
+  <main id="main">
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -43,46 +61,59 @@
 
 
               <div class="form-group">
-                <label for="body"><textarea class="form-group" id="body" cols="70" rows="10" name="body" type="text" placeholder="Describe your service/product ..." required></textarea></label><br>
+                <textarea class="form-group" id="body" cols="70" rows="10" name="body" type="text"
+                  placeholder="Describe your service/product ..." required></textarea><br>
               </div>
-              
-              <div class="form-group">
-                <label for="category">Category: </label>
-                <select style="width: 97%;" class="form-group" name="category" id="category" required>
+              <div class="my_group_cont">
+                <div class="form-group">
+                  <label for="category">Category: </label>
+                  <select style="width: 30%; margin-left:15px;" class="form-group" name="category" id="category"
+                    required>
                     <option value="education">Education</option>
                     <option value="instructor">Instructor</option>
                     <option value="tutoring">Tutoring</option>
                     <option value="computer ">Computer </option>
+                    <option value="Mobile">Mobile</option>
                     <option value="video">Video</option>
                     <option value="copywriting">Copywriting</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="Board Games">Board Games</option>
+                    <option value="Music">Music</option>
+                    <option value="Art">Art</option>
+                    <option value="Gadget">Gadget</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Books">Books</option>
+                    <option value="Action Figures">Action Figures</option>
+                    <option value="Marketing">Marketing</option>
                     <option value="other">Other</option>
-                </select>
-              </div>
-              <br>
-              <div class="row">
-              <p>Type:</p>
-              <div class="form-group col-md-6">
-              Service &nbsp;<input type="radio" id="service" name="type" value="service" checked>
-              </div>
-              <div class="form-group col-md-6">
-                Product &nbsp;<input type="radio" id="product" name="type" value="product">
+                  </select>
                 </div>
+                <br>
+                <div class="row">
+                  <p>Type:</p>
+                  <div class="form-group col-md-3">
+                    Service &nbsp;<input type="radio" id="service" name="type" value="service" checked>
+                  </div>
+                  <div class="form-group col-md-3">
+                    Product &nbsp;<input type="radio" id="product" name="type" value="product">
+                  </div>
                 </div>
                 <br>
 
                 <div class="row">
-              <div class="form-group col-md-6">
-                Available &nbsp;<input type="checkbox" id="status" name="status" value="available">
-              </div><br>
 
-              <div class="form-group col-md-6">
-                Weight &nbsp; <input style="width: 80px;display: -webkit-inline-box;" class="form-control" type="number" id="weight" name="weight" min="1" max="10" value="1">
-              </div>
+                  <input type="hidden" id="status" name="status" value="available">
+                  <div class="form-group col-md-6">
+                    Weight &nbsp; <input style="width: 80px;display: -webkit-inline-box;" class="form-control"
+                      type="number" id="weight" name="weight" min="1" max="10" value="1">
+                  </div>
                 </div>
+              </div>
               <br>
 
               <div class="text-center">
-                  <input class="btn-form-input" name="submit" type="submit" value="Add Post"></div><br>
+                <input class="btn-form-input" name="submit" type="submit" value="Add Post">
+              </div><br>
 
 
 
@@ -90,10 +121,10 @@
           </div>
 
 
-            <!--  -->
-            <!--  -->
+          <!--  -->
+          <!--  -->
 
-            <!-- <form action="/addPost" method="POST">
+          <!-- <form action="/addPost" method="POST">
                 <label for="body"><textarea id="body" cols="30" rows="10" name="body" type="text" placeholder="Describe your service ..." required></textarea></label><br>
             
                 <label for="category">Category: </label>
@@ -119,36 +150,36 @@
                 <input type="number" id="weight" name="weight" min="1" max="10" value="1"><br>
                 <input type="submit" value="Add Post">
             </form> -->
-            
 
 
 
 
-          </div>
 
         </div>
+
+      </div>
 
       </div>
     </section>
     <!-- End Contact Section -->
 
-</main><!-- End #main -->
+  </main><!-- End #main -->
 
 
-<!-- ======= Footer ======= -->
-<th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
+  <!-- ======= Footer ======= -->
+  <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
 
-<!-- Vendor JS Files -->
-<script src="assets/vendor/aos/aos.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
 
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 </body>
 

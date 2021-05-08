@@ -227,3 +227,8 @@ h3.offers {
     transform: translateY(3px);
     opacity:.8;
 }
+
+.empty-offer{
+    width: 100%;
+    text-align: center;
+}

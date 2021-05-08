@@ -242,10 +242,10 @@
     }
 
     .vl {
-      border-left: 6px solid #37517e;
-      height: 450px;
+      border-left: 6px solid #37517eba;
+      height: 300px;
       margin-right: 4%;
-      margin-top: 7%;
+      margin-top: 5%;
       margin-bottom: 5%;
     }
 
@@ -315,12 +315,15 @@
   <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
   <main>
+    <div class="section-title">
+      <h2>Profile Details</h2>
+    </div>
     <div class="trail">
       <div class="user-detail-container">
-  
+
         <div class="user-detail">
           <div class="firstsection">
-  
+
             <div class="upper-card">
               <div class="row">
                 <div class="col-md-6">
@@ -337,8 +340,8 @@
                         <h5><a style="color:#37517e;" th:href="'/followerslist/'+${user.username}">Followers:</a> <span
                             th:text=${user.getNumberOfFollowers()}></span></h5>
                       </div>
-  
-  
+
+
                     </div>
                   </div>
                 </div>
@@ -350,7 +353,7 @@
                     <p>Phone: <span th:text=${user.phone}></span></p>
                     <p><span>Skills: <span th:text=${user.skills}></p>
                     <p>Bio: <span th:text=${user.bio}></span></p>
-  
+
                   </div>
                 </div>
               </div>
@@ -376,9 +379,9 @@
                           <p><span th:text="${post.weight}"></span></p>
                           <span class="list-title">Created At:</span>
                           <p><span th:text="${post.createdAt}"></p>
-  
-  
-  
+
+
+
                           <button style="background-color: #37517e;color: white;" class="btn1 w-25"
                             th:if="${user.id == loggedInUser.id}" id="edit-post-btn"
                             th:onclick="'showOneEditForm(' + ${post.id} + ')'">Edit Post</button>
@@ -387,49 +390,60 @@
                               <button style="background-color: #37517e;color: white;" class="btn1 w-25"
                                 id="delete-btn">Delete</button>
                             </form>
-  
-  
-                            <form th:action="'/edit-post/' + ${post.id}" method="post" th:id=${post.id} class="edit-form"
-                              style="    background-color: #add3e8;width: 320px;padding: 20px;">
+
+
+                            <form th:action="'/edit-post/' + ${post.id}" method="post" th:id=${post.id}
+                              class="edit-form" style="    background-color: #add3e8;width: 320px;padding: 20px;">
                               <label for="body">Body: <textarea class="form-control shadow p-3 mb-5 bg-white rounded"
                                   id="body" cols="30" rows="10" name="body" type="text"
                                   placeholder="Describe your service ..." required
                                   th:text=${post.body}></textarea></label><br>
-  
+
                               <label for="category">Category: </label>
                               <select name="category" id="category" required>
                                 <option value="education">Education</option>
                                 <option value="instructor">Instructor</option>
                                 <option value="tutoring">Tutoring</option>
                                 <option value="computer ">Computer </option>
+                                <option value="Mobile">Mobile</option>
                                 <option value="video">Video</option>
                                 <option value="copywriting">Copywriting</option>
+                                <option value="gaming">Gaming</option>
+                                <option value="Board Games">Board Games</option>
+                                <option value="Music">Music</option>
+                                <option value="Art">Art</option>
+                                <option value="Gadget">Gadget</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Books">Books</option>
+                                <option value="Action Figures">Action Figures</option>
+                                <option value="Marketing">Marketing</option>
                                 <option value="other">Other</option>
                               </select>
-  
-  
+
+
                               <br>
                               <br>
                               <label>Type:</label>
                               <input type="radio" id="service" name="type" value="service" checked>
                               <label for="service">Service</label>
-  
+
                               <input type="radio" id="product" name="type" value="product">
                               <label for="product">Product</label><br><br>
-  
+
                               <label for="status">Available?</label>
                               <input type="checkbox" id="status" name="status" value="true" checked>
-  
+
                               <br><br>
                               <label for="weight">Weight</label>
-                              <input type="number" id="weight" name="weight" min="1" max="10" th:value=${post.weight}><br>
-  
+                              <input type="number" id="weight" name="weight" min="1" max="10"
+                                th:value=${post.weight}><br>
+
                               <br><br>
                               <button class="btn btn-primary" type="submit">Save Edits</button>
-  
+
                             </form>
                           </div>
-  
+
                         </div>
                       </li>
                     </ul>
@@ -438,69 +452,71 @@
               </div>
             </div>
           </div>
-  
-  
-  
-  
+
+
+
+
         </div>
         <div class="vl"></div>
-  
+
         <div class="secondsection">
-  
-  
+
+
           <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/receivedoffers} method="GET">
               <button class="btn0">Received Offers</button>
             </form>
           </div>
-  
+
           <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/sentoffers} method="GET">
               <button class="btn1">Sent Offers</button>
             </form>
           </div>
-  
-  
-  
+
+
+
           <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${(!loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
               th:action="'/follow/'+${user.username}+'?route=/profile/'+${user.id}">
               <br><br>
               <input class="btn1" id="button_follow" type="submit" value="Follow">
             </form>
-  
+
             <form th:if="${(loggedInUser.isFollowingUser(user)) && (user.id != loggedInUser.id)}" method="POST"
               th:action="'/unfollow/'+${user.username}+'?route=/profile/'+${user.id}">
               <br><br>
               <input class="btn1" id="button_unfollow" type="submit" value="Unfollow">
             </form>
           </div>
-  
-  
+
+
           <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${ (user.id != loggedInUser.id) && (!loggedInUser.didRateTheUser(user)) }"
               th:action="'/rate/'+${user.username}" method="post">
               <br>
-  
-              <div style="display: flex;">
-                <label>Rate User</label>
-                <input style="height: 35px;margin-top: 13px;" type="number" max="5" min="0" value="5"
-                  name="sumOfTotalRates">
+
+              <div
+                style="display: flex; flex-direction:row;  width:100%; height:40px; justify-content: center; align-items: center;">
                 <button style="width:80px;" class="btn1">Rate</button>
+
+                <input style="height: 35px; border-radius: 10px; padding-left: 10px; outline:none;" type="number"
+                  max="5" min="0" value="5" name="sumOfTotalRates">
+
               </div>
             </form>
           </div>
-  
-  
+
+
           <div style="display: flex;flex-wrap: wrap;justify-content: center;">
             <form th:if="${user.id == loggedInUser.id}" th:action=@{/acceptedoffers} method="GET">
-              <button class="btn0">Accepted Offers</button>
+              <button class="btn0">Finished Offers</button>
             </form>
           </div>
-  
+
           <div><button style="background-color: #37517e;color: white;width: 176px;" class="btn0"
               th:if="${user.id == loggedInUser.id}" id="edit-profile-btn">Edit Profile</button></div>
-  
+
           <form th:if="${user.id == loggedInUser.id}" th:action="'/edit-profile/' + ${user.id}" method="post"
             id="edit-profile-form">
             <label for="">First Name: <br><input class="inputEditProfile" th:value=${user.firstname} name="firstname"
@@ -513,17 +529,17 @@
                 type="text"></label><br>
             <label for="">Phone: <br><input class="inputEditProfile" th:value=${user.phone} name="phone" required
                 type="text" id="phone"></label><br>
-            <label for="">Image url: <br><input class="inputEditProfile" th:value=${user.image} name="image"
-                type="text" id="image_url2"></label><br>
+            <label for="">Image url: <br><input class="inputEditProfile" th:value=${user.image} name="image" type="text"
+                id="image_url2"></label><br>
             <button class="w-50 btn2" type="submit">Update</button>
             <hr>
           </form>
-  
-  
+
+
         </div>
       </div>
-  
-  
+
+
     </div>
   </main>
 

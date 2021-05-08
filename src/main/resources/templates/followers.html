@@ -2,292 +2,306 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
+  <th:block th:replace="../static/fragments/fragment.html :: links"></th:block>
 
-    <style>
-      html {
-        line-height: 1.15;
-        -webkit-text-size-adjust: 100%;
-        box-sizing: border-box;
-      }
-  
-      *,
-      *:before,
-      *:after {
-        box-sizing: inherit;
-      }
-  
-      :root {
-        --small-green-circle: #78eea6;
-        --main-accent-color: #449ccc;
+  <style>
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    :root {
+      --small-green-circle: #78eea6;
+      --main-accent-color: #449ccc;
       --secondary-accent-color: #37517e;
+    }
+
+    a.allusers {
+      background-color: transparent;
+    }
+
+    img.allusers {
+      border-style: none;
+    }
+
+    button.allusers {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+      overflow: visible;
+      -webkit-appearance: button;
+    }
+
+    button.allusers::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    body.allusers {
+      margin: 0;
+      background: #e6b2c6;
+      /* background: -webkit-linear-gradient(to right, #e6b2c6, #d6e5fa); */
+      background: linear-gradient(to right, #e6b2c6, #d6e5fa);
+      background: linear-gradient(to right, #37517e, #d6e5fa);
+      font-family: "Lato", sans-serif;
+      font-weight: normal;
+      /* background-repeat: no-repeat; */
+      min-height: 100vh;
+    }
+
+    .all_users_container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .all_users_card {
+      padding: 1em;
+      border-radius: 0.8em;
+      background-color: #fefefe;
+      box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        0 100px 80px rgba(0, 0, 0, 0.07);
+      position: relative;
+      height: 400px;
+      width: 35%;
+    }
+
+    .all_users_card:after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: var(--small-green-circle);
+      top: 25px;
+      right: 96px;
+      border: 2px solid white;
+    }
+
+    .card__image {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    .card__info {
+      /* margin: 1em 0; */
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .card__info li {
+      display: inline-block;
+      text-align: center;
+      padding: 0.5em;
+    }
+
+    .card__info__stats {
+      color: #37517e;
+      font-weight: bold;
+      font-size: 1em;
+      /* display: block; */
+    }
+
+    .card__info__stats+span {
+      color: #37517e;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    .card__text h2 {
+      margin-bottom: 1em;
+      font-size: 1.4em;
+      color: #6f6f6f;
+    }
+
+    .card__text p {
+      /* margin: 0; */
+      color: #999;
+      font-size: 0.95em;
+    }
+
+    .card__action {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .card__action__button {
+      padding: 0.9em 1.3em;
+      text-transform: uppercase;
+      color: #fff;
+      border: none;
+      border-radius: 0.5em;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card__action__button:before {
+      content: "";
+      position: absolute;
+      border-radius: 0.5em;
+      transition: all 0.35s ease-in-out;
+    }
+
+    .card__action__button:hover:before {
+      top: -6px;
+      bottom: -6px;
+      left: -6px;
+      right: -6px;
+    }
+
+    .card__action--follow {
+      background-color: var(--main-accent-color);
+    }
+
+    .card__action__button:hover:before {
+      border: 4px solid var(--main-accent-color);
+    }
+
+    .card__action--message {
+      background-color: var(--secondary-accent-color);
+    }
+
+    .card__action--message:hover:before {
+      border: 4px solid var(--secondary-accent-color);
+    }
+
+    @media (min-width: 425px) {
+      .all_users_card {
+        padding: 3em;
+        margin: 1em;
       }
-  
-      a.allusers {
-        background-color: transparent;
+
+      .all_users_card:after {
+        top: 50px;
+        right: 160px;
       }
-  
-      img.allusers{
-        border-style: none;
-      }
-  
-      button.allusers {
-        font-family: inherit;
-        font-size: 100%;
-        line-height: 1.15;
-        margin: 0;
-        overflow: visible;
-        -webkit-appearance: button;
-      }
-  
-      button.allusers::-moz-focus-inner,
-      [type="button"]::-moz-focus-inner {
-        border-style: none;
-        padding: 0;
-      }
-  
-      body.allusers {
-        margin: 0;
-        background: #e6b2c6;
-        /* background: -webkit-linear-gradient(to right, #e6b2c6, #d6e5fa); */
-        background: linear-gradient(to right, #e6b2c6, #d6e5fa);
-        background: linear-gradient(to right, #37517e, #d6e5fa);
-        font-family: "Lato", sans-serif;
-        font-weight: normal;
-        /* background-repeat: no-repeat; */
-        min-height: 100vh;
-      }
-  
-      .all_users_container {  
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        grid-template-columns: repeat(auto-fit, minmax(200px, auto));
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-      }
-  
-      .all_users_card {  
-        padding: 1em;
-        border-radius: 0.8em;
-        background-color: #fefefe;
-        box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
-          0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
-          0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
-          0 100px 80px rgba(0, 0, 0, 0.07);
-        position: relative;
-        height: 400px;
-        width: 35%;
-      }
-  
-      .all_users_card:after { 
-        content: "";
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: var(--small-green-circle);
-        top: 25px;
-        right: 96px;
-        border: 2px solid white;
-      }
-  
-      .card__image {
-        width: 100px;
-        border-radius: 50%;
-      }
-  
-      .card__info {
-        /* margin: 1em 0; */
-        list-style-type: none;
-        padding: 0;
-      }
-  
+
       .card__info li {
-        display: inline-block;
-        text-align: center;
-        padding: 0.5em;
+        padding: 1em;
       }
-  
-      .card__info__stats {
-        color: #37517e;
-        font-weight: bold;
-        font-size: 1em;
-        /* display: block; */
-      }
-  
-      .card__info__stats+span {
-        color: #37517e;
-        text-transform: uppercase;
-        font-size: 0.8em;
-        font-weight: bold;
-      }
-  
-      .card__text h2 {
-        margin-bottom: 1em;
-        font-size: 1.4em;
-        color: #6f6f6f;
-      }
-  
-      .card__text p {
-        /* margin: 0; */
-        color: #999;
-        font-size: 0.95em;
-      }
-  
-      .card__action {
-        display: flex;
-        justify-content: space-around;
-      }
-  
+
       .card__action__button {
-        padding: 0.9em 1.3em;
-        text-transform: uppercase;
-        color: #fff;
-        border: none;
-        border-radius: 0.5em;
-        cursor: pointer;
-        position: relative;
+        padding: 0.9em 1.8em;
       }
-  
-      .card__action__button:before {
-        content: "";
-        position: absolute;
-        border-radius: 0.5em;
-        transition: all 0.35s ease-in-out;
+
+      a.allusers {
+        text-decoration: none;
+
       }
-  
-      .card__action__button:hover:before {
-        top: -6px;
-        bottom: -6px;
-        left: -6px;
-        right: -6px;
+
+      a.allusers:visited {
+        color: #449ccc;
       }
-  
-      .card__action--follow {
-        background-color: var(--main-accent-color);
+
+      a.allusers:active {
+        color: #449ccc;
       }
-  
-      .card__action__button:hover:before {
-        border: 4px solid var(--main-accent-color);
+      .section-title h2{
+        color:whitesmoke;
       }
-  
-      .card__action--message {
-        background-color: var(--secondary-accent-color);
-      }
-  
-      .card__action--message:hover:before {
-        border: 4px solid var(--secondary-accent-color);
-      }
-  
-      @media (min-width: 425px) {
-        .all_users_card { 
-          padding: 3em;
-          margin: 1em;
-        }
-  
-        .all_users_card:after {
-          top: 50px;
-          right: 160px;
-        }
-  
-        .card__info li {
-          padding: 1em;
-        }
-  
-        .card__action__button {
-          padding: 0.9em 1.8em;
-        }
-  
-        a.allusers{
-          text-decoration: none;
-          
-        }
-        a.allusers:visited{
-          color: #449ccc;
-        }
-  
-        a.allusers:active{
-          color:  #449ccc;
-        }
-      }
-    </style>
-    <title>Followers' Profiles</title>
+      .empty-offer{
+      width: 100%;
+      text-align: center;
+      color:#7a3e3e;
+}
+    }
+  </style>
+  <title>Followers' Profiles</title>
 </head>
 
 <body class="allusers">
 
- 
+
   <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
 
-
-    <main class="all_users_container">
-        <div class="all_users_card" th:each="user : ${users}" th:if="${myUsername != user.username}">
-            <img th:src=${user.image} alt="user's image" class="allusers card__image"
-                width="100" height="100" />
-
-
-            <div class="card__text">
-                <h2>Username:<span th:text=${user.username}></span></h2>
-
-                <p>Bio: <span th:text=${user.bio}></span></p>
-            </div>
+  <div class="section-title">
+    <h2>Followers</h2>
+  </div>
+  <div th:if="${users.isEmpty()}" class="empty-offer">
+    <h3>This User Has No Followers</h3>
+  </div>
+  <main class="all_users_container">
+    <div class="all_users_card" th:each="user : ${users}" th:if="${myUsername != user.username}">
+      <img th:src=${user.image} alt="user's image" class="allusers card__image" width="100" height="100" />
 
 
+      <div class="card__text">
+        <h2>Username:<span th:text=${user.username}></span></h2>
 
-            <ul class="card__info">
-                <li>
-                    <span class="card__info__stats"><span th:text="${user.rating}"></span></span>
-                    <span>Rating</span>
-                </li>
-                <li>
-                    <span class="card__info__stats"><span th:text=${user.getNumberOfFollowers()}></span></span>
-                    <span><a class="allusers" th:href="'/followerslist/'+${user.username}">Followers</a></span>
-                </li>
-                <li>
-                    <span class="card__info__stats"><span th:text=${user.numberOfPeopleIfollow()}></span></span>
-                    <span><a class="allusers" th:href="'/followinglist/'+${user.username}">Following</a></span>
-                </li>
-            </ul>
+        <p>Bio: <span th:text=${user.bio}></span></p>
+      </div>
 
 
-            <div class="card__action">
-                <a class="allusers" th:href="'/profile/'+${user.id}"><button class="allusers card__action__button card__action--follow">View Profile</button></a>
-               
-                <div th:if="${loggedInUser.username != user.username}">
-                    <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST"
-                        th:action="'/follow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
-                        
-                        <button class="allusers card__action__button card__action--follow" id="button_follow" type="submit"
-                value="Follow">Follow</button>
-                        
-                    </form>
-    
-                    <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
-                        th:action="'/unfollow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
 
-                        <button class="allusers card__action__button card__action--message" id="button_unfollow" type="submit"
-                value="unFollow">unFollow</button>
+      <ul class="card__info">
+        <li>
+          <span class="card__info__stats"><span th:text="${user.rating}"></span></span>
+          <span>Rating</span>
+        </li>
+        <li>
+          <span class="card__info__stats"><span th:text=${user.getNumberOfFollowers()}></span></span>
+          <span><a class="allusers" th:href="'/followerslist/'+${user.username}">Followers</a></span>
+        </li>
+        <li>
+          <span class="card__info__stats"><span th:text=${user.numberOfPeopleIfollow()}></span></span>
+          <span><a class="allusers" th:href="'/followinglist/'+${user.username}">Following</a></span>
+        </li>
+      </ul>
 
-                        
-                    </form>
-                </div>
 
-               
-               
-               
-               
-            </div>
+      <div class="card__action">
+        <a class="allusers" th:href="'/profile/'+${user.id}"><button
+            class="allusers card__action__button card__action--follow">View Profile</button></a>
+
+        <div th:if="${loggedInUser.username != user.username}">
+          <form th:if="${!loggedInUser.isFollowingUser(user)}" method="POST"
+            th:action="'/follow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
+
+            <button class="allusers card__action__button card__action--follow" id="button_follow" type="submit"
+              value="Follow">Follow</button>
+
+          </form>
+
+          <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
+            th:action="'/unfollow/'+${user.username}+'?route=/followerslist/'+${userWithTheList}">
+
+            <button class="allusers card__action__button card__action--message" id="button_unfollow" type="submit"
+              value="unFollow">unFollow</button>
+
+
+          </form>
         </div>
-    </main>
 
 
-    <!-- <div class="cont">
+
+
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- <div class="cont">
 
         <div th:each="user : ${users}">
 
@@ -315,7 +329,7 @@
     </div> -->
 
 
-    <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
+  <th:block th:replace="../static/fragments/fragment.html :: footer"></th:block>
 
 </body>
 

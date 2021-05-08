@@ -26,13 +26,19 @@
     <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
 
-    <div class="offerMargin-bottom"></div>
+    <!-- <div class="offerMargin-bottom"></div> -->
     <main>
+        <div class="section-title">      
+            <h2>Your Sent Offers</h2>
+        </div>
+        <div th:if="${listToCheck.isEmpty()}" class="empty-offer">
+            <h3>There Is No Sent Offers Yet, Go and <a href="/posts"> make one..</a></h3>
+        </div>
         <div th:each="post :${posts}" class="offerMain">
             <div th:each="offer : ${post.offers}" th:if="${offer.isAvailable()}" class="contOfCont">
                 <div class="offerContainer">
                     <div class="offerLogo flexRowItem1"><img
-                            src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
+                            th:src="@{${post.user.image}}">
                     </div>
                     <div class="flexRowItem2">
                         <h1 class="offers">
@@ -46,9 +52,6 @@
                         </h3>
                         <div class="line"></div>
                         <p class="bio">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
-                            temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
-                            consequatur nesciunt laboriosam! Iusto.
                             <span th:text="${post.body}"></span>
                         </p>
                         <div class="line"></div>
@@ -65,7 +68,7 @@
     
                 <div class="offerContainer">
                     <div class="offerLogo flexRowItem1"><img
-                            src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
+                        th:src="@{${offer.user.image}}">
                     </div>
                     <div class="flexRowItem2">
                         <h1 class="offers">
@@ -79,9 +82,6 @@
                         </h3>
                         <div class="line"></div>
                         <p class="bio">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sint rerum, nemo, ad animi optio
-                            temporibus delectus obcaecati perferendis hic molestias quod nisi, exercitationem aut culpa
-                            consequatur nesciunt laboriosam! Iusto.
                             <span th:text="${offer.body}"></span>
                         </p>
                         <div class="line"></div>

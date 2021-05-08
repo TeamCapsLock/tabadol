@@ -24,13 +24,19 @@
     <header th:replace="../static/fragments/fragment.html :: header"> </header>
 
 
-    <div class="offerMargin-bottom"></div>
+    <!-- <div class="offerMargin-bottom"></div> -->
     <main>
+        <div class="section-title">      
+            <h2>Your Received Offers</h2>
+        </div>
+        <div th:if="${listToCheck.isEmpty()}" class="empty-offer">
+            <h3>There Is No Received Offers Yet, You can  <a href="/addPost">Add Post </a> To get more offers.</h3>
+        </div>
         <div th:each="post :${posts}" class="offerMain">
             <div th:each="offer : ${post.receivedOffers}" th:if="${offer.isAvailable()}" class="contOfCont">
                 <div class="offerContainer">
                     <div class="offerLogo flexRowItem1"><img
-                            src="https://img2.pngio.com/animated-faces-my-hero-design-clip-art-woman-singing-angry-woman-female-cartoon-faces-png-820_1059.png">
+                        th:src="@{${offer.user.image}}">
                     </div>
                     <div class="flexRowItem2">
                         <h1 class="offers">
@@ -60,7 +66,7 @@
     
                 <div class="offerContainer">
                     <div class="offerLogo flexRowItem1"><img
-                            src="https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg">
+                        th:src="@{${post.user.image}}">
                     </div>
                     <div class="flexRowItem2">
                         <h1 class="offers">
@@ -84,15 +90,15 @@
                     </div>
                 </div>
                 <div class="offersButtonContainer">
-                    <form action="/acceptoffer" method="post">
+                    <form th:action="'/profile/'+${offer.user.id}" method="GET">
                         <input type="hidden" name="source_id" th:value="${offer.id}">
                         <input type="hidden" name="destination_id" th:value="${post.id}">
-                        <button class="accept">Accept</button>
+                        <button id="acceptOffer" class="accept">Accept</button>
                     </form>
                     <form action="/declineoffer" method="post">
                         <input type="hidden" name="source_id" th:value="${offer.id}">
                         <input type="hidden" name="destination_id" th:value="${post.id}">
-                        <button class="decline">Decline</button>
+                        <button id="declineOffer" class="decline">Decline</button>
                     </form>
                 </div>
     
