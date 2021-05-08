@@ -31,7 +31,9 @@ public class UserApplicationController {
 
 
     @GetMapping("/signup")
-    public String getSingUpForm() {
+    public String getSingUpForm(Principal p, Model m) {
+//        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+//        m.addAttribute("loggedInUser", loggedInUser);
         return "signup";
     }
 
@@ -67,8 +69,8 @@ public class UserApplicationController {
 
         @GetMapping("/login")
         public String loginForm(Principal p, Model m) {
-            UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
-            m.addAttribute("loggedInUser", loggedInUser);
+//            UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+//            m.addAttribute("loggedInUser", loggedInUser);
             return "login.html";
         }
 
