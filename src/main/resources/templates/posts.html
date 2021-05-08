@@ -163,13 +163,13 @@
 
                                         <br>
                                         <div>
-                                            <h4><img style="width: 45px;margin-right: 15px;" th:src="${post.user.image}"><span th:text="${post.user.username}"></span></h4>
+                                            <h4><img style="width: 45px;margin-right: 15px;" th:src="${innerpost.user.image}"><span th:text="${innerpost.user.username}"></span></h4>
                                         </div>
-                                        <p class="text-success">Category: &nbsp;<span class="text-secondary" th:text="${post.category}"></span></p>
-                                        <p class="text-success">Type: &nbsp;<span class="text-secondary" th:text="${post.type}"></span></p>
-                                        <p class="p-2 border border-primary"><span class="text-secondary" th:text="${post.body}"></span></p>
-                                        <p class="text-success">Weight : &nbsp;<span class="text-secondary" th:text="${post.weight}"></span></p>
-                                        <p><span class="text-secondary" th:text="${post.createdAt}"></span></p>
+                                        <p class="text-success">Category: &nbsp;<span class="text-secondary" th:text="${innerpost.category}"></span></p>
+                                        <p class="text-success">Type: &nbsp;<span class="text-secondary" th:text="${innerpost.type}"></span></p>
+                                        <p class="p-2 border border-primary"><span class="text-secondary" th:text="${innerpost.body}"></span></p>
+                                        <p class="text-success">Weight : &nbsp;<span class="text-secondary" th:text="${innerpost.weight}"></span></p>
+                                        <p><span class="text-secondary" th:text="${innerpost.createdAt}"></span></p>
                                         <!-- <h2>User: <span th:text="${innerpost.user.username}"></span></h2>
                                         <p class="body"><span th:text="${innerpost.category}"></span></p>
                                         <p class="body"><span th:text="${innerpost.type}"></span></p>
