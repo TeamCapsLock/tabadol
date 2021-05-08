@@ -280,7 +280,7 @@
             </form>
 
             <form th:unless="${!loggedInUser.isFollowingUser(user)}" method="POST"
-              th:action="'/unfollow/'+${user.username}+'?route=/allUsers&_method=DELETE'">
+              th:action="'/unfollow/'+${user.username}+'?route=/allUsers'">
 
               <button class="card__action__button card__action--message" id="button_unfollow" type="submit"
                 value="unFollow">unFollow</button>
