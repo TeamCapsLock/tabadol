@@ -150,7 +150,7 @@ public class OffersController {
 
 
         // return to new page .. that holds contact info..
-        return new RedirectView("/receivedoffers");
+        return new RedirectView("/profile/"+sourcePost.getUser().getId());
     }
 
 
