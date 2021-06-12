@@ -4,6 +4,7 @@ import com.example.tabadol.model.Post;
 import com.example.tabadol.model.UserApplication;
 import com.example.tabadol.repository.PostRepository;
 import com.example.tabadol.repository.UserApplicationRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -36,6 +38,26 @@ public class PostController {
         return "posts.html";
     }
 
+
+    @GetMapping("/jposts")
+    @ResponseBody
+    @JsonView(Views.Public.class)
+    public List<Post> getPosts_j(Model m, Principal p){
+        UserApplication loggedInUser = null;
+        try{
+            loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        List<Post> posts2 = postRepository.findAll();
+//        m.addAttribute("posts",postRepository.findAll());
+//        m.addAttribute("loggedInUser",loggedInUser);
+        return posts2;
+    }
+
+
+    //no need to return as JSON
     @GetMapping("/addPost")
     public String getAddPostsForm(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
