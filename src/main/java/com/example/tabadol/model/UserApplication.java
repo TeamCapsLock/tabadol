@@ -1,5 +1,7 @@
 package com.example.tabadol.model;
 
+import com.example.tabadol.contoller.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,18 +11,12 @@ import java.util.*;
 @Entity(name = "users")
 public class UserApplication implements UserDetails {
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "followers",
-            joinColumns = {
-                    @JoinColumn(name = "user_id")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "following_user")
 
 
-            })
-    Set<UserApplication> users_I_follow = new HashSet<>();
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Post> posts = new ArrayList<>();
+
+
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "rates",
             joinColumns = {
@@ -33,22 +29,62 @@ public class UserApplication implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Public.class, Views.UserView.class, Views.ProfileView.class})
     private long id;
+
     @Column(unique = true)
+    @JsonView({Views.Public.class, Views.UserView.class, Views.ProfileView.class})
     private String username;
+
+
     @Column(unique = true)
+    @JsonView( Views.ProfileView.class)
     private String email;
+
+    @JsonView({Views.Public.class, Views.UserView.class, Views.ProfileView.class})
     private String firstname;
+
+    @JsonView({Views.Public.class, Views.UserView.class, Views.ProfileView.class})
     private String lastname;
+
     private String password;
+
+    @JsonView( Views.ProfileView.class)
     private String skills;
+
+    @JsonView({Views.UserView.class, Views.ProfileView.class})
     private String bio;
+
+    @JsonView({Views.UserView.class, Views.ProfileView.class})
     private int numberOfFollowers = 0;
+
     private long sumOfTotalRates = 5;
     private long numberOfRaters = 1;
+
+    @JsonView({Views.UserView.class, Views.ProfileView.class})
     private double rating = 5;
+
+    @JsonView( Views.ProfileView.class)
     private String phone;
+
+    @JsonView({Views.Public.class, Views.UserView.class, Views.ProfileView.class})
     private String image;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonView({Views.UserView.class, Views.ProfileView.class})
+    @JoinTable(name = "followers",
+            joinColumns = {
+                    @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "following_user")
+
+
+            })
+    Set<UserApplication> users_I_follow = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonView(Views.ProfileView.class)
+    List<Post> posts = new ArrayList<>();
 
     public UserApplication() {
     }

@@ -1,11 +1,16 @@
 package com.example.tabadol.contoller;
 
+import com.example.tabadol.JsonClasses.LoginForm;
+import com.example.tabadol.JsonClasses.ResponseJson;
 import com.example.tabadol.model.Feedback;
 import com.example.tabadol.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -30,6 +35,23 @@ public class FeedbackController {
             model.addAttribute("confirmSend",false);
         }
         return new RedirectView("/#contact");
+    }
+
+
+    @GetMapping("/testgetjson")
+    @ResponseBody
+    public ResponseJson testGet(@RequestBody LoginForm login){
+
+        return new ResponseJson("Get: You've entered: username: "+login.getUsername()+"  password:"+login.getPassword());
+
+    }
+
+    @PostMapping("/testpostjson")
+    @ResponseBody
+    public ResponseJson testPost(@RequestBody LoginForm login){
+
+        return new ResponseJson("Post: You've entered: username: "+login.getUsername()+"  password:"+login.getPassword());
+
     }
 
 }

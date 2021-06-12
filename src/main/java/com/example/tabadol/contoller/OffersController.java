@@ -1,21 +1,25 @@
 package com.example.tabadol.contoller;
 
+import com.example.tabadol.JsonClasses.AcceptedOffersJson;
+import com.example.tabadol.JsonClasses.ReceivedOffersJson;
+import com.example.tabadol.JsonClasses.SentOffersJson;
 import com.example.tabadol.model.Post;
 import com.example.tabadol.model.UserApplication;
 import com.example.tabadol.repository.PostRepository;
 import com.example.tabadol.repository.UserApplicationRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -44,6 +48,7 @@ public class OffersController {
     public String getMyOffersPage(Principal p, Model m){
         UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
         List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+
         List<List<Post>> listToCheck = posts.stream().map(p1 -> p1.getReceivedOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
         listToCheck= listToCheck.stream().filter(pp-> ! pp.isEmpty()).collect( Collectors.toList());
         m.addAttribute("posts", posts);
@@ -52,6 +57,30 @@ public class OffersController {
 
         return "myOffers";
     }
+
+    @GetMapping("/jreceivedoffers")
+    @JsonView(Views.Public.class)
+    @ResponseBody
+    public List<ReceivedOffersJson> getMyOffersPage_j(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+        List<ReceivedOffersJson> offers = new ArrayList<>();
+
+        for(Post post : posts){
+            if(post.getReceivedOffers().isEmpty() || ! post.isAvailable())
+                continue;
+            ReceivedOffersJson receivedOffersJson = new ReceivedOffersJson();
+            receivedOffersJson.setPostHasReceivedTheOffers(post);
+            receivedOffersJson.setTheReceivedOffersForOnePost(post.getReceivedOffers());
+            offers.add(receivedOffersJson);
+
+        }
+
+        return offers;
+    }
+
+
+
 
     @GetMapping("/sentoffers")
     public String getMySentOffersPage(Principal p, Model m){
@@ -65,6 +94,34 @@ public class OffersController {
         m.addAttribute("loggedInUser", loggedInUser);
         return "sentOffers";
     }
+
+    @GetMapping("/jsentoffers")
+    @ResponseBody
+    @JsonView(Views.Public.class)
+    public List<SentOffersJson> getMySentOffersPage_j(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+
+
+//        List<List<Post>> listToCheck = posts.stream().map(p1 -> p1.getOffers().stream().filter(p3 -> p3.isAvailable()).collect(Collectors.toList())).collect( Collectors.toList());
+//        listToCheck= listToCheck.stream().filter(pp-> ! pp.isEmpty()).collect( Collectors.toList());
+//
+//        m.addAttribute("listToCheck", listToCheck);
+//        m.addAttribute("posts", posts);
+//        m.addAttribute("loggedInUser", loggedInUser);
+
+        List<SentOffersJson> offers = new ArrayList<>();
+        for(Post post : posts){
+            if(post.getOffers().isEmpty() || ! post.isAvailable())
+                continue;
+            SentOffersJson sentOffersJson = new SentOffersJson();
+            sentOffersJson.setPostThatSentTheOffers(post);
+            sentOffersJson.setPostsThatReceivedTheSentOffer(post.getOffers());
+            offers.add(sentOffersJson);
+        }
+        return offers;
+    }
+
 
     @GetMapping("/acceptedoffers")
     public String getAcceptedOffersPage(Principal p, Model m){
@@ -86,6 +143,45 @@ public class OffersController {
 
         return "acceptedOffers";
     }
+
+
+    @GetMapping("/jacceptedoffers")
+    @ResponseBody
+    @JsonView(Views.Public.class)
+    public List<AcceptedOffersJson> getAcceptedOffersPage_j(Principal p, Model m){
+        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
+        List<Post> posts = postRepository.findAllByUser_id(loggedInUser.getId());
+
+        List<AcceptedOffersJson> offers = new ArrayList<>();
+
+        // to add sent offers:
+        for(Post post : posts){
+            if(post.getOffers().isEmpty() || post.isAvailable())
+                continue;
+
+            AcceptedOffersJson offer = new AcceptedOffersJson();
+            offer.setPostThatSentTheOffers(post);
+            offer.setPostsThatReceivedTheSentOffer(post.getOffers());
+            offers.add(offer);
+        }
+
+        // to add received offers:
+        for(Post post : posts){
+            if(post.getReceivedOffers().isEmpty() || post.isAvailable())
+                continue;
+
+            AcceptedOffersJson offer = new AcceptedOffersJson();
+            offer.setPostHasReceivedTheOffers(post);
+            offer.setTheReceivedOffersForOnePost(post.getReceivedOffers());
+            offers.add(offer);
+        }
+
+        return offers;
+    }
+
+
+
+
 
     @PostMapping("/exchange/{id}")
     public  RedirectView exchangeOffers (@PathVariable long id, Model m, Principal p, long exhcangethispost){

@@ -1,5 +1,8 @@
 package com.example.tabadol.model;
 
+import com.example.tabadol.contoller.Views;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -11,17 +14,33 @@ import java.util.Set;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private long id;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private String body;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private String category;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private String type;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private Integer weight;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private Boolean available;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private String createdAt;
+
+    @JsonView({Views.Public.class, Views.ProfileView.class})
     private String offerType="general";
 
 
     @ManyToOne
+    @JsonView(Views.Public.class)
     UserApplication user;
 
 
