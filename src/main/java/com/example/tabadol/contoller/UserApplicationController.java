@@ -298,6 +298,7 @@ public class UserApplicationController {
     }
 
     @GetMapping("/jmyprofile")
+    @ResponseBody
     public RedirectView getMyProfile_j(Principal p, Model m) {
         UserApplication user = userApplicationRepository.findByUsername(p.getName());
         long id = user.getId();
