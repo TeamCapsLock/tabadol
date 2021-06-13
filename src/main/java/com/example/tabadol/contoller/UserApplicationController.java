@@ -298,12 +298,12 @@ public class UserApplicationController {
     }
 
     @GetMapping("/jmyprofile")
+    @JsonView(Views.ProfileView.class)
     @ResponseBody
-    @JsonView(Views.UserView.class)
-    public UserApplication getMyProfile_j(Principal p, Model m) {
+    public UserJson getMyProfile_j(Principal p, Model m) {
         UserApplication user = userApplicationRepository.findByUsername(p.getName());
-
-        return user;
+        UserJson userJ = new UserJson(user.getId(),user.getUsername(),user.getEmail(),user.getFirstname(),user.getLastname(),user.getSkills(),user.getBio(),user.getNumberOfFollowers(),user.getUsers_I_follow().size(),user.getRating(),user.getPhone(),user.getImage(),user.getPosts());
+        return userJ;
     }
 
     @PostMapping("/edit-profile/{id}")
