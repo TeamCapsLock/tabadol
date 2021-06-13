@@ -306,6 +306,17 @@ public class UserApplicationController {
         return userJ;
     }
 
+    @GetMapping("/jcurrentuser")
+    @JsonView(Views.ProfileView.class)
+    @ResponseBody
+    public UserJson getMyProfile_jj(Principal p, Model m) {
+        UserApplication user = userApplicationRepository.findByUsername(p.getName());
+        UserJson userJ = new UserJson(user.getId(),user.getUsername(),user.getEmail(),user.getFirstname(),user.getLastname(),user.getSkills(),user.getBio(),user.getNumberOfFollowers(),user.getUsers_I_follow().size(),user.getRating(),user.getPhone(),user.getImage(),user.getPosts());
+        return userJ;
+    }
+
+
+
     @PostMapping("/edit-profile/{id}")
     public RedirectView editProfile(@PathVariable(value="id") long id,String firstname, String lastname, String skills, String bio, String phone, String image){
 
