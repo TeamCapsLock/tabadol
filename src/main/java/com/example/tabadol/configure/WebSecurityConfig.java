@@ -4,6 +4,7 @@ import com.example.tabadol.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -39,8 +41,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
+//                .failureUrl("/login")
+//                .and()
+//                .formLogin().loginProcessingUrl("jlogin")
+//                .defaultSuccessUrl("/responsJson",true)
+//                .loginProcessingUrl("/jlogin")
+//                .defaultSuccessUrl("/responsJson",true)
                 .failureUrl("/login").and().logout()
                 .logoutUrl("/perform_logout")
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID");
+
     }
 }

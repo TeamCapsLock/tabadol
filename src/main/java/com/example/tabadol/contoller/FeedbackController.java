@@ -4,7 +4,13 @@ import com.example.tabadol.JsonClasses.LoginForm;
 import com.example.tabadol.JsonClasses.ResponseJson;
 import com.example.tabadol.model.Feedback;
 import com.example.tabadol.repository.FeedbackRepository;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,5 +59,13 @@ public class FeedbackController {
         return new ResponseJson("Post: You've entered: username: "+login.getUsername()+"  password:"+login.getPassword());
 
     }
+
+
+
+
+
+
+
+
 
 }
