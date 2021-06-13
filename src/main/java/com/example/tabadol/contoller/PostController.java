@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PostController {
@@ -51,6 +52,7 @@ public class PostController {
             System.out.println(e.getMessage());
         }
         List<Post> posts2 = postRepository.findAll();
+        posts2 = posts2.stream().filter(post -> (post.isAvailable() && !post.getUser().getUsername().equals(p.getName()))).collect(Collectors.toList());
 //        m.addAttribute("posts",postRepository.findAll());
 //        m.addAttribute("loggedInUser",loggedInUser);
         return posts2;
