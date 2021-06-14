@@ -36,11 +36,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
 
 
-        //Added
+        //Added to check if there is no JWT .. then do the default authentication without this filter
         String cookie = request.getHeader("Cookie");
-        System.out.println(cookie);
-
-
         if(authorizationHeader == null && cookie!=null){
 
             chain.doFilter(request, response);

@@ -40,25 +40,6 @@ public class PostController {
     }
 
 
-    @GetMapping("/jposts")
-    @ResponseBody
-    @JsonView(Views.Public.class)
-    public List<Post> getPosts_j(Model m, Principal p){
-        UserApplication loggedInUser = null;
-        try{
-            loggedInUser = userApplicationRepository.findByUsername(p.getName());
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        List<Post> posts2 = postRepository.findAll();
-        posts2 = posts2.stream().filter(post -> (post.isAvailable() && !post.getUser().getUsername().equals(p.getName()))).collect(Collectors.toList());
-//        m.addAttribute("posts",postRepository.findAll());
-//        m.addAttribute("loggedInUser",loggedInUser);
-        return posts2;
-    }
-
-
     //no need to return as JSON
     @GetMapping("/addPost")
     public String getAddPostsForm(Principal p, Model m){
