@@ -66,31 +66,7 @@ public class UserApplicationController {
 
     }
 
-    @PostMapping("/jsignup")
-    @ResponseBody
-    public ResponseEntity signup_j(@RequestBody SignupFormJson signup)
-    {
-        final String imageUrl = "https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg";
-        //if the user did not enter an url image
 
-        if( !signup.isValidPhone())
-            return new ResponseEntity(new ResponseJson("Phone number not valid!"), HttpStatus.EXPECTATION_FAILED);
-        if( !signup.isValidEmail())
-            return new ResponseEntity(new ResponseJson("Email not valid!"),HttpStatus.EXPECTATION_FAILED);
-        if( ! signup.isAllFieldsEntered() )
-            return new ResponseEntity(new ResponseJson("you must enter all fields.."),HttpStatus.EXPECTATION_FAILED);
-        try {
-            if( signup.getImage() == null || signup.getImage().length() == 0 )
-                signup.setImage(imageUrl);
-            UserApplication newUser = new UserApplication(signup.getUsername(),signup.getEmail(),signup.getFirstname(),signup.getLastname(),
-                    bCryptPasswordEncoder.encode(signup.getPassword()),signup.getSkills(),signup.getBio(),signup.getPhone(), signup.getImage());
-            userApplicationRepository.save(newUser);
-            return new ResponseEntity(new ResponseJson("The account registered successfully"),HttpStatus.OK);
-        }
-        catch(Exception e){
-            return new ResponseEntity(new ResponseJson("Email or Username is already exist!"),HttpStatus.EXPECTATION_FAILED);
-        }
-    }
 
 
     @GetMapping("/")
@@ -112,9 +88,6 @@ public class UserApplicationController {
 //            m.addAttribute("loggedInUser", loggedInUser);
             return "login.html";
         }
-
-
-
 
 
 
@@ -152,34 +125,6 @@ public class UserApplicationController {
     }
 
 
-//    @GetMapping("/jfollowinglist/{username}")
-//    @ResponseBody
-//    @JsonView(Views.UserView.class)
-//    public Set<UserApplication> getFollowingList_j(Principal p, @PathVariable String username, Model m) {
-//        UserApplication user = userApplicationRepository.findByUsername(username);
-////        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
-//
-//        Set<UserApplication> users =  user.getUsers_I_follow();
-////        m.addAttribute("users", user.getUsers_I_follow());
-////        m.addAttribute("loggedInUser", loggedInUser);
-////        m.addAttribute("userWithTheList", username);
-//
-//        return users;
-//    }
-
-
-
-    @GetMapping("/jfollowinglist/{username}")
-    @ResponseBody
-    public Set<UserJson> getFollowingList_jj(Principal p, @PathVariable String username, Model m) {
-        UserApplication user = userApplicationRepository.findByUsername(username);
-        Set<UserApplication> users =  user.getUsers_I_follow();
-        Set<UserJson> usersJ = users.stream().map(u -> new UserJson(u.getId(),u.getUsername(),u.getEmail(),u.getFirstname(),u.getLastname(),u.getSkills(),u.getBio(),u.getNumberOfFollowers(),u.getUsers_I_follow().size(),u.getRating(),u.getPhone(),u.getImage())).collect(Collectors.toSet());
-        return usersJ;
-    }
-
-
-
 
     @GetMapping("/followerslist/{username}")
     public String getFollowersList(@PathVariable String username, Model m, Principal p) {
@@ -199,26 +144,6 @@ public class UserApplicationController {
         return "followers";
     }
 
-//    @GetMapping("/jfollowerslist/{username}")
-//    @ResponseBody
-//    @JsonView(Views.UserView.class)
-//    public List<UserApplication> getFollowersList_j(@PathVariable String username, Model m, Principal p) {
-//        UserApplication user = userApplicationRepository.findByUsername(username);
-//        List<Long> followersIDs = userApplicationRepository.findAllByFollowing_user(user.getId());
-//        List<UserApplication> followers = followersIDs.stream().map(id -> userApplicationRepository.findById(id).get()).collect(Collectors.toList());
-//
-//        return followers;
-//    }
-
-    @GetMapping("/jfollowerslist/{username}")
-    @ResponseBody
-    public List<UserJson> getFollowersList_j(@PathVariable String username, Model m, Principal p) {
-        UserApplication user = userApplicationRepository.findByUsername(username);
-        List<Long> followersIDs = userApplicationRepository.findAllByFollowing_user(user.getId());
-        List<UserApplication> followers = followersIDs.stream().map(id -> userApplicationRepository.findById(id).get()).collect(Collectors.toList());
-        List<UserJson> usersJ = followers.stream().map(u -> new UserJson(u.getId(),u.getUsername(),u.getEmail(),u.getFirstname(),u.getLastname(),u.getSkills(),u.getBio(),u.getNumberOfFollowers(),u.getUsers_I_follow().size(),u.getRating(),u.getPhone(),u.getImage())).collect(Collectors.toList());
-        return usersJ;
-    }
 
 
 
@@ -232,26 +157,6 @@ public class UserApplicationController {
         return "allProfiles";
     }
 
-//    @GetMapping("/jallUsers")
-//    @JsonView(Views.UserView.class)
-//    @ResponseBody
-//    public List<UserApplication> getAllusers_j(Principal p, Model m) {
-////        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
-//        List<UserApplication> users = userApplicationRepository.findAll();
-////        m.addAttribute("users", users);
-////        m.addAttribute("myUsername", p.getName());
-////        m.addAttribute("loggedInUser", loggedInUser);
-//        return users;
-//    }
-
-
-    @GetMapping("/jallUsers")
-    @ResponseBody
-    public List<UserJson> getAllusers_jj(Principal p, Model m) {
-        List<UserApplication> users = userApplicationRepository.findAll();
-        List<UserJson> usersJ = users.stream().map(u -> new UserJson(u.getId(),u.getUsername(),u.getEmail(),u.getFirstname(),u.getLastname(),u.getSkills(),u.getBio(),u.getNumberOfFollowers(),u.getUsers_I_follow().size(),u.getRating(),u.getPhone(),u.getImage())).collect(Collectors.toList());
-        return usersJ;
-    }
 
 
 
@@ -265,28 +170,6 @@ public class UserApplicationController {
         return "profile";
     }
 
-//    @GetMapping("/jprofile/{id}")
-//    @ResponseBody
-//    @JsonView(Views.ProfileView.class)
-//    public UserApplication getUserProfile_j(Principal p, Model m, @PathVariable long id) {
-////        UserApplication loggedInUser = userApplicationRepository.findByUsername(p.getName());
-//        UserApplication user = userApplicationRepository.findById(id).get();
-////        m.addAttribute("user", user);
-////        m.addAttribute("posts", postRepository.findAllByUser_id(user.getId()));
-////        m.addAttribute("loggedInUser", loggedInUser);
-//        return user;
-//    }
-
-    @GetMapping("/jprofile/{id}")
-    @JsonView(Views.ProfileView.class)
-    @ResponseBody
-    public UserJson getUserProfile_jj(Principal p, Model m, @PathVariable long id) {
-        UserApplication user = userApplicationRepository.findById(id).get();
-        UserJson userJ = new UserJson(user.getId(),user.getUsername(),user.getEmail(),user.getFirstname(),user.getLastname(),user.getSkills(),user.getBio(),user.getNumberOfFollowers(),user.getUsers_I_follow().size(),user.getRating(),user.getPhone(),user.getImage(),user.getPosts());
-
-        return userJ;
-    }
-
 
 
 
@@ -296,25 +179,6 @@ public class UserApplicationController {
         long id = user.getId();
         return new RedirectView("/profile/" + id);
     }
-
-    @GetMapping("/jmyprofile")
-    @JsonView(Views.ProfileView.class)
-    @ResponseBody
-    public UserJson getMyProfile_j(Principal p, Model m) {
-        UserApplication user = userApplicationRepository.findByUsername(p.getName());
-        UserJson userJ = new UserJson(user.getId(),user.getUsername(),user.getEmail(),user.getFirstname(),user.getLastname(),user.getSkills(),user.getBio(),user.getNumberOfFollowers(),user.getUsers_I_follow().size(),user.getRating(),user.getPhone(),user.getImage(),user.getPosts());
-        return userJ;
-    }
-
-    @GetMapping("/jcurrentuser")
-    @JsonView(Views.ProfileView.class)
-    @ResponseBody
-    public UserJson getMyProfile_jj(Principal p, Model m) {
-        UserApplication user = userApplicationRepository.findByUsername(p.getName());
-        UserJson userJ = new UserJson(user.getId(),user.getUsername(),user.getEmail(),user.getFirstname(),user.getLastname(),user.getSkills(),user.getBio(),user.getNumberOfFollowers(),user.getUsers_I_follow().size(),user.getRating(),user.getPhone(),user.getImage(),user.getPosts());
-        return userJ;
-    }
-
 
 
     @PostMapping("/edit-profile/{id}")
