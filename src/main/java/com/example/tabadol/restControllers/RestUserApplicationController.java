@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -202,6 +203,27 @@ public class RestUserApplicationController {
         return new ResponseEntity(new ResponseJson(message) ,HttpStatus.OK);
     }
 
+
+    @GetMapping("/jratedusers")
+    public RatedUsersJson getMyRatedUsersList(Principal p){
+        UserApplication user = userApplicationRepository.findByUsername(p.getName());
+        List<Long> ids = new ArrayList<>();
+        ids = user.getRates().stream().map(u -> u.getId()).collect(Collectors.toList());
+
+        return new RatedUsersJson(ids);
+    }
+
+    @DeleteMapping("/jdeleteuser/{id}")
+    public ResponseJson deleteUserById(@PathVariable("id") long id){
+
+        try {
+            userApplicationRepository.deleteById(id);
+            return new ResponseJson("Usere Deleted");
+        }
+        catch (Exception e){
+            return new ResponseJson("Usere Not Found");
+        }
+    }
 
 
 
